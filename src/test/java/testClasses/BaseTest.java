@@ -1,10 +1,19 @@
 package testClasses;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.annotations.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeGroups;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 
 import java.util.concurrent.TimeUnit;
 
@@ -22,8 +31,8 @@ public class BaseTest {
         //driver = new FirefoxDriver();
         System.setProperty("webdriver.chrome.driver", "src/test/java/resources/chromedriver76.exe");
         driver = new ChromeDriver();
-        driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         getToPage(driver, "https://flip.kz");
         return driver;
@@ -71,4 +80,13 @@ public class BaseTest {
         driver.findElement(By.xpath(xpath)).click();
     }
 
+    protected void waitUntilClickable(WebElement element){
+        WebDriverWait wait = new WebDriverWait(getDriver(), 60);
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+    }
+
+    protected void scrollToElement(WebElement element){
+        JavascriptExecutor jse = (JavascriptExecutor)getDriver();
+        jse.executeScript("arguments[0].scrollIntoView(true)", element);
+    }
 }

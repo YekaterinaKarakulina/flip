@@ -2,17 +2,13 @@ package testClasses;
 
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-
-import java.util.NoSuchElementException;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 
 
@@ -21,24 +17,17 @@ public class AuthorFilter extends BaseTest {
 
 
     @Test(description = "Test checks working of \"Authors\" filter in \"flip.kz\" website with one author")
-    public void oneAuthorFilter() throws InterruptedException {
+    public void oneAuthorFilter() {
         String expectedName = getRandomSelectedAuthorsName();
 
-        Wait<WebDriver> wait = new FluentWait<WebDriver>(getDriver())
-                .withTimeout(30, TimeUnit.SECONDS)
-                .pollingEvery(5, TimeUnit.SECONDS)
-                .ignoring(NoSuchElementException.class);
+        WebDriverWait wait = new WebDriverWait(getDriver(), 60);
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='f-d-select']")));
 
-        wait.until(element -> element.findElement(By.xpath("//div[@class='f-d-select']")).isEnabled());
-
-        java.util.List<WebElement> pages = getDriver().findElements(By.xpath("//td[contains(@class,'pages')]/descendant-or-self::*[@style]"));
+        java.util.List<WebElement> pages = getDriver().findElements(By.xpath("//a[@data-page]"));
         WebElement pageNumber = pages.get(random.nextInt(pages.size()));
-
-        wait.until(element -> pageNumber.isEnabled());
-
-
+        scrollToElement(pageNumber);
+        wait.until(ExpectedConditions.elementToBeClickable(pageNumber));
         pageNumber.click();
-
 
         wait.until(element -> element.findElement(By.xpath("//div[@id='content']/descendant-or-self::*[contains(@src,'.jpg')]")).isEnabled());
 
@@ -63,5 +52,6 @@ public class AuthorFilter extends BaseTest {
         element.click();
         return expectedName;
     }
+
 }
 
