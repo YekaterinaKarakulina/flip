@@ -1,32 +1,67 @@
 package testClasses;
 
+import com.google.common.base.Function;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 import org.testng.Assert;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import java.util.NoSuchElementException;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 
 public class AuthorFilter extends BaseTest {
-    @Test(description = "Test checks working of \"Authors\" filter in \"flip.kz\" website with one author", dataProviderClass = DataProvider.class, dataProvider = "dp")
-    @Parameters({"name"})
-    public void oneAuthorFilter(String name) throws InterruptedException {
+    Random random = new Random();
 
 
-        findByXpathAndType(getDriver(), "//div[@data-filter-field-list-type='peoples']/descendant-or-self::*[@placeholder='Введите название']", name);
-        findByXpathAndClick(getDriver(), String.format("%s%s%s", "//div[@data-filter-field-list-type='peoples']/descendant-or-self::*[contains(@data-list-found-name,'", name, "')]"));
-        Thread.sleep(1000); //will change to some wait
+    @Test(description = "Test checks working of \"Authors\" filter in \"flip.kz\" website with one author")
+    public void oneAuthorFilter() throws InterruptedException {
+        String expectedName = getRandomSelectedAuthorsName();
+        Wait<WebDriver> wait = new FluentWait<WebDriver>(getDriver())
+                .withTimeout(30, TimeUnit.SECONDS)
+                .pollingEvery(5, TimeUnit.SECONDS)
+                .ignoring(NoSuchElementException.class);
 
-        java.util.List<WebElement> listItems = getDriver().findElements(By.xpath("//div[@id='content']/descendant-or-self::*[contains(@class,'placeholder')]/descendant-or-self::*[contains(@class, 'pic')]"));
-        Random random = new Random();
-        int itemToCheck = random.nextInt(listItems.size());
-        listItems.get(itemToCheck).click();
-        String authorNameAtSite = getDriver().findElement(By.xpath("//p[contains(@style,'margin')]/descendant-or-self::*[contains(@href,'people')]")).getText();
-        Assert.assertTrue(authorNameAtSite.contains(name));
+        WebElement nextPage = wait.until(new Function<WebDriver, WebElement>() {
+            public WebElement apply(WebDriver driver) {
+                return getDriver().findElement(By.xpath("//div[@class='f-d-select']"));
+            }
+        });
+
+        nextPage.isEnabled();
+
+        java.util.List<WebElement> pages = getDriver().findElements(By.xpath("//td[contains(@class,'pages')]/descendant-or-self::*[@style]"));
+        WebElement pageNumber = pages.get(random.nextInt(pages.size()));
+
+        //wait.until(driver -> ExpectedConditions.elementToBeClickable(pageNumber));
+        Thread.sleep(2500);
+        pageNumber.click();
+        Thread.sleep(2500);
+        java.util.List<WebElement> booksList = getDriver().findElements(By.xpath("//div[@id='content']/descendant-or-self::*[contains(@src,'.jpg')]"));
+        System.out.println(booksList.size());
+
+        WebElement bookItem = booksList.get(random.nextInt(booksList.size()));
+        wait.until(driver -> ExpectedConditions.elementToBeClickable(bookItem));
+
+        bookItem.click();
+        String bookAuthor = getDriver().findElement(By.xpath("//p[contains(@style,'margin')]/descendant-or-self::*[contains(@href,'people')]")).getText();
+        Assert.assertTrue(bookAuthor.equals(expectedName));
+        findByXpathAndClick(getDriver(), "//div[contains(@class,'logo cell')]");
     }
 
-
+    public String getRandomSelectedAuthorsName() {
+        findByXpathAndClick(getDriver(), "//a[contains(@href,'1') and contains(text(), 'Книги')]");
+        findByXpathAndClick(getDriver(), "//a[@data-filter-field-sections-id='44']");
+        java.util.List<WebElement> authorsList = getDriver().findElements(By.xpath("//div[@data-filter-field-list-type='peoples']/descendant-or-self::*[contains(@data-list-found-default,'true')]"));
+        WebElement element = authorsList.get(random.nextInt(authorsList.size()));
+        String expectedName = element.getAttribute("data-list-found-name");
+        element.click();
+        return expectedName;
+    }
 }
 
