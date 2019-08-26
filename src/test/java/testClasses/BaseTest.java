@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -23,17 +24,16 @@ import java.util.concurrent.TimeUnit;
 public class BaseTest {
     private static WebDriver driver;
 
-
     public WebDriver getDriver() {
         return driver;
     }
 
     @BeforeSuite
     public WebDriver beforeSuite() {
-        //System.setProperty("webdriver.gecko.driver", "src/test/java/resources/geckodriver"); //this for my home PC with linux
-        //driver = new FirefoxDriver();
-        System.setProperty("webdriver.chrome.driver", "src/test/java/resources/chromedriver76.exe");
-        driver = new ChromeDriver();
+        System.setProperty("webdriver.gecko.driver", "src/test/java/resources/geckodriver"); //this for my home PC with linux
+        driver = new FirefoxDriver();
+        //System.setProperty("webdriver.chrome.driver", "src/test/java/resources/chromedriver76.exe");
+        //driver = new ChromeDriver();
         driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         driver.manage().window().maximize();
@@ -41,37 +41,14 @@ public class BaseTest {
         return driver;
     }
 
-
-    @BeforeClass
-    public void beforeClass() {
-        System.out.println("Before class");
-    }
-
-    @BeforeGroups(value = {"trigonometric"})
-    public void beforeGroupTrigonometric() {
-        System.out.println("Before group named 'trigonometric'");
-    }
-
-
-    @BeforeMethod
-    public void beforeMethod() {
-        System.out.println("Before method");
-    }
-
-
     @AfterMethod
-    public void afterMethod() {
-        System.out.println("After method");
-    }
-
-    @AfterClass
-    public void afterClass() {
-        System.out.println("After class");
+    public void goToMainPage() {
+        findByXpathAndClick(getDriver(), "//div[contains(@class,'logo cell')]");
     }
 
     @AfterSuite
     public void afterSuite() {
-        //  driver.close();
+          driver.close();
     }
 
     private static void getToPage(WebDriver driver, String URL) {

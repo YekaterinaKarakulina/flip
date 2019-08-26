@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Random;
 
 
-
 public class AuthorFilter extends BaseTest {
     Random random = new Random();
 
@@ -26,7 +25,6 @@ public class AuthorFilter extends BaseTest {
 
         String bookAuthor = getDriver().findElement(By.xpath("//p[contains(@style,'margin')]/descendant-or-self::*[contains(@href,'people')]")).getText();
         Assert.assertTrue(bookAuthor.equals(expectedName));
-        findByXpathAndClick(getDriver(), "//div[contains(@class,'logo cell')]");
     }
 
     private String getRandomSelectedAuthorsName() {
@@ -42,8 +40,7 @@ public class AuthorFilter extends BaseTest {
 
     private void getToRandomPage(){
         int actualNumber = getDriver().findElements(By.xpath("//a[@data-page]")).size();
-        int randomNumber = new Random().ints(1, actualNumber + 1).findFirst().getAsInt();
-
+        int randomNumber = new Random().ints(1, actualNumber + 2).findFirst().getAsInt();
         String xpath = "//a[@data-page]["+ randomNumber +"]";
         waitUntilSearchIsReady();
         scrollToTheEndOfPage();
@@ -56,6 +53,7 @@ public class AuthorFilter extends BaseTest {
 
     private void clickOnRandomBookCard(){
         List<WebElement> booksList = getDriver().findElements(By.xpath("//div[@class='placeholder']//a[@class='title']"));
+
         System.out.println(booksList.size());
         WebElement bookItem = booksList.get(random.nextInt(booksList.size()));
         waitUntilClickable(bookItem);
