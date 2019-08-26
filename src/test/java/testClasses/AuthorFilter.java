@@ -1,18 +1,19 @@
 package testClasses;
 
-import com.google.common.base.Function;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+
 import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
+
 
 
 public class AuthorFilter extends BaseTest {
@@ -22,31 +23,30 @@ public class AuthorFilter extends BaseTest {
     @Test(description = "Test checks working of \"Authors\" filter in \"flip.kz\" website with one author")
     public void oneAuthorFilter() throws InterruptedException {
         String expectedName = getRandomSelectedAuthorsName();
+
         Wait<WebDriver> wait = new FluentWait<WebDriver>(getDriver())
                 .withTimeout(30, TimeUnit.SECONDS)
                 .pollingEvery(5, TimeUnit.SECONDS)
                 .ignoring(NoSuchElementException.class);
 
-        WebElement nextPage = wait.until(new Function<WebDriver, WebElement>() {
-            public WebElement apply(WebDriver driver) {
-                return getDriver().findElement(By.xpath("//div[@class='f-d-select']"));
-            }
-        });
-
-        nextPage.isEnabled();
+        wait.until(element -> element.findElement(By.xpath("//div[@class='f-d-select']")).isEnabled());
 
         java.util.List<WebElement> pages = getDriver().findElements(By.xpath("//td[contains(@class,'pages')]/descendant-or-self::*[@style]"));
         WebElement pageNumber = pages.get(random.nextInt(pages.size()));
 
-        //wait.until(driver -> ExpectedConditions.elementToBeClickable(pageNumber));
-        Thread.sleep(2500);
+        wait.until(element -> pageNumber.isEnabled());
+
+
         pageNumber.click();
-        Thread.sleep(2500);
+
+
+        wait.until(element -> element.findElement(By.xpath("//div[@id='content']/descendant-or-self::*[contains(@src,'.jpg')]")).isEnabled());
+
         java.util.List<WebElement> booksList = getDriver().findElements(By.xpath("//div[@id='content']/descendant-or-self::*[contains(@src,'.jpg')]"));
         System.out.println(booksList.size());
-
         WebElement bookItem = booksList.get(random.nextInt(booksList.size()));
-        wait.until(driver -> ExpectedConditions.elementToBeClickable(bookItem));
+
+        wait.until(element -> bookItem.isEnabled());
 
         bookItem.click();
         String bookAuthor = getDriver().findElement(By.xpath("//p[contains(@style,'margin')]/descendant-or-self::*[contains(@href,'people')]")).getText();
