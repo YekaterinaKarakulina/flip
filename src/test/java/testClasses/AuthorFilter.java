@@ -23,7 +23,7 @@ public class AuthorFilter extends BaseTest {
         clickOnRandomBookCard();
         actualBookAuthor = getDriver().findElement(By.xpath("//table[@id='prod']//*[contains(@href,'people')]")).getText();
         bookName = getDriver().findElement(By.xpath("//table[@id='prod']//span[@itemprop='name']")).getText();
-        Assert.assertEquals(actualBookAuthor, expectedBookAuthor, "Actual author of book \"" + bookName + "\" - " + actualBookAuthor + ". Expected author " + expectedBookAuthor);
+        Assert.assertEquals(actualBookAuthor, expectedBookAuthor, String.format("Actual author of book `%s` - %s. Expected author %s" ,bookName, actualBookAuthor, expectedBookAuthor));
     }
 
     @Test(description = "Test checks working of \"Authors\" filter in \"flip.kz\" website with several author")
