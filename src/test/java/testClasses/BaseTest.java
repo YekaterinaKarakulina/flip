@@ -67,6 +67,12 @@ public class BaseTest {
                         "style", "opacity: 1;"));
     }
 
+    protected void waitUntilElementHasText(By by, String text) {
+        new WebDriverWait(getDriver(), 60)
+                .ignoring(StaleElementReferenceException.class, WebDriverException.class)
+                .until(ExpectedConditions.textToBePresentInElement(getDriver().findElement(by), text));
+    }
+
     protected void scrollToElement(WebElement webElement) {
         JavascriptExecutor jse = (JavascriptExecutor) getDriver();
         jse.executeScript("arguments[0].scrollIntoView(false)", webElement);

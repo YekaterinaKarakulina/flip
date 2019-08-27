@@ -2,7 +2,6 @@ package testClasses;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -88,10 +87,7 @@ public class AuthorFilter extends BaseTest {
             scrollToTheEndOfPage();
             Thread.sleep(1000);
             getDriver().findElement(By.xpath(xpathRandomPage)).click();
-            WebDriverWait wait = new WebDriverWait(getDriver(), 60);
-            //  wait.until(element -> element.findElement(By.xpath("//div[@id='content']//*[contains(@src,'.jpg')]")).isEnabled());
-            //   wait.until(element -> getDriver().findElement(By.xpath("//td[contains(@class,'pages')]//span")).getText().equals(Integer.toString(randomNumber)));
-            Thread.sleep(1000);
+            waitUntilElementHasText(By.xpath("//td[contains(@class,'pages')]//span"), Integer.toString(randomNumber));
         }
     }
 
