@@ -7,16 +7,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeGroups;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
 import java.util.concurrent.TimeUnit;
@@ -30,10 +25,10 @@ public class BaseTest {
 
     @BeforeSuite
     public WebDriver beforeSuite() {
-        System.setProperty("webdriver.gecko.driver", "src/test/java/resources/geckodriver"); //this for my home PC with linux
-        driver = new FirefoxDriver();
-        //System.setProperty("webdriver.chrome.driver", "src/test/java/resources/chromedriver76.exe");
-        //driver = new ChromeDriver();
+        //System.setProperty("webdriver.gecko.driver", "src/test/java/resources/geckodriver"); //this for my home PC with linux
+        //driver = new FirefoxDriver();
+        System.setProperty("webdriver.chrome.driver", "src/test/java/resources/chromedriver76.exe");
+        driver = new ChromeDriver();
         driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         driver.manage().window().maximize();
@@ -48,7 +43,7 @@ public class BaseTest {
 
     @AfterSuite
     public void afterSuite() {
-          driver.close();
+        driver.close();
     }
 
     private static void getToPage(WebDriver driver, String URL) {
@@ -64,9 +59,11 @@ public class BaseTest {
         wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
-    protected void scrollToElement(By by) {
-        JavascriptExecutor jse = (JavascriptExecutor) getDriver();
-        jse.executeScript("arguments[0].scrollIntoView(false)", getDriver().findElement(by));
+    protected void waitUntilSearchIsReady() {
+        new WebDriverWait(getDriver(), 60)
+                .ignoring(StaleElementReferenceException.class, WebDriverException.class)
+                .until(ExpectedConditions.attributeToBe(getDriver().findElement(By.xpath(".//div[@id='content']")),
+                        "style", "opacity: 1;"));
     }
 
     protected void scrollToElement(WebElement webElement) {
@@ -79,11 +76,9 @@ public class BaseTest {
         jse.executeScript("window.scrollTo(0, document.body.scrollHeight)");
     }
 
-    protected void waitUntilSearchIsReady() {
-        new WebDriverWait(getDriver(), 60)
-                .ignoring(StaleElementReferenceException.class, WebDriverException.class)
-                .until(ExpectedConditions.attributeToBe(getDriver().findElement(By.xpath(".//div[@id='content']")),
-                        "style", "opacity: 1;"));
+    protected void scrollToElement(By by) {
+        JavascriptExecutor jse = (JavascriptExecutor) getDriver();
+        jse.executeScript("arguments[0].scrollIntoView(false)", getDriver().findElement(by));
     }
 
     protected void waitPageForLoad() {
@@ -91,3 +86,4 @@ public class BaseTest {
                 ((JavascriptExecutor) wd).executeScript("return document.readyState").equals("complete"));
     }
 }
+
