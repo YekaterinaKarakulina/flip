@@ -6,7 +6,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -16,9 +15,10 @@ public class AuthorFilter extends BaseTest {
     @Test(description = "Test checks working of \"Authors\" filter in \"flip.kz\" website with one author")
     public void oneAuthorFilter() throws InterruptedException {
         moveToBooksPage();
-        WebElement randomAuthorName = getRandomAuthorName();
-        String expectedBookAuthor = randomAuthorName.getAttribute("data-list-found-name");
-        selectRandomAuthorName(randomAuthorName);
+        String randomAuthorName = getRandomAuthorName(1);
+        System.out.println("ran" + randomAuthorName);
+        String expectedBookAuthor = randomAuthorName;
+        selectRandomAuthorNames(randomAuthorName);
         moveToRandomPage();
         clickOnRandomBookCard();
         String actualBookAuthor = getDriver().findElement(By.xpath(xpathActualBookAuthor)).getText();
@@ -26,33 +26,52 @@ public class AuthorFilter extends BaseTest {
         Assert.assertEquals(actualBookAuthor, expectedBookAuthor, String.format("Actual author of book `%s` - %s. Expected author %s", bookName, actualBookAuthor, expectedBookAuthor));
     }
 
+/*
     @Test(description = "Test checks working of \"Authors\" filter in \"flip.kz\" website with several author")
     public void severalAuthorsFilter() throws InterruptedException {
         List<String> expectedAuthorsList = new ArrayList<>();
         String authorName;
         moveToBooksPage();
+        WebElement randomAuthorName = getRandomAuthorName();
+        selectRandomAuthorName(randomAuthorName);
+        Thread.sleep(1000);
+
     }
-    
+ */
+
     private void moveToBooksPage() {
         findByXpathAndClick(getDriver(), "//a[contains(@href,'1') and contains(text(), 'Книги')]");
         findByXpathAndClick(getDriver(), "//a[@data-filter-field-sections-id='44']");
     }
 
-    private WebElement getRandomAuthorName() {
-        List<WebElement> authorsList = getDriver().findElements(By.xpath("//div[@data-filter-field-list-type='peoples']//*[contains(@data-list-found-default,'true')]"));
-        int randomName = new Random().nextInt(authorsList.size());
-        WebElement randomAuthorName = authorsList.get(randomName);
-        return randomAuthorName;
+    private String getRandomAuthorName(int amountOfAuthors) {
+        int randomName = 0;
+        List<WebElement> webElementList = getDriver().findElements(By.xpath("//div[@data-filter-field-list-type='peoples']//*[contains(@data-list-found-default,'true')]"));
+        for (int i = 0; i < amountOfAuthors; i++) {
+            randomName = new Random().nextInt(webElementList.size());
+        }
+        String authorName = webElementList.get(randomName).getAttribute("data-list-found-name");
+        return authorName;
     }
 
-    private void selectRandomAuthorName(WebElement element) {
-        waitPageForLoad();
-        element.click();
-        waitUntilClickable(getDriver().findElement(By.xpath("//div[@class='f-d-select']")));
+    private void selectRandomAuthorNames(String authorsName) {
+        WebElement authorToSelect = getDriver().findElement(By.xpath("//div[@data-filter-field-list-type='peoples']//li[contains(@data-list-found-name, '" + authorsName + "')]"));
+        authorToSelect.click();
     }
+
 
     private void moveToRandomPage() throws InterruptedException {
+        List<WebElement> pages = getDriver().findElements(By.xpath("//a[@data-page]"));
+
+        String lastPageAttribute = pages.get(pages.size() - 1).getText();
+        System.out.println("page attr" + lastPageAttribute);
         int actualNumber = getDriver().findElements(By.xpath("//a[@data-page]")).size();
+        if (lastPageAttribute.equals(">>")) {
+            System.out.println(">>>>>>>");
+        } else {
+            System.out.println("else");
+        }
+
         int randomNumber = new Random().ints(0, actualNumber + 1).findFirst().getAsInt();
         if (randomNumber != 0) {
             String xpathRandomPage = "//a[@data-page][" + randomNumber + "]";
