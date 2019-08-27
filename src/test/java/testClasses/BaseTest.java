@@ -36,14 +36,15 @@ public class BaseTest {
         return driver;
     }
 
-    @AfterMethod
-    public void goToMainPage() {
-        findByXpathAndClick(getDriver(), "//div[contains(@class,'logo cell')]");
-    }
+  //  @AfterMethod
+  //  public void goToMainPage() {
+  //      waitUntilClickable(getDriver().findElement(By.xpath("//div[contains(@class,'logo cell')]")));
+  //      findByXpathAndClick(getDriver(), "//div[contains(@class,'logo cell')]");
+  //  }
 
     @AfterSuite
     public void afterSuite() {
-        driver.close();
+       // driver.close();
     }
 
     private static void getToPage(WebDriver driver, String URL) {
