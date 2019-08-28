@@ -13,7 +13,7 @@ public class AuthorFilter extends BaseTest {
     String xpathActualBookAuthor = "//table[@id='prod']//*[contains(@href,'people')]";
 
     @Test(description = "Test checks working of \"Authors\" filter in \"flip.kz\" website with one author")
-    public void oneAuthorFilter() throws InterruptedException {
+    public void oneAuthorFilter() {
         moveToBooksPage();
         List<String> randomAuthorNames = getRandomAuthorName(1);
         String expectedBookAuthor = randomAuthorNames.get(0);
@@ -26,7 +26,7 @@ public class AuthorFilter extends BaseTest {
     }
 
     @Test(description = "Test checks working of \"Authors\" filter in \"flip.kz\" website with several author")
-    public void severalAuthorsFilter() throws InterruptedException {
+    public void severalAuthorsFilter()  {
         moveToBooksPage();
         List<String> randomAuthorNames = getRandomAuthorName(3);
         selectRandomAuthorNames(randomAuthorNames);
@@ -56,16 +56,17 @@ public class AuthorFilter extends BaseTest {
         return authorsList;
     }
 
-    private void selectRandomAuthorNames(List<String> authorNames) throws InterruptedException {
+    private void selectRandomAuthorNames(List<String> authorNames) {
         for(int i=0; i<authorNames.size(); i++)
         {
             WebElement authorToSelect = getDriver().findElement(By.xpath("//div[@data-filter-field-list-type='peoples']//li[contains(@data-list-found-name, '" + authorNames.get(i) + "')]"));
+            waitUntilClickable(authorToSelect);
             authorToSelect.click();
-            Thread.sleep(2000);
+            waitUntilSearchIsReady();
         }
     }
 
-    private void moveToRandomPage() throws InterruptedException {
+    private void moveToRandomPage() {
         List<WebElement> pages = getDriver().findElements(By.xpath("//a[@data-page]"));
 
         String lastPageAttribute = pages.get(pages.size() - 1).getText();
@@ -82,22 +83,20 @@ public class AuthorFilter extends BaseTest {
             String xpathRandomPage = "//a[@data-page][" + randomNumber + "]";
             waitUntilSearchIsReady();
             scrollToTheEndOfPage();
-            Thread.sleep(1000);
             waitUntilClickable(getDriver().findElement(By.xpath(xpathRandomPage)));
             scrollToTheEndOfPage();
-            Thread.sleep(1000);
             getDriver().findElement(By.xpath(xpathRandomPage)).click();
             waitUntilElementHasText(By.xpath("//td[contains(@class,'pages')]//span"), Integer.toString(randomNumber));
         }
     }
 
-    private void clickOnRandomBookCard() throws InterruptedException {
+    private void clickOnRandomBookCard() {
         List<WebElement> booksList = getDriver().findElements(By.xpath("//div[@class='placeholder']//a[@class='title']"));
         int randomBook = new Random().nextInt(booksList.size());
         WebElement bookItem = booksList.get(randomBook);
         waitUntilClickable(bookItem);
         scrollToElement(bookItem);
-        Thread.sleep(1000);
+        waitUntilClickable(bookItem);
         bookItem.click();
     }
 }

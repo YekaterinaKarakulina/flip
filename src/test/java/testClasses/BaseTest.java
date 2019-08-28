@@ -9,15 +9,17 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 public class BaseTest {
     private static WebDriver driver;
+    private Duration max = Duration.ofSeconds(60);
+    private Duration polling = Duration.ofSeconds(1);
 
     public WebDriver getDriver() {
         return driver;
@@ -29,8 +31,8 @@ public class BaseTest {
         //driver = new FirefoxDriver();
         System.setProperty("webdriver.chrome.driver", "src/test/java/resources/chromedriver76.exe");
         driver = new ChromeDriver();
-        driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
-        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+ /*       driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);*/
         driver.manage().window().maximize();
         getToPage(driver, "https://flip.kz");
         return driver;
@@ -56,20 +58,26 @@ public class BaseTest {
     }
 
     protected void waitUntilClickable(WebElement element) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), 60);
+        FluentWait<WebDriver> wait = new FluentWait<>(driver)
+                .withTimeout(max)
+                .pollingEvery(polling);
         wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
     protected void waitUntilSearchIsReady() {
-        new WebDriverWait(getDriver(), 60)
-                .ignoring(StaleElementReferenceException.class, WebDriverException.class)
+        FluentWait<WebDriver> wait = new FluentWait<>(driver)
+                .withTimeout(max)
+                .pollingEvery(polling);
+        wait.ignoring(StaleElementReferenceException.class, WebDriverException.class)
                 .until(ExpectedConditions.attributeToBe(getDriver().findElement(By.xpath(".//div[@id='content']")),
                         "style", "opacity: 1;"));
     }
 
     protected void waitUntilElementHasText(By by, String text) {
-        new WebDriverWait(getDriver(), 60)
-                .ignoring(StaleElementReferenceException.class, WebDriverException.class)
+        FluentWait<WebDriver> wait = new FluentWait<>(driver)
+                .withTimeout(max)
+                .pollingEvery(polling);
+        wait.ignoring(StaleElementReferenceException.class, WebDriverException.class)
                 .until(ExpectedConditions.textToBePresentInElement(getDriver().findElement(by), text));
     }
 
@@ -89,7 +97,10 @@ public class BaseTest {
     }
 
     protected void waitPageForLoad() {
-        new WebDriverWait(driver, 30).until((ExpectedCondition<Boolean>) wd ->
+        FluentWait<WebDriver> wait = new FluentWait<>(driver)
+                .withTimeout(max)
+                .pollingEvery(polling);
+        wait.until((ExpectedCondition<Boolean>) wd ->
                 ((JavascriptExecutor) wd).executeScript("return document.readyState").equals("complete"));
     }
 }
