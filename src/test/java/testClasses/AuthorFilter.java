@@ -6,8 +6,10 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class AuthorFilter extends BaseTest {
     String xpathActualBookAuthor = "//table[@id='prod']//*[contains(@href,'people')]";
@@ -16,26 +18,23 @@ public class AuthorFilter extends BaseTest {
     @Test(description = "Test checks working of \"Authors\" filter in \"flip.kz\" website with one author")
     public void oneAuthorFilter() throws InterruptedException {
         moveToBooksPage();
-        List<String> randomAuthorNames = getRandomAuthorName(1);
-        String expectedBookAuthor = randomAuthorNames.get(0);
-        selectRandomAuthorNames(randomAuthorNames);
+        List<String> selectedAuthorNames = clickRandomAuthors(getAuthorsList(), 1);
         moveToRandomPage();
         clickOnRandomBookCard();
         String actualBookAuthor = getDriver().findElement(By.xpath(xpathActualBookAuthor)).getText();
         String bookName = getDriver().findElement(By.xpath(xpathToFindBookName)).getText();
-        Assert.assertEquals(actualBookAuthor, expectedBookAuthor, String.format("Actual author of book `%s` - %s. Expected author %s", bookName, actualBookAuthor, expectedBookAuthor));
+        Assert.assertTrue(selectedAuthorNames.contains(actualBookAuthor), String.format("Actual author of book `%s` - %s. Expected author %s", bookName, actualBookAuthor, selectedAuthorNames.toString()));
     }
 
     @Test(description = "Test checks working of \"Authors\" filter in \"flip.kz\" website with several author")
     public void severalAuthorsFilter() throws InterruptedException {
         moveToBooksPage();
-        List<String> randomAuthorNames = getRandomAuthorName(3);
-        selectRandomAuthorNames(randomAuthorNames);
+        List<String> selectedAuthorNames = clickRandomAuthors(getAuthorsList(), 3);
         moveToRandomPage();
         clickOnRandomBookCard();
         String actualBookAuthor = getDriver().findElement(By.xpath(xpathActualBookAuthor)).getText();
         String bookName = getDriver().findElement(By.xpath(xpathToFindBookName)).getText();
-        Assert.assertTrue(randomAuthorNames.contains(actualBookAuthor), String.format("Actual author of book `%s` - %s. Expected author %s", bookName, actualBookAuthor, randomAuthorNames.toString()));
+        Assert.assertTrue(selectedAuthorNames.contains(actualBookAuthor), String.format("Actual author of book `%s` - %s. Expected author %s", bookName, actualBookAuthor, selectedAuthorNames.toString()));
     }
 
     private void moveToBooksPage() {
@@ -43,26 +42,29 @@ public class AuthorFilter extends BaseTest {
         findByXpathAndClick(getDriver(), "//a[@data-filter-field-sections-id='44']");
     }
 
-    private List<String> getRandomAuthorName(int amountOfAuthors) {
+    private List<String> getAuthorsList() {
         List<String> authorsList = new ArrayList<>();
         String authorName = null;
-        int randomName = 0;
-        List<WebElement> webElementList = getDriver().findElements(By.xpath("//div[@data-filter-field-list-type='peoples']//*[contains(@data-list-found-default,'true')]"));
-        for (int i = 0; i < amountOfAuthors; i++) {
-            randomName = new Random().nextInt(webElementList.size());
-            authorName = webElementList.get(randomName).getAttribute("data-list-found-name");
+        List<WebElement> authorElements = getDriver().findElements(By.xpath("//div[@data-filter-field-list-type='peoples']//*[contains(@data-list-found-default,'true')]"));
+        for (int i = 0; i < authorElements.size(); i++) {
+            authorName = authorElements.get(i).getAttribute("data-list-found-name");
             authorsList.add(authorName);
-            webElementList.remove(randomName);
         }
         return authorsList;
     }
 
-    private void selectRandomAuthorNames(List<String> authorNames) {
-        for (int i = 0; i < authorNames.size(); i++) {
-            findByXpathAndType(getDriver(), "//div[@data-filter-field-list-type='peoples']//*[@placeholder='Введите название']", authorNames.get(i));
-            findByXpathAndClick(getDriver(), "//div[@data-filter-field-list-type='peoples']//*[contains(@data-list-found-name,'" + authorNames.get(i) + "')]");
+    private List<String> clickRandomAuthors(List<String> list, int amountOfAuthors) {
+        List<String> clickedAuthorsList = new ArrayList<>();
+        for (int i = 0; i < amountOfAuthors; i++) {
+            List<String> authorsList = list.stream().filter(item -> !clickedAuthorsList.contains(item)).collect(Collectors.toList());
+            Collections.shuffle(authorsList);
+            String authorToClick = authorsList.get(0);
+            System.out.println("author to click " + authorToClick);
+            findByXpathAndClick(getDriver(), "//div[@data-filter-field-list-type='peoples']//*[contains(@data-list-found-name,'" + authorToClick + "')]//*[contains(@class,'checkbox')]");
+            clickedAuthorsList.add(authorsList.get(0));
             waitUntilSearchIsReady();
         }
+        return clickedAuthorsList;
     }
 
     private void moveToRandomPage() throws InterruptedException {
@@ -98,6 +100,7 @@ public class AuthorFilter extends BaseTest {
         waitUntilClickable(bookItem);
         scrollToElement(bookItem);
         waitUntilClickable(bookItem);
+        waitUntilSearchIsReady();
         bookItem.click();
     }
 }
