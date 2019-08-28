@@ -46,7 +46,7 @@ public class BaseTest {
 
     @AfterSuite
     public void afterSuite() {
-        driver.close();
+        //driver.close();
     }
 
     private static void getToPage(WebDriver driver, String URL) {
