@@ -57,6 +57,11 @@ public class BaseTest {
         driver.findElement(By.xpath(xpath)).click();
     }
 
+    public void findByXpathAndType(WebDriver driver, String xpath, String text) {
+        driver.findElement(By.xpath(xpath)).sendKeys(text);
+    }
+
+
     protected void waitUntilClickable(WebElement element) {
         FluentWait<WebDriver> wait = new FluentWait<>(driver)
                 .withTimeout(max)
@@ -103,5 +108,7 @@ public class BaseTest {
         wait.until((ExpectedCondition<Boolean>) wd ->
                 ((JavascriptExecutor) wd).executeScript("return document.readyState").equals("complete"));
     }
+
+
 }
 
