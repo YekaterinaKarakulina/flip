@@ -4,9 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -21,7 +21,7 @@ public class AuthorFilter extends BaseTest {
     String xPathForApplyPublicationYearFilter = "//li[@data-filter-range-max='2098']//button[text()='Применить']";
 
     @Test(description = "Test checks working of \"Authors\" filter in \"flip.kz\" website with one author")
-    public void oneAuthorFilter() throws InterruptedException {
+    public void oneAuthorFilter()  {
         moveToBooksPage();
         List<String> selectedAuthorNames = clickRandomAuthors(1);
         moveToRandomPage();
@@ -46,29 +46,61 @@ public class AuthorFilter extends BaseTest {
     public void publicationYearFilterRangeFirstValue() {
         moveToBooksPage();
         int publicationYearRangeFirstValue = new Random().ints(2000, 2019 + 1).findFirst().getAsInt();
-        typeToElementByXpath(xPathPublicationYearRangeFirstValue, Integer.toString(publicationYearRangeFirstValue));
-        clickToElementByXpath(xPathForApplyPublicationYearFilter);
+        setPublicationYearFirstValue(Integer.toString(publicationYearRangeFirstValue));
         moveToRandomPage();
         clickOnRandomBookCard();
-        int expectedPublicationYear = publicationYearRangeFirstValue;
         int actualPublicationYear = getPublicationYearInfoByXpath(xPathPublicationYear);
         String bookName = getDriver().findElement(By.xpath(xpathToFindBookName)).getText();
-        Assert.assertTrue(actualPublicationYear >= expectedPublicationYear, String.format("Actual publication year of book + `%s` - %s. Expected year of publication %s", bookName, Integer.toString(actualPublicationYear), Integer.toString(expectedPublicationYear)));
+        Assert.assertTrue(actualPublicationYear >= publicationYearRangeFirstValue, String.format("Actual publication year of book + `%s` - %s. Expected year of publication %s", bookName, Integer.toString(actualPublicationYear), Integer.toString(publicationYearRangeFirstValue)));
     }
 
     @Test(description = "Test checks working of \"Publication Year\" filter in \"flip.kz\" website with only range last value")
     public void publicationYearFilterRangeLastValue() {
         moveToBooksPage();
         int publicationYearRangeLastValue = new Random().ints(2000, 2098 + 1).findFirst().getAsInt();
-        typeToElementByXpath(xPathPublicationYearRangeLastValue, Integer.toString(publicationYearRangeLastValue));
-        clickToElementByXpath(xPathForApplyPublicationYearFilter);
+        setPublicationYearLastValue(Integer.toString(publicationYearRangeLastValue));
         moveToRandomPage();
         clickOnRandomBookCard();
-        int expectedPublicationYear = publicationYearRangeLastValue;
         int actualPublicationYear = getPublicationYearInfoByXpath(xPathPublicationYear);
         String bookName = getDriver().findElement(By.xpath(xpathToFindBookName)).getText();
-        Assert.assertTrue(actualPublicationYear <= expectedPublicationYear, String.format("Actual publication year of book + `%s` - %s. Expected year of publication %s", bookName, Integer.toString(actualPublicationYear), Integer.toString(expectedPublicationYear)));
+        Assert.assertTrue(actualPublicationYear <= publicationYearRangeLastValue, String.format("Actual publication year of book + `%s` - %s. Expected year of publication %s", bookName, Integer.toString(actualPublicationYear), Integer.toString(publicationYearRangeLastValue)));
     }
+
+    @Test(description = "Test checks working of \"Publication Year\" filter in \"flip.kz\" website with full range")
+    public void publicationYearFilterFullRange() {
+        moveToBooksPage();
+        int publicationYearRangeFirstValue = new Random().ints(2000, 2010 + 1).findFirst().getAsInt();
+        int publicationYearRangeLastValue = new Random().ints(2010, 2098 + 1).findFirst().getAsInt();
+        setPublicationYearFirstValue(Integer.toString(publicationYearRangeFirstValue));
+        setPublicationYearLastValue(Integer.toString(publicationYearRangeLastValue));
+        moveToRandomPage();
+        clickOnRandomBookCard();
+        int actualPublicationYear = getPublicationYearInfoByXpath(xPathPublicationYear);
+        String bookName = getDriver().findElement(By.xpath(xpathToFindBookName)).getText();
+        Assert.assertTrue(publicationYearRangeFirstValue <= actualPublicationYear && actualPublicationYear <= publicationYearRangeLastValue, String.format("Actual publication year of book + `%s` - %s. Expected range of publication %s - %s", bookName, Integer.toString(actualPublicationYear), Integer.toString(publicationYearRangeFirstValue), Integer.toString(publicationYearRangeLastValue)));
+    }
+
+
+    @Test(description = "Test checks working of \"Publication Year\" filter in \"flip.kz\" website with full range")
+    public void AuthorNameAndPublicationYearFilters() {
+        moveToBooksPage();
+        List<String> selectedAuthorNames = clickRandomAuthors(1);
+        int publicationYearRangeFirstValue = new Random().ints(2000, 2010 + 1).findFirst().getAsInt();
+        int publicationYearRangeLastValue = new Random().ints(2010, 2098 + 1).findFirst().getAsInt();
+        setPublicationYearFirstValue(Integer.toString(publicationYearRangeFirstValue));
+        setPublicationYearLastValue(Integer.toString(publicationYearRangeLastValue));
+        waitUntilSearchIsReady();
+        moveToRandomPage();
+        clickOnRandomBookCard();
+        int actualPublicationYear = getPublicationYearInfoByXpath(xPathPublicationYear);
+        String bookName = getDriver().findElement(By.xpath(xpathToFindBookName)).getText();
+        String actualBookAuthor = getDriver().findElement(By.xpath(xpathActualBookAuthor)).getText();
+        SoftAssert twoFilters = new SoftAssert();
+        twoFilters.assertTrue(publicationYearRangeFirstValue <= actualPublicationYear && actualPublicationYear <= publicationYearRangeLastValue, String.format("Actual publication year of book + `%s` - %s. Expected range of publication %s - %s", bookName, Integer.toString(actualPublicationYear), Integer.toString(publicationYearRangeFirstValue), Integer.toString(publicationYearRangeLastValue)));
+        twoFilters.assertTrue(selectedAuthorNames.contains(actualBookAuthor), String.format("Actual author of book `%s` - %s. Expected author %s", bookName, actualBookAuthor, selectedAuthorNames.toString()));
+        twoFilters.assertAll();
+    }
+
 
     private void moveToBooksPage() {
         clickToElementByXpath("//a[contains(@href,'1') and contains(text(), 'Книги')]");
@@ -131,13 +163,21 @@ public class AuthorFilter extends BaseTest {
 
     private int getPublicationYearInfoByXpath(String xpath) {
         WebElement addInfo = getDriver().findElement(By.xpath(xpath));
-        String publicationInfo = addInfo.getText();
-        List<String> publicationInfoList = Arrays.asList(publicationInfo.split(","));
-        String publicationYearString = publicationInfoList.get(1).replaceAll("\\s+", "");
-        String expectedPublicationYearRangeMinString = publicationYearString.substring(0, publicationYearString.length() - 2);
-        int actualPublicationYear = Integer.parseInt(expectedPublicationYearRangeMinString);
-        return actualPublicationYear;
+        String expectedPublicationYearRangeMinString = addInfo.getText().replaceAll("\\D+", "");
+        System.out.println("regex " + expectedPublicationYearRangeMinString);
+        return Integer.parseInt(expectedPublicationYearRangeMinString);
     }
+
+    private void setPublicationYearFirstValue(String year) {
+        typeToElementByXpath(xPathPublicationYearRangeFirstValue, year);
+        clickToElementByXpath(xPathForApplyPublicationYearFilter);
+    }
+
+    private void setPublicationYearLastValue(String year) {
+        typeToElementByXpath(xPathPublicationYearRangeLastValue, year);
+        clickToElementByXpath(xPathForApplyPublicationYearFilter);
+    }
+
 }
 
 

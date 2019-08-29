@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeSuite;
 
 import java.time.Duration;
@@ -38,15 +39,15 @@ public class BaseTest {
         return driver;
     }
 
-    //@AfterMethod
-   // public void goToMainPage() {
-   //     waitUntilClickable(getDriver().findElement(By.xpath("//div[contains(@class,'logo cell')]")));
-   //     findByXpathAndClick(getDriver(), "//div[contains(@class,'logo cell')]");
-   // }
+    @AfterTest
+     public void goToMainPage() {
+         waitUntilClickable(getDriver().findElement(By.xpath("//div[contains(@class,'logo cell')]")));
+         clickToElementByXpath( "//div[contains(@class,'logo cell')]");
+     }
 
     @AfterSuite
     public void afterSuite() {
-        //driver.close();
+        driver.close();
     }
 
     private static void getToPage(WebDriver driver, String URL) {
@@ -58,11 +59,11 @@ public class BaseTest {
         return element;
     }
 
-    public void clickToElementByXpath(String xpath){
+    public void clickToElementByXpath(String xpath) {
         findByXpath(xpath).click();
     }
 
-    public void typeToElementByXpath(String xpath,String text) {
+    public void typeToElementByXpath(String xpath, String text) {
         findByXpath(xpath).sendKeys(text);
     }
 
