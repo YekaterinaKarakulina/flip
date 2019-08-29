@@ -26,8 +26,8 @@ public class AuthorFilter extends BaseTest {
         List<String> selectedAuthorNames = clickRandomAuthors(1);
         moveToRandomPage();
         clickOnRandomBookCard();
-        String actualBookAuthor = getDriver().findElement(By.xpath(xpathActualBookAuthor)).getText();
-        String bookName = getDriver().findElement(By.xpath(xpathToFindBookName)).getText();
+        String actualBookAuthor = getTextOfWebElementByXpath(xpathActualBookAuthor);
+        String bookName = getTextOfWebElementByXpath(xpathToFindBookName);
         Assert.assertTrue(selectedAuthorNames.contains(actualBookAuthor), String.format("Actual author of book `%s` - %s. Expected author %s", bookName, actualBookAuthor, selectedAuthorNames.toString()));
     }
 
@@ -37,8 +37,8 @@ public class AuthorFilter extends BaseTest {
         List<String> selectedAuthorNames = clickRandomAuthors(3);
         moveToRandomPage();
         clickOnRandomBookCard();
-        String actualBookAuthor = getDriver().findElement(By.xpath(xpathActualBookAuthor)).getText();
-        String bookName = getDriver().findElement(By.xpath(xpathToFindBookName)).getText();
+        String actualBookAuthor = getTextOfWebElementByXpath(xpathActualBookAuthor);
+        String bookName = getTextOfWebElementByXpath(xpathToFindBookName);
         Assert.assertTrue(selectedAuthorNames.contains(actualBookAuthor), String.format("Actual author of book `%s` - %s. Expected author %s", bookName, actualBookAuthor, selectedAuthorNames.toString()));
     }
 
@@ -50,7 +50,7 @@ public class AuthorFilter extends BaseTest {
         moveToRandomPage();
         clickOnRandomBookCard();
         int actualPublicationYear = getPublicationYearInfoByXpath(xPathPublicationYear);
-        String bookName = getDriver().findElement(By.xpath(xpathToFindBookName)).getText();
+        String bookName = getTextOfWebElementByXpath(xpathToFindBookName);
         Assert.assertTrue(actualPublicationYear >= publicationYearRangeFirstValue, String.format("Actual publication year of book + `%s` - %s. Expected year of publication %s", bookName, Integer.toString(actualPublicationYear), Integer.toString(publicationYearRangeFirstValue)));
     }
 
@@ -62,7 +62,7 @@ public class AuthorFilter extends BaseTest {
         moveToRandomPage();
         clickOnRandomBookCard();
         int actualPublicationYear = getPublicationYearInfoByXpath(xPathPublicationYear);
-        String bookName = getDriver().findElement(By.xpath(xpathToFindBookName)).getText();
+        String bookName = getTextOfWebElementByXpath(xpathToFindBookName);
         Assert.assertTrue(actualPublicationYear <= publicationYearRangeLastValue, String.format("Actual publication year of book + `%s` - %s. Expected year of publication %s", bookName, Integer.toString(actualPublicationYear), Integer.toString(publicationYearRangeLastValue)));
     }
 
@@ -76,7 +76,7 @@ public class AuthorFilter extends BaseTest {
         moveToRandomPage();
         clickOnRandomBookCard();
         int actualPublicationYear = getPublicationYearInfoByXpath(xPathPublicationYear);
-        String bookName = getDriver().findElement(By.xpath(xpathToFindBookName)).getText();
+        String bookName = getTextOfWebElementByXpath(xpathToFindBookName);
         Assert.assertTrue(publicationYearRangeFirstValue <= actualPublicationYear && actualPublicationYear <= publicationYearRangeLastValue, String.format("Actual publication year of book + `%s` - %s. Expected range of publication %s - %s", bookName, Integer.toString(actualPublicationYear), Integer.toString(publicationYearRangeFirstValue), Integer.toString(publicationYearRangeLastValue)));
     }
 
@@ -92,8 +92,8 @@ public class AuthorFilter extends BaseTest {
         moveToRandomPage();
         clickOnRandomBookCard();
         int actualPublicationYear = getPublicationYearInfoByXpath(xPathPublicationYear);
-        String bookName = getDriver().findElement(By.xpath(xpathToFindBookName)).getText();
-        String actualBookAuthor = getDriver().findElement(By.xpath(xpathActualBookAuthor)).getText();
+        String bookName = getTextOfWebElementByXpath(xpathToFindBookName);
+        String actualBookAuthor =  getTextOfWebElementByXpath(xpathActualBookAuthor);
         SoftAssert twoFilters = new SoftAssert();
         twoFilters.assertTrue(publicationYearRangeFirstValue <= actualPublicationYear && actualPublicationYear <= publicationYearRangeLastValue, String.format("Actual publication year of book + `%s` - %s. Expected range of publication %s - %s", bookName, Integer.toString(actualPublicationYear), Integer.toString(publicationYearRangeFirstValue), Integer.toString(publicationYearRangeLastValue)));
         twoFilters.assertTrue(selectedAuthorNames.contains(actualBookAuthor), String.format("Actual author of book `%s` - %s. Expected author %s", bookName, actualBookAuthor, selectedAuthorNames.toString()));
@@ -154,7 +154,7 @@ public class AuthorFilter extends BaseTest {
     }
 
     private int getPublicationYearInfoByXpath(String xpath) {
-        WebElement addInfo = getDriver().findElement(By.xpath(xpath));
+        WebElement addInfo = findByXpath(xpath);
         String expectedPublicationYearRangeMinString = addInfo.getText().replaceAll("\\D+", "");
         return Integer.parseInt(expectedPublicationYearRangeMinString);
     }
@@ -167,6 +167,11 @@ public class AuthorFilter extends BaseTest {
     private void setPublicationYearLastValue(String year) {
         typeToElementByXpath(xPathPublicationYearRangeLastValue, year);
         clickToElementByXpath(xPathForApplyPublicationYearFilter);
+    }
+
+    private  String getTextOfWebElementByXpath(String xpath){
+        String text = findByXpath(xpath).getText();
+        return text;
     }
 }
 
