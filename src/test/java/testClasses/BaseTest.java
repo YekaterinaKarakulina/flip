@@ -38,11 +38,11 @@ public class BaseTest {
         return driver;
     }
 
-    @AfterMethod
-    public void goToMainPage() {
-        waitUntilClickable(getDriver().findElement(By.xpath("//div[contains(@class,'logo cell')]")));
-        findByXpathAndClick(getDriver(), "//div[contains(@class,'logo cell')]");
-    }
+    //@AfterMethod
+   // public void goToMainPage() {
+   //     waitUntilClickable(getDriver().findElement(By.xpath("//div[contains(@class,'logo cell')]")));
+   //     findByXpathAndClick(getDriver(), "//div[contains(@class,'logo cell')]");
+   // }
 
     @AfterSuite
     public void afterSuite() {
@@ -53,12 +53,17 @@ public class BaseTest {
         driver.get(URL);
     }
 
-    public void findByXpathAndClick(WebDriver driver, String xpath) {
-        driver.findElement(By.xpath(xpath)).click();
+    public WebElement findByXpath(String xpath) {
+        WebElement element = getDriver().findElement(By.xpath(xpath));
+        return element;
     }
 
-    public void findByXpathAndType(WebDriver driver, String xpath, String text) {
-        driver.findElement(By.xpath(xpath)).sendKeys(text);
+    public void clickToElementByXpath(String xpath){
+        findByXpath(xpath).click();
+    }
+
+    public void typeToElementByXpath(String xpath,String text) {
+        findByXpath(xpath).sendKeys(text);
     }
 
 
