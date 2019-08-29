@@ -10,7 +10,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeSuite;
@@ -40,10 +39,10 @@ public class BaseTest {
     }
 
     @AfterTest
-     public void goToMainPage() {
-         waitUntilClickable(getDriver().findElement(By.xpath("//div[contains(@class,'logo cell')]")));
-         clickToElementByXpath( "//div[contains(@class,'logo cell')]");
-     }
+    public void goToMainPage() {
+        waitUntilClickable(getDriver().findElement(By.xpath("//div[contains(@class,'logo cell')]")));
+        clickToElementByXpath("//div[contains(@class,'logo cell')]");
+    }
 
     @AfterSuite
     public void afterSuite() {

@@ -21,7 +21,7 @@ public class AuthorFilter extends BaseTest {
     String xPathForApplyPublicationYearFilter = "//li[@data-filter-range-max='2098']//button[text()='Применить']";
 
     @Test(description = "Test checks working of \"Authors\" filter in \"flip.kz\" website with one author")
-    public void oneAuthorFilter()  {
+    public void oneAuthorFilter() {
         moveToBooksPage();
         List<String> selectedAuthorNames = clickRandomAuthors(1);
         moveToRandomPage();
@@ -80,7 +80,6 @@ public class AuthorFilter extends BaseTest {
         Assert.assertTrue(publicationYearRangeFirstValue <= actualPublicationYear && actualPublicationYear <= publicationYearRangeLastValue, String.format("Actual publication year of book + `%s` - %s. Expected range of publication %s - %s", bookName, Integer.toString(actualPublicationYear), Integer.toString(publicationYearRangeFirstValue), Integer.toString(publicationYearRangeLastValue)));
     }
 
-
     @Test(description = "Test checks working of \"Publication Year\" filter in \"flip.kz\" website with full range")
     public void AuthorNameAndPublicationYearFilters() {
         moveToBooksPage();
@@ -101,21 +100,14 @@ public class AuthorFilter extends BaseTest {
         twoFilters.assertAll();
     }
 
-
     private void moveToBooksPage() {
         clickToElementByXpath("//a[contains(@href,'1') and contains(text(), 'Книги')]");
         clickToElementByXpath("//a[@data-filter-field-sections-id='44']");
     }
 
     private List<String> getAuthorsList() {
-        List<String> authorsList = new ArrayList<>();
-        String authorName = null;
         List<WebElement> authorElements = getDriver().findElements(By.xpath("//div[@data-filter-field-list-type='peoples']//*[contains(@data-list-found-default,'true')]"));
-        for (int i = 0; i < authorElements.size(); i++) {
-            authorName = authorElements.get(i).getAttribute("data-list-found-name");
-            authorsList.add(authorName);
-        }
-        return authorsList;
+        return authorElements.stream().map(item -> item.getAttribute("data-list-found-name")).collect(Collectors.toList());
     }
 
     private List<String> clickRandomAuthors(int amountOfAuthors) {
@@ -164,7 +156,6 @@ public class AuthorFilter extends BaseTest {
     private int getPublicationYearInfoByXpath(String xpath) {
         WebElement addInfo = getDriver().findElement(By.xpath(xpath));
         String expectedPublicationYearRangeMinString = addInfo.getText().replaceAll("\\D+", "");
-        System.out.println("regex " + expectedPublicationYearRangeMinString);
         return Integer.parseInt(expectedPublicationYearRangeMinString);
     }
 
@@ -177,7 +168,6 @@ public class AuthorFilter extends BaseTest {
         typeToElementByXpath(xPathPublicationYearRangeLastValue, year);
         clickToElementByXpath(xPathForApplyPublicationYearFilter);
     }
-
 }
 
 
