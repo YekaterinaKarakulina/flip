@@ -3,7 +3,7 @@
 <suite name="UIsuite" verbose="1" parallel="false">
     <test name="Math">
         <classes>
-            <class name="testClasses.AuthorFilter"/>
+            <class name="testClasses.AllTests"/>
         </classes>
     </test>
 </suite>

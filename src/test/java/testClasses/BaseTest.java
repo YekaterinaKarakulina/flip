@@ -6,13 +6,11 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.*;
 
 import java.time.Duration;
 
@@ -27,10 +25,10 @@ public class BaseTest {
 
     @BeforeSuite
     public WebDriver beforeSuite() {
-        //System.setProperty("webdriver.gecko.driver", "src/test/java/resources/geckodriver"); //this for my home PC with linux
-        //driver = new FirefoxDriver();
-        System.setProperty("webdriver.chrome.driver", "src/test/java/resources/chromedriver76.exe");
-        driver = new ChromeDriver();
+        System.setProperty("webdriver.gecko.driver", "src/test/java/resources/geckodriver"); //this for my home PC with linux
+        driver = new FirefoxDriver();
+        //System.setProperty("webdriver.chrome.driver", "src/test/java/resources/chromedriver76.exe");
+        //driver = new ChromeDriver();
  /*       driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);*/
         driver.manage().window().maximize();
@@ -38,10 +36,12 @@ public class BaseTest {
         return driver;
     }
 
-    @AfterTest
+
+    @AfterMethod
     public void goToMainPage() {
         waitUntilClickable(getDriver().findElement(By.xpath("//div[contains(@class,'logo cell')]")));
         clickToElementByXpath("//div[contains(@class,'logo cell')]");
+        waitUntilClickable(findByXpath("//a[contains(@href,'1') and contains(text(), 'Книги')]"));
     }
 
     @AfterSuite
@@ -54,8 +54,7 @@ public class BaseTest {
     }
 
     public WebElement findByXpath(String xpath) {
-        WebElement element = getDriver().findElement(By.xpath(xpath));
-        return element;
+        return getDriver().findElement(By.xpath(xpath));
     }
 
     public void clickToElementByXpath(String xpath) {
@@ -100,20 +99,5 @@ public class BaseTest {
         JavascriptExecutor jse = (JavascriptExecutor) getDriver();
         jse.executeScript("window.scrollTo(0, document.body.scrollHeight)");
     }
-
-    protected void scrollToElement(By by) {
-        JavascriptExecutor jse = (JavascriptExecutor) getDriver();
-        jse.executeScript("arguments[0].scrollIntoView(false)", getDriver().findElement(by));
-    }
-
-    protected void waitPageForLoad() {
-        FluentWait<WebDriver> wait = new FluentWait<>(driver)
-                .withTimeout(max)
-                .pollingEvery(polling);
-        wait.until((ExpectedCondition<Boolean>) wd ->
-                ((JavascriptExecutor) wd).executeScript("return document.readyState").equals("complete"));
-    }
-
-
 }
 
