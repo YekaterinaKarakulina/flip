@@ -15,6 +15,4 @@ public class BooksPage extends AbstractPage {
         return new ImaginativeLiteraturePage(driver);
     }
 
-
-
 }

@@ -1,6 +1,7 @@
 package testClasses.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
@@ -41,6 +42,16 @@ public class AbstractPage {
                 .pollingEvery(polling);
         wait.ignoring(StaleElementReferenceException.class, WebDriverException.class)
                 .until(ExpectedConditions.textToBePresentInElement(driver.findElement(by), text));
+    }
+
+    protected void scrollToElement(WebElement webElement) {
+        JavascriptExecutor jse = (JavascriptExecutor) driver;
+        jse.executeScript("arguments[0].scrollIntoView(false)", webElement);
+    }
+
+    protected void scrollToTheEndOfPage() {
+        JavascriptExecutor jse = (JavascriptExecutor) driver;
+        jse.executeScript("window.scrollTo(0, document.body.scrollHeight)");
     }
 
 }
