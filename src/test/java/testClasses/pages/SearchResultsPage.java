@@ -29,6 +29,4 @@ public class SearchResultsPage extends AbstractPage {
         }
         return new RandomSearchResultsPage(driver);
     }
-
-
 }

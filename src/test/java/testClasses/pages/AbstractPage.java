@@ -14,9 +14,9 @@ import java.time.Duration;
 public class AbstractPage {
     private Duration max = Duration.ofSeconds(60);
     private Duration polling = Duration.ofSeconds(1);
-    protected WebDriver driver;
+    WebDriver driver;
 
-    public AbstractPage(WebDriver driver) {
+    AbstractPage(WebDriver driver) {
         this.driver = driver;
     }
 
