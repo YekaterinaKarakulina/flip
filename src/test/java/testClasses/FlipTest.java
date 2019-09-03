@@ -8,15 +8,11 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 import testClasses.pages.HomePage;
-import testClasses.pages.ImaginativeLiteraturePage;
-import testClasses.pages.RandomBookPage;
-import testClasses.pages.RandomSearchResultsPage;
-import testClasses.pages.SearchResultsPage;
-
+import testClasses.pages.ItemPage;
+import testClasses.pages.SectionPage;
 import java.util.List;
-import java.util.Random;
+
 
 public class FlipTest {
     private WebDriver driver;
@@ -31,16 +27,33 @@ public class FlipTest {
         driver.manage().window().maximize();
     }
 
-    @AfterMethod
-    public void goToMainPage() {
-        driver.findElement(MAIN_PAGE_LOCATOR).click();
+ //   @AfterMethod
+ //   public void goToMainPage() {
+  //      driver.findElement(MAIN_PAGE_LOCATOR).click();
+  //  }
+
+  //  @AfterSuite
+  //  public void afterSuite() {
+  //      driver.close();
+  //  }
+
+    @Test(description = "Test checks working of \"Authors\" filter in \"flip.kz\" website with one author")
+    public void oneAuthorFilter() {
+        HomePage homePage = new HomePage(driver).open();
+        homePage.getMainMenuComponent().chooseBookSection();
+        SectionPage booksPage = homePage.getMainMenuComponent().chooseImaginativeLiteratureSection();
+        SectionPage authorFilterPage = booksPage.getAuthorSearchComponent().clickRandomAuthor(1);
+        List<String> selectedAuthors = authorFilterPage.getAuthorSearchComponent().getClickedAuthorsList();
+        SectionPage authorFilterRandomPage = authorFilterPage.moveToRandomPage();
+        ItemPage bookItemPage = authorFilterRandomPage.clickOnRandomBookCard();
+        String actualBookAuthor = bookItemPage.getBookAuthor();
+        String bookName = bookItemPage.getBookName();
+        Assert.assertTrue(selectedAuthors.contains(actualBookAuthor), String.format("List of expected authors of book '%s' does not contain %s", bookName, actualBookAuthor));
+
     }
 
-    @AfterSuite
-    public void afterSuite() {
-        driver.close();
-    }
 
+/*
     @Test(description = "Test checks working of \"Authors\" filter in \"flip.kz\" website with one author")
     public void oneAuthorFilter() {
         ImaginativeLiteraturePage imaginativeLiteraturePage = new HomePage(driver).open().chooseBookSection().chooseImaginativeLiteratureSection();
@@ -120,5 +133,5 @@ public class FlipTest {
         twoFilters.assertTrue(selectedAuthorNames.contains(actualBookAuthor), String.format("Actual author of book `%s` - %s. Expected author %s", bookName, actualBookAuthor, selectedAuthorNames.toString()));
         twoFilters.assertAll();
     }
-
+*/
 }
