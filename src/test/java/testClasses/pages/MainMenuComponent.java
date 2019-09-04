@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class MainMenuComponent extends AbstractPage {
+public class MainMenuComponent extends BasePage {
     @FindBy(xpath = "//p[contains(text(),'Каталог')]/ancestor::div[contains(@class,'menu')]")
     private WebElement menu;
 
@@ -14,7 +14,7 @@ public class MainMenuComponent extends AbstractPage {
     @FindBy(xpath = "//a[@data-filter-field-sections-id='44']")
     private WebElement imaginativeLiteratureSection;
 
-    MainMenuComponent(WebDriver driver) {
+    public MainMenuComponent(WebDriver driver) {
         super(driver);
     }
 
