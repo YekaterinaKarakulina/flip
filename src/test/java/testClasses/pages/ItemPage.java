@@ -27,7 +27,6 @@ public class ItemPage extends AbstractPage {
         return Integer.parseInt(expectedPublicationYearStr.substring(expectedPublicationYearStr.lastIndexOf(',') + 1).replaceAll("\\D+", ""));
     }
 
-
     ItemPage(WebDriver driver) {
         super(driver);
     }

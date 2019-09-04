@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Random;
 
 
-public class SectionPage extends AbstractPage{
+public class SectionPage extends AbstractPage {
     private String xpathRandomPage = "//a[@data-page='%s']";
     private static final By BOOK_ITEM_LOCATOR = By.xpath("//div[@class='placeholder']//a[@class='title']");
 
@@ -18,7 +18,6 @@ public class SectionPage extends AbstractPage{
         waitUntilSearchIsReady();
         int actualNumber = getDriver().findElements(AMOUNT_OF_PAGES_LOCATOR).size();
         int randomNumber = new Random().ints(1, actualNumber + 1).findFirst().getAsInt();
-        System.out.println("random page " + randomNumber);
         if (randomNumber != 1) {
             waitUntilSearchIsReady();
             scrollToTheEndOfPage();
@@ -44,12 +43,11 @@ public class SectionPage extends AbstractPage{
         return new ItemPage(getDriver());
     }
 
-    public SectionPage(WebDriver driver){
+    public SectionPage(WebDriver driver) {
         super(driver);
     }
 
-    public AuthorSearchComponent getAuthorSearchComponent()
-    {
-        return new AuthorSearchComponent(getDriver());
+    public BookFilter getBookFilter() {
+        return new BookFilter(getDriver());
     }
 }

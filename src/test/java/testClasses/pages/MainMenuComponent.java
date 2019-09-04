@@ -5,6 +5,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class MainMenuComponent extends AbstractPage {
+    @FindBy(xpath = "//p[contains(text(),'Каталог')]/ancestor::div[contains(@class,'menu')]")
+    private WebElement menu;
+
     @FindBy(xpath = "//a[contains(@href,'1') and contains(text(), 'Книги')]")
     private WebElement booksSection;
 
@@ -15,14 +18,18 @@ public class MainMenuComponent extends AbstractPage {
         super(driver);
     }
 
-    public SectionPage chooseBookSection() {
+    public MainMenuComponent clickMenu() {
+        menu.click();
+        return new MainMenuComponent(getDriver());
+    }
+
+    public MainMenuComponent clickBookSection() {
         booksSection.click();
-        return new SectionPage(getDriver());
+        return new MainMenuComponent(getDriver());
     }
 
-    public SectionPage chooseImaginativeLiteratureSection() {
-      imaginativeLiteratureSection.click();
-        return new SectionPage(getDriver());
+    public BookFilter clickImaginativeLiteratureSection() {
+        imaginativeLiteratureSection.click();
+        return new BookFilter(getDriver());
     }
-
 }
