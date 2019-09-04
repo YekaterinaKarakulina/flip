@@ -23,7 +23,7 @@ public class BookFilter extends BasePage {
     @FindBy(xpath = "//p[contains(text(),'Год издания')]/following::*[contains(text(), 'Применить')]")
     private WebElement publicationYearFilterApplyButton;
 
-    @FindBy(xpath = "//div[@data-filter-field-list-type='peoples']//*[contains(@data-list-found-default,'true')]")
+    @FindBy(xpath = "//div[@data-filter-field-list-type='peoples']//li[@data-list-found-name]")
     private List<WebElement> authorsList;
 
     @FindBy(xpath = "//div[contains(@class,'filters')]")

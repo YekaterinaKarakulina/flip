@@ -1,6 +1,5 @@
 package testClasses.pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,12 +8,10 @@ import java.util.List;
 import java.util.Random;
 
 public class SectionPage extends BasePage {
-    private String xpathRandomPage = "//a[@data-page='%s']";
-
     @FindBy(xpath = "//div[@class='placeholder']//a[@class='title']")
     private List<WebElement> booksList;
 
-    @FindBy(xpath = "//a[@data-page]")
+    @FindBy(xpath = "//table[@class='pages']//a[text()>0]")
     private List<WebElement> pages;
 
     @FindBy(xpath = "//td[contains(@class,'pages')]//span")
@@ -31,18 +28,16 @@ public class SectionPage extends BasePage {
     public SectionPage moveToRandomPage() {
         waitUntilSearchIsReady();
         int actualNumber = pages.size();
-        System.out.println("act number " + actualNumber);
-        int randomNumber = new Random().ints(1, actualNumber + 1).findFirst().getAsInt();
-        System.out.println("rand number " + randomNumber);
+        int randomNumber = new Random().ints(1, actualNumber + 2).findFirst().getAsInt();
         if (randomNumber != 1) {
+            randomNumber = new Random().ints(0, actualNumber).findFirst().getAsInt();
             waitUntilSearchIsReady();
             scrollToTheEndOfPage();
-            waitForElementEnabled(getDriver().findElement(By.xpath(String.format(xpathRandomPage, randomNumber))));
+            waitForElementEnabled(pages.get(randomNumber));
             scrollToTheEndOfPage();
-            getDriver().findElement(By.xpath(String.format(xpathRandomPage, randomNumber))).click();
-            scrollToTheEndOfPage();
+            pages.get(randomNumber).click();
             waitUntilSearchIsReady();
-            waitUntilElementHasText(currentPage, Integer.toString(randomNumber));
+            waitUntilElementHasText(currentPage, Integer.toString(randomNumber + 2));
         }
         return new SectionPage(getDriver());
     }

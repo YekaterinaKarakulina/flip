@@ -62,7 +62,7 @@ public class FlipTest {
     @Test(description = "Test checks working of \"Authors\" filter in \"flip.kz\" website with several author")
     public void severalAuthorsFilter() {
         BookFilter bookFilter = homePage.getMainMenuComponent().clickMenu().clickBookSection().clickImaginativeLiteratureSection();
-        SectionPage bookPage = bookFilter.clickRandomAuthor(3).moveToRandomPage();
+        SectionPage bookPage = bookFilter.clickRandomAuthor(4).moveToRandomPage();
         List<String> selectedAuthors = bookFilter.getSelectedAuthorsList();
         ItemPage bookItemPage = bookPage.clickOnRandomBookCard();
         String actualBookAuthor = bookItemPage.getBookAuthor();
