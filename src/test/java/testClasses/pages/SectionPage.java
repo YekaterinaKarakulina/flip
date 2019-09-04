@@ -11,7 +11,7 @@ public class SectionPage extends BasePage {
     @FindBy(xpath = "//div[@class='placeholder']//a[@class='title']")
     private List<WebElement> booksList;
 
-    @FindBy(xpath = "//table[@class='pages']//a[text()>0]")
+    @FindBy(xpath = "//table[@class='pages']//td/*[text()>0]")
     private List<WebElement> pages;
 
     @FindBy(xpath = "//td[contains(@class,'pages')]//span")
@@ -28,17 +28,15 @@ public class SectionPage extends BasePage {
     public SectionPage moveToRandomPage() {
         waitUntilSearchIsReady();
         int actualNumber = pages.size();
-        int randomNumber = new Random().ints(1, actualNumber + 2).findFirst().getAsInt();
-        if (randomNumber != 1) {
-            randomNumber = new Random().ints(0, actualNumber).findFirst().getAsInt();
-            waitUntilSearchIsReady();
-            scrollToTheEndOfPage();
-            waitForElementEnabled(pages.get(randomNumber));
-            scrollToTheEndOfPage();
-            pages.get(randomNumber).click();
-            waitUntilSearchIsReady();
-            waitUntilElementHasText(currentPage, Integer.toString(randomNumber + 2));
-        }
+        int randomNumber = new Random().ints(1, actualNumber + 1).findFirst().getAsInt();
+        waitUntilSearchIsReady();
+        scrollToTheEndOfPage();
+        WebElement pageToClick = pages.stream().filter(item -> item.getText().equals(Integer.toString(randomNumber))).findFirst().get();
+        waitForElementEnabled(pageToClick);
+        scrollToTheEndOfPage();
+        pageToClick.click();
+        waitUntilSearchIsReady();
+        waitUntilElementHasText(currentPage, Integer.toString(randomNumber));
         return new SectionPage(getDriver());
     }
 

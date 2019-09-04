@@ -63,7 +63,7 @@ public class BookFilter extends BasePage {
             Collections.shuffle(authorsList);
             String authorToClick = authorsList.get(0);
             getDriver().findElement(By.xpath(String.format(xpathAuthorToClick, authorToClick))).click();
-            clickedAuthorsList.add(authorsList.get(0));
+            clickedAuthorsList.add(authorToClick);
             waitUntilSearchIsReady();
             waitUntilElementHasText(currentFilter, authorToClick);
         }
