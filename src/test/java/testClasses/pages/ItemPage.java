@@ -30,6 +30,4 @@ public class ItemPage extends BasePage {
         String expectedPublicationYearStr = bookPublicationYear.getText();
         return Integer.parseInt(expectedPublicationYearStr.substring(expectedPublicationYearStr.lastIndexOf(',') + 1).replaceAll("\\D+", ""));
     }
-
-
 }

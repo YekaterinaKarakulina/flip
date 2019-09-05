@@ -56,19 +56,24 @@ public class BookFilter extends BasePage {
 
     public SectionPage setPublicationYearFirstValue() {
         int randomPosition = new Random().ints(0, 15).findFirst().getAsInt();
+        scrollToElement(publicationYearRangeFirstValueSlider);
         new Actions(getDriver()).dragAndDropBy(publicationYearRangeFirstValueSlider, randomPosition, 0).build().perform();
+        scrollToElement(publicationYearFilterApplyButton);
         new Actions(getDriver()).click(publicationYearFilterApplyButton).build().perform();
         return new SectionPage(getDriver());
     }
 
     public SectionPage setPublicationYearLastValue() {
         int randomPosition = new Random().ints(-200, -100).findFirst().getAsInt();
+        scrollToElement(publicationYearRangeLastValueSlider);
         new Actions(getDriver()).dragAndDropBy(publicationYearRangeLastValueSlider, randomPosition, 0).build().perform();
+        scrollToElement(publicationYearFilterApplyButton);
         new Actions(getDriver()).click(publicationYearFilterApplyButton).build().perform();
         return new SectionPage(getDriver());
     }
 
     public SectionPage setPublicationYearFilter(String yearFrom, String yearTo) {
+        scrollToElement(publicationYearRangeFirstValue);
         new Actions(getDriver()).sendKeys(publicationYearRangeFirstValue, yearFrom).sendKeys(Keys.TAB).build().perform();
         new Actions(getDriver()).sendKeys(publicationYearRangeLastValue, yearTo).sendKeys(Keys.RETURN).build().perform();
         return new SectionPage(getDriver());
@@ -80,7 +85,9 @@ public class BookFilter extends BasePage {
             List<String> authorsList = getAuthorsList().stream().filter(item -> !clickedAuthorsList.contains(item)).collect(Collectors.toList());
             Collections.shuffle(authorsList);
             String authorToClick = authorsList.get(0);
-            getDriver().findElement(By.xpath(String.format(xpathAuthorToClick, authorToClick))).click();
+            WebElement authorToClickElement = getDriver().findElement(By.xpath(String.format(xpathAuthorToClick, authorToClick)));
+            scrollToElement(authorToClickElement);
+            authorToClickElement.click();
             clickedAuthorsList.add(authorToClick);
             waitUntilSearchIsReady();
             waitUntilElementHasText(currentFilter, authorToClick);

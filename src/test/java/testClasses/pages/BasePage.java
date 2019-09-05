@@ -32,8 +32,7 @@ public class BasePage {
     }
 
     protected void scrollToElement(WebElement webElement) {
-        JavascriptExecutor jse = (JavascriptExecutor) driver;
-        jse.executeScript("arguments[0].scrollIntoView(false)", webElement);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true)", webElement);
     }
 
     protected void scrollToTheEndOfPage() {

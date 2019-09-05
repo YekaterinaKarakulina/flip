@@ -1,5 +1,6 @@
 package testClasses;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
@@ -35,6 +36,7 @@ public class FlipTest {
 
     @BeforeClass
     public void initializePublicationYearRange() {
+        homePage = new HomePage(driver).open();
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
         publicationYearRangeFirstValue = new Random().ints(2000, 2010 + 1).findFirst().getAsInt();
         publicationYearRangeLastValue = new Random().ints(2010, currentYear + 1).findFirst().getAsInt();
@@ -42,7 +44,7 @@ public class FlipTest {
 
     @BeforeMethod
     public void openHomePage() {
-        homePage = new HomePage(driver).open();
+        ((JavascriptExecutor) driver).executeScript("history.go(0)");
     }
 
     @AfterSuite
@@ -79,7 +81,6 @@ public class FlipTest {
         ItemPage bookItemPage = bookPage.moveToRandomPage().clickOnRandomBookCard();
         int actualPublicationYear = bookItemPage.getBookPublicationYear();
         String bookName = bookItemPage.getBookName();
-        System.out.println("act " + actualPublicationYear + " ex first " + publicationYearRangeFirstValue);
         Assert.assertTrue(actualPublicationYear >= publicationYearRangeFirstValue, String.format("Actual publication year of book + `%s` - %s. Expected year of publication %s", bookName, Integer.toString(actualPublicationYear), Integer.toString(publicationYearRangeFirstValue)));
     }
 
@@ -90,10 +91,8 @@ public class FlipTest {
         ItemPage bookItemPage = bookPage.moveToRandomPage().clickOnRandomBookCard();
         int actualPublicationYear = bookItemPage.getBookPublicationYear();
         String bookName = bookItemPage.getBookName();
-        System.out.println("act " + actualPublicationYear + " ex last " + publicationYearRangeLastValue);
         Assert.assertTrue(actualPublicationYear <= publicationYearRangeLastValue, String.format("Actual publication year of book + `%s` - %s. Expected year of publication %s", bookName, Integer.toString(actualPublicationYear), Integer.toString(publicationYearRangeLastValue)));
     }
-
 
     @Test(description = "Test checks working of \"Publication Year\" filter in \"flip.kz\" website with full range")
     public void publicationYearFilterFullRange() {
