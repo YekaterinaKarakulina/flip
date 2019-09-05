@@ -14,6 +14,7 @@ import testClasses.pages.HomePage;
 import testClasses.pages.ItemPage;
 import testClasses.pages.SectionPage;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
@@ -34,8 +35,9 @@ public class FlipTest {
 
     @BeforeClass
     public void initializePublicationYearRange() {
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
         publicationYearRangeFirstValue = new Random().ints(2000, 2010 + 1).findFirst().getAsInt();
-        publicationYearRangeLastValue = new Random().ints(2010, 2098 + 1).findFirst().getAsInt();
+        publicationYearRangeLastValue = new Random().ints(2010, currentYear + 1).findFirst().getAsInt();
     }
 
     @BeforeMethod
@@ -50,7 +52,7 @@ public class FlipTest {
 
     @Test(description = "Test checks working of \"Authors\" filter in \"flip.kz\" website with one author")
     public void oneAuthorFilter() {
-        BookFilter bookFilter = homePage.getMainMenuComponent().clickMenu().clickBookSection().clickImaginativeLiteratureSection();
+        BookFilter bookFilter = homePage.getMainMenuComponent().clickBookSection().clickImaginativeLiteratureSection();
         SectionPage bookPage = bookFilter.clickRandomAuthor(1).moveToRandomPage();
         List<String> selectedAuthors = bookFilter.getSelectedAuthorsList();
         ItemPage bookItemPage = bookPage.clickOnRandomBookCard();
@@ -61,7 +63,7 @@ public class FlipTest {
 
     @Test(description = "Test checks working of \"Authors\" filter in \"flip.kz\" website with several author")
     public void severalAuthorsFilter() {
-        BookFilter bookFilter = homePage.getMainMenuComponent().clickMenu().clickBookSection().clickImaginativeLiteratureSection();
+        BookFilter bookFilter = homePage.getMainMenuComponent().clickBookSection().clickImaginativeLiteratureSection();
         SectionPage bookPage = bookFilter.clickRandomAuthor(4).moveToRandomPage();
         List<String> selectedAuthors = bookFilter.getSelectedAuthorsList();
         ItemPage bookItemPage = bookPage.clickOnRandomBookCard();
@@ -72,25 +74,30 @@ public class FlipTest {
 
     @Test(description = "Test checks working of \"Publication Year\" filter in \"flip.kz\" website with only range first value")
     public void publicationYearFilterRangeFirstValue() {
-        SectionPage bookPage = homePage.getMainMenuComponent().clickMenu().clickBookSection().clickImaginativeLiteratureSection().setPublicationYearFirstValue(Integer.toString(publicationYearRangeFirstValue)).applyPublicationYearFilter();
+        SectionPage bookPage = homePage.getMainMenuComponent().clickBookSection().clickImaginativeLiteratureSection().setPublicationYearFirstValue();
+        int publicationYearRangeFirstValue = bookPage.getBookFilter().getExpectedPublicationYearFirstValue();
         ItemPage bookItemPage = bookPage.moveToRandomPage().clickOnRandomBookCard();
         int actualPublicationYear = bookItemPage.getBookPublicationYear();
         String bookName = bookItemPage.getBookName();
+        System.out.println("act " + actualPublicationYear + " ex first " + publicationYearRangeFirstValue);
         Assert.assertTrue(actualPublicationYear >= publicationYearRangeFirstValue, String.format("Actual publication year of book + `%s` - %s. Expected year of publication %s", bookName, Integer.toString(actualPublicationYear), Integer.toString(publicationYearRangeFirstValue)));
     }
 
     @Test(description = "Test checks working of \"Publication Year\" filter in \"flip.kz\" website with only range last value")
     public void publicationYearFilterRangeLastValue() {
-        SectionPage bookPage = homePage.getMainMenuComponent().clickMenu().clickBookSection().clickImaginativeLiteratureSection().setPublicationYearLastValue(Integer.toString(publicationYearRangeLastValue)).applyPublicationYearFilter();
+        SectionPage bookPage = homePage.getMainMenuComponent().clickBookSection().clickImaginativeLiteratureSection().setPublicationYearLastValue();
+        int publicationYearRangeLastValue = bookPage.getBookFilter().getExpectedPublicationYearLastValue();
         ItemPage bookItemPage = bookPage.moveToRandomPage().clickOnRandomBookCard();
         int actualPublicationYear = bookItemPage.getBookPublicationYear();
         String bookName = bookItemPage.getBookName();
+        System.out.println("act " + actualPublicationYear + " ex last " + publicationYearRangeLastValue);
         Assert.assertTrue(actualPublicationYear <= publicationYearRangeLastValue, String.format("Actual publication year of book + `%s` - %s. Expected year of publication %s", bookName, Integer.toString(actualPublicationYear), Integer.toString(publicationYearRangeLastValue)));
     }
 
+
     @Test(description = "Test checks working of \"Publication Year\" filter in \"flip.kz\" website with full range")
     public void publicationYearFilterFullRange() {
-        SectionPage bookPage = homePage.getMainMenuComponent().clickMenu().clickBookSection().clickImaginativeLiteratureSection().setPublicationYearFirstValue(Integer.toString(publicationYearRangeFirstValue)).setPublicationYearLastValue(Integer.toString(publicationYearRangeLastValue)).applyPublicationYearFilter();
+        SectionPage bookPage = homePage.getMainMenuComponent().clickBookSection().clickImaginativeLiteratureSection().setPublicationYearFilter(Integer.toString(publicationYearRangeFirstValue), Integer.toString(publicationYearRangeLastValue));
         ItemPage bookItemPage = bookPage.moveToRandomPage().clickOnRandomBookCard();
         int actualPublicationYear = bookItemPage.getBookPublicationYear();
         String bookName = bookItemPage.getBookName();
@@ -99,10 +106,10 @@ public class FlipTest {
 
     @Test(description = "Test checks working of \"Publication Year\" filter in \"flip.kz\" website with full range")
     public void AuthorNameAndPublicationYearFilters() {
-        BookFilter bookFilter = homePage.getMainMenuComponent().clickMenu().clickBookSection().clickImaginativeLiteratureSection();
+        BookFilter bookFilter = homePage.getMainMenuComponent().clickBookSection().clickImaginativeLiteratureSection();
         SectionPage bookPage = bookFilter.clickRandomAuthor(1).moveToRandomPage();
         List<String> selectedAuthors = bookFilter.getSelectedAuthorsList();
-        SectionPage bookPageTwoFilters = bookPage.getBookFilter().setPublicationYearFirstValue(Integer.toString(publicationYearRangeFirstValue)).setPublicationYearLastValue(Integer.toString(publicationYearRangeLastValue)).applyPublicationYearFilter();
+        SectionPage bookPageTwoFilters = bookPage.getBookFilter().setPublicationYearFilter(Integer.toString(publicationYearRangeFirstValue), Integer.toString(publicationYearRangeLastValue));
         ItemPage bookItemPage = bookPageTwoFilters.moveToRandomPage().clickOnRandomBookCard();
         String actualBookAuthor = bookItemPage.getBookAuthor();
         String bookName = bookItemPage.getBookName();

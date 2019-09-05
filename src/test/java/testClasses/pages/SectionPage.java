@@ -32,8 +32,8 @@ public class SectionPage extends BasePage {
         waitUntilSearchIsReady();
         scrollToTheEndOfPage();
         WebElement pageToClick = pages.stream().filter(item -> item.getText().equals(Integer.toString(randomNumber))).findFirst().get();
-        waitForElementEnabled(pageToClick);
         scrollToTheEndOfPage();
+        waitForElementEnabled(pageToClick);
         pageToClick.click();
         waitUntilSearchIsReady();
         waitUntilElementHasText(currentPage, Integer.toString(randomNumber));
@@ -43,7 +43,6 @@ public class SectionPage extends BasePage {
     public ItemPage clickOnRandomBookCard() {
         int randomBook = new Random().nextInt(booksList.size());
         WebElement bookItem = booksList.get(randomBook);
-        waitForElementEnabled(bookItem);
         scrollToElement(bookItem);
         waitForElementEnabled(bookItem);
         waitUntilSearchIsReady();

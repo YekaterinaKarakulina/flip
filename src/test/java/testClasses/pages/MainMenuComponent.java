@@ -2,6 +2,7 @@ package testClasses.pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
 public class MainMenuComponent extends BasePage {
@@ -18,13 +19,9 @@ public class MainMenuComponent extends BasePage {
         super(driver);
     }
 
-    public MainMenuComponent clickMenu() {
-        menu.click();
-        return new MainMenuComponent(getDriver());
-    }
-
     public MainMenuComponent clickBookSection() {
-        booksSection.click();
+        new Actions(getDriver()).moveToElement(menu).build().perform();
+        new Actions(getDriver()).click(booksSection).build().perform();
         return new MainMenuComponent(getDriver());
     }
 
