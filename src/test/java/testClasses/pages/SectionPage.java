@@ -1,6 +1,5 @@
 package testClasses.pages;
 
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -34,7 +33,7 @@ public class SectionPage extends BasePage {
         scrollToTheEndOfPage();
         WebElement pageToClick = pages.stream().filter(item -> item.getText().equals(Integer.toString(randomNumber))).findFirst().get();
         scrollToTheEndOfPage();
-        ((JavascriptExecutor) getDriver()).executeScript("arguments[0].click();", pageToClick);
+        clickToWebElement(pageToClick);
         waitForElementEnabled(pageToClick);
         pageToClick.click();
         waitUntilSearchIsReady();

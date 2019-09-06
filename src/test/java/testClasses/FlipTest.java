@@ -1,8 +1,8 @@
 package testClasses;
 
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
@@ -15,9 +15,12 @@ import testClasses.pages.HomePage;
 import testClasses.pages.ItemPage;
 import testClasses.pages.SectionPage;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class FlipTest {
     private WebDriver driver;
@@ -29,8 +32,16 @@ public class FlipTest {
     public void initBrowser() {
         //System.setProperty("webdriver.gecko.driver", "src/test/java/resources/geckodriver"); //this for my home PC with linux
         //driver = new FirefoxDriver();
-        System.setProperty("webdriver.chrome.driver", "src/test/java/resources/chromedriver76.exe");
-        driver = new ChromeDriver();
+        // System.setProperty("webdriver.chrome.driver", "src/test/java/resources/chromedriver76.exe");
+        // driver = new ChromeDriver();
+        driver = null;
+        try {
+            driver = new RemoteWebDriver(new URL("http://127.0.0.1:4444/wd/hub"), DesiredCapabilities.chrome());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
     }
 
@@ -44,8 +55,9 @@ public class FlipTest {
 
     @BeforeMethod
     public void openHomePage() {
-        ((JavascriptExecutor) driver).executeScript("history.go(0)");
+        homePage = new HomePage(driver).open();
     }
+
 
     @AfterSuite
     public void afterSuite() {

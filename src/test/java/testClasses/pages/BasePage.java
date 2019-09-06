@@ -1,10 +1,12 @@
 package testClasses.pages;
 
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -29,6 +31,27 @@ public class BasePage {
 
     public WebDriver getDriver() {
         return driver;
+    }
+
+    protected void dragAndDropWebElementToPosition(WebElement element, int x, int y) {
+        new Actions(getDriver()).dragAndDropBy(element, x, y).build().perform();
+    }
+
+    protected void sendKeysToWebElement(WebElement element, String key) {
+        new Actions(getDriver()).sendKeys(element, key).build().perform();
+    }
+
+    protected void sendKeys(Keys key) {
+        new Actions(getDriver()).sendKeys(key).build().perform();
+    }
+
+    protected void clickToWebElement(WebElement element) {
+        ((JavascriptExecutor) getDriver()).executeScript("arguments[0].click();", element);
+    }
+
+    protected void moveToWebElement(WebElement element) {
+
+        new Actions(getDriver()).moveToElement(element).build().perform();
     }
 
     protected void scrollToElement(WebElement webElement) {

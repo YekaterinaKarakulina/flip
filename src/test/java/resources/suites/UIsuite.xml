@@ -1,9 +1,10 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name="UIsuite" verbose="1" parallel="false">
-    <test name="Math">
+<suite name="UIsuite" verbose="1"  thread-count="1" parallel="false">
+    <test name="FlipKzTest">
         <classes>
-            <class name="testClasses.AllTests"/>
+            <class name="testClasses.FlipTest">
+            </class>
         </classes>
     </test>
 </suite>

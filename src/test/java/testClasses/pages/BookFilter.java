@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.ArrayList;
@@ -57,25 +56,27 @@ public class BookFilter extends BasePage {
     public SectionPage setPublicationYearFirstValue() {
         int randomPosition = new Random().ints(0, 15).findFirst().getAsInt();
         scrollToElement(publicationYearRangeFirstValueSlider);
-        new Actions(getDriver()).dragAndDropBy(publicationYearRangeFirstValueSlider, randomPosition, 0).build().perform();
+        dragAndDropWebElementToPosition(publicationYearRangeFirstValueSlider, randomPosition, 0);
         scrollToElement(publicationYearFilterApplyButton);
-        new Actions(getDriver()).click(publicationYearFilterApplyButton).build().perform();
+        clickToWebElement(publicationYearFilterApplyButton);
         return new SectionPage(getDriver());
     }
 
     public SectionPage setPublicationYearLastValue() {
         int randomPosition = new Random().ints(-200, -100).findFirst().getAsInt();
         scrollToElement(publicationYearRangeLastValueSlider);
-        new Actions(getDriver()).dragAndDropBy(publicationYearRangeLastValueSlider, randomPosition, 0).build().perform();
+        dragAndDropWebElementToPosition(publicationYearRangeLastValueSlider, randomPosition, 0);
         scrollToElement(publicationYearFilterApplyButton);
-        new Actions(getDriver()).click(publicationYearFilterApplyButton).build().perform();
+        clickToWebElement(publicationYearFilterApplyButton);
         return new SectionPage(getDriver());
     }
 
     public SectionPage setPublicationYearFilter(String yearFrom, String yearTo) {
         scrollToElement(publicationYearRangeFirstValue);
-        new Actions(getDriver()).sendKeys(publicationYearRangeFirstValue, yearFrom).sendKeys(Keys.TAB).build().perform();
-        new Actions(getDriver()).sendKeys(publicationYearRangeLastValue, yearTo).sendKeys(Keys.RETURN).build().perform();
+        sendKeysToWebElement(publicationYearRangeFirstValue, yearFrom);
+        sendKeys(Keys.TAB);
+        sendKeysToWebElement(publicationYearRangeLastValue, yearTo);
+        sendKeys(Keys.RETURN);
         return new SectionPage(getDriver());
     }
 
