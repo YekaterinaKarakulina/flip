@@ -88,7 +88,7 @@ public class BookFilter extends BasePage {
             String authorToClick = authorsList.get(0);
             WebElement authorToClickElement = getDriver().findElement(By.xpath(String.format(xpathAuthorToClick, authorToClick)));
             scrollToElement(authorToClickElement);
-            authorToClickElement.click();
+            clickToWebElement(authorToClickElement);
             clickedAuthorsList.add(authorToClick);
             waitUntilSearchIsReady();
             waitUntilElementHasText(currentFilter, authorToClick);

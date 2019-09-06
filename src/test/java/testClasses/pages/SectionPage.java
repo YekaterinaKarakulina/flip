@@ -35,7 +35,6 @@ public class SectionPage extends BasePage {
         scrollToTheEndOfPage();
         clickToWebElement(pageToClick);
         waitForElementEnabled(pageToClick);
-        pageToClick.click();
         waitUntilSearchIsReady();
         waitUntilElementHasText(currentPage, Integer.toString(randomNumber));
         return new SectionPage(getDriver());
@@ -45,8 +44,7 @@ public class SectionPage extends BasePage {
         int randomBook = new Random().nextInt(booksList.size());
         WebElement bookItem = booksList.get(randomBook);
         scrollToElement(bookItem);
-        waitForElementEnabled(bookItem);
-        bookItem.click();
+        clickToWebElement(bookItem);
         return new ItemPage(getDriver());
     }
 }

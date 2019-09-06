@@ -25,7 +25,7 @@ public class MainMenuComponent extends BasePage {
     }
 
     public BookFilter clickImaginativeLiteratureSection() {
-        imaginativeLiteratureSection.click();
+        clickToWebElement(imaginativeLiteratureSection);
         return new BookFilter(getDriver());
     }
 }

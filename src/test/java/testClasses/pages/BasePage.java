@@ -34,24 +34,30 @@ public class BasePage {
     }
 
     protected void dragAndDropWebElementToPosition(WebElement element, int x, int y) {
-        new Actions(getDriver()).dragAndDropBy(element, x, y).build().perform();
+        new Actions(driver).dragAndDropBy(element, x, y).build().perform();
     }
 
     protected void sendKeysToWebElement(WebElement element, String key) {
-        new Actions(getDriver()).sendKeys(element, key).build().perform();
+        new Actions(driver).sendKeys(element, key).build().perform();
     }
 
     protected void sendKeys(Keys key) {
-        new Actions(getDriver()).sendKeys(key).build().perform();
+        new Actions(driver).sendKeys(key).build().perform();
     }
 
     protected void clickToWebElement(WebElement element) {
-        ((JavascriptExecutor) getDriver()).executeScript("arguments[0].click();", element);
+        waitForElementEnabled(element);
+        highlightElement(element);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
     }
 
     protected void moveToWebElement(WebElement element) {
 
-        new Actions(getDriver()).moveToElement(element).build().perform();
+        new Actions(driver).moveToElement(element).build().perform();
+    }
+
+    protected void highlightElement(WebElement element) {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].style.border='3px solid red'", element);
     }
 
     protected void scrollToElement(WebElement webElement) {
