@@ -42,11 +42,11 @@ public class HomePage extends BasePage {
 
     public HomePage signIn(User user) {
         if (userName.getText().equals("Войти")) {
-            signUp.click();
-            emailInput.sendKeys(user.getEmail());
-            registeredFlag.click();
-            passwordInput.sendKeys(user.getPassword());
-            enterButton.click();
+            clickToWebElement(signUp);
+            sendKeysToWebElement(emailInput,user.getEmail());
+            clickToWebElement(registeredFlag);
+            sendKeysToWebElement(passwordInput,user.getPassword());
+            clickToWebElement(enterButton);
         }
         waitForElementEnabled(userName);
         waitUntilElementHasText2(userName, user.getName());

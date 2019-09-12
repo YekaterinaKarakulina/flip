@@ -63,6 +63,7 @@ public class FlipTest {
         Assert.assertTrue(Book.checkBooksEquals(actualBook, expectedBook), String.format("Expected author of book '%s' - %s, actual author %s", actualBook.getName(), expectedBook.getAuthorName(), actualBook.getAuthorName()));
     }
 
+
     @Test(description = "Test checks working of \"Authors\" filter in \"flip.kz\" website with several author")
     public void severalAuthorsFilter() {
         homePage = new HomePage(driver).open().signIn(user);

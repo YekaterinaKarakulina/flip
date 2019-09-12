@@ -72,6 +72,12 @@ public class BasePage {
         jse.executeScript("window.scrollTo(0, document.body.scrollHeight)");
     }
 
+    protected void scrollDownByPixels() {
+        JavascriptExecutor jse = (JavascriptExecutor) driver;
+        jse.executeScript("window.scrollBy(0,400)");
+    }
+
+
     protected void waitForElementEnabled(WebElement element) {
         new WebDriverWait(driver, WAIT_FOR_ELEMENT_TIMEOUT_SECONDS).until(ExpectedConditions.elementToBeClickable(element));
     }

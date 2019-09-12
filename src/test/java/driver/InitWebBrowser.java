@@ -14,7 +14,10 @@ public class InitWebBrowser {
     private static final String CHROME_WD_WIN = "webdriver.chrome.driver";
     private static final String CHROME_WD_WIN_PATH = "src/test/resources/drivers/chromedriver76.exe";
     private static final String GECKO_WD_LINUX = "webdriver.gecko.driver";
-    private static final String GECKO_WD_LINUX_PATH = "src/test/java/resources/geckodriver";
+    private static final String GECKO_WD_LINUX_PATH = "src/test/resources/drivers/geckodriver";
+    private static final String GECKO_WD_WIN = "webdriver.gecko.driver";
+    private static final String GECKO_WD_WIN_PATH = "src/test/resources/drivers/geckodriverWin.exe";
+
 
     public static WebDriver initBrowser() {
         WebDriver driver = null;
@@ -26,6 +29,10 @@ public class InitWebBrowser {
                 break;
             case "firefoxLinux":
                 System.setProperty(GECKO_WD_LINUX, GECKO_WD_LINUX_PATH);
+                driver = new FirefoxDriver();
+                break;
+            case "firefoxWin":
+                System.setProperty(GECKO_WD_WIN, GECKO_WD_WIN_PATH);
                 driver = new FirefoxDriver();
                 break;
             default:

@@ -98,6 +98,7 @@ public class SearchCriteria extends BasePage {
     }
 
     private List<String> getAuthorsList() {
+        scrollDownByPixels();
         return authorsList.stream().map(item -> item.getAttribute("data-list-found-name")).collect(Collectors.toList());
     }
 
