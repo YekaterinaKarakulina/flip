@@ -1,0 +1,16 @@
+{
+  "Users": [
+    {
+      "name": "user",
+      "email": "nameLastName2000@mail.ru",
+      "password": "n0N02000"
+    },
+    {
+      "name": "resu",
+      "email": "lastNameName00@mail.ru",
+      "password": "l0L0last"
+    }
+  ],
+      "PublicationYearRangeFirstValue": 2005,
+      "PublicationYearRangeLastValue": 2014
+}
