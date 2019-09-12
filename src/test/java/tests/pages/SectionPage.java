@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Random;
 
 public class SectionPage extends BasePage {
+
     @FindBy(xpath = "//div[@class='placeholder']//a[@class='title']")
     private List<WebElement> booksList;
 
@@ -47,4 +48,5 @@ public class SectionPage extends BasePage {
         clickToWebElement(bookItem);
         return new ItemPage(getDriver());
     }
+
 }

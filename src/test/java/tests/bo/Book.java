@@ -1,15 +1,10 @@
 package tests.bo;
 
 public class Book {
+
     private String name;
     private String authorName;
     private int publicationYear;
-
-    public Book(String name, String authorName, int publicationYear) {
-        this.name = name;
-        this.authorName = authorName;
-        this.publicationYear = publicationYear;
-    }
 
     public Book() {
     }
@@ -38,6 +33,12 @@ public class Book {
         this.publicationYear = publicationYear;
     }
 
-
+    public static boolean checkBooksEquals(Book book1, Book book2) {
+        if (book1.getAuthorName().equals(book2.getAuthorName())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }

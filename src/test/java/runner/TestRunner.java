@@ -12,7 +12,7 @@ public class TestRunner {
         TestNG tng = new TestNG();
         XmlSuite suite = new XmlSuite();
         suite.setName("UIsuite");
-        List<String> files = Arrays.asList("src/test/java/suites/UIsuite.xml");
+        List<String> files = Arrays.asList("src/test/java/resources/suites/suite.xml");
         suite.setSuiteFiles(files);
         List<XmlSuite> suites = new ArrayList<>();
         suites.add(suite);

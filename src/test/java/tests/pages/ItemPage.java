@@ -3,9 +3,9 @@ package tests.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import tests.bo.Book;
 
 public class ItemPage extends BasePage {
+
     @FindBy(xpath = "//table[@id='prod']//*[contains(@href,'people')]")
     private WebElement bookAuthor;
 
@@ -31,11 +31,5 @@ public class ItemPage extends BasePage {
         String expectedPublicationYearStr = bookPublicationYear.getText();
         return Integer.parseInt(expectedPublicationYearStr.substring(expectedPublicationYearStr.lastIndexOf(',') + 1).replaceAll("\\D+", ""));
     }
-
-
-
-
-
-
 
 }

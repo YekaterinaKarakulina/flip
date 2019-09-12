@@ -16,6 +16,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class BasePage {
+
     private static final Duration MAX = Duration.ofSeconds(60);
     private static final Duration POLLING = Duration.ofSeconds(1);
     private static final int WAIT_FOR_ELEMENT_TIMEOUT_SECONDS = 60;

@@ -1,6 +1,7 @@
 package tests.bo;
 
 public class User {
+
     private String name;
     private String email;
     private String password;
@@ -10,7 +11,6 @@ public class User {
         this.email = email;
         this.password = password;
     }
-
 
     public String getEmail() {
         return email;
@@ -32,4 +32,5 @@ public class User {
                 ", password='" + password + '\'' +
                 '}';
     }
+
 }

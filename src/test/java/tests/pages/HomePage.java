@@ -49,7 +49,8 @@ public class HomePage extends BasePage {
             enterButton.click();
         }
         waitForElementEnabled(userName);
-        waitUntilElementHasText2(userName,  user.getName());
+        waitUntilElementHasText2(userName, user.getName());
         return this;
     }
+
 }

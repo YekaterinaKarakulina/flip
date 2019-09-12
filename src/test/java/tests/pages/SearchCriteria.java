@@ -13,6 +13,7 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 public class SearchCriteria extends BasePage {
+
     private static String xpathAuthorToClick = "//div[@data-filter-field-list-type='peoples']//*[contains(@data-list-found-name,'%s')]//*[contains(@class,'checkbox')]";
     private List<String> clickedAuthorsList;
 
@@ -99,4 +100,5 @@ public class SearchCriteria extends BasePage {
     private List<String> getAuthorsList() {
         return authorsList.stream().map(item -> item.getAttribute("data-list-found-name")).collect(Collectors.toList());
     }
+
 }
