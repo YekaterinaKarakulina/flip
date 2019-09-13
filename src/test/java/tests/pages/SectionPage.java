@@ -3,9 +3,9 @@ package tests.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import utils.RandomNumbersUtils;
 
 import java.util.List;
-import java.util.Random;
 
 public class SectionPage extends BasePage {
 
@@ -29,7 +29,7 @@ public class SectionPage extends BasePage {
     public SectionPage moveToRandomPage() {
         waitUntilSearchIsReady();
         int actualNumber = pages.size();
-        int randomNumber = new Random().ints(1, actualNumber + 1).findFirst().getAsInt();
+        int randomNumber = RandomNumbersUtils.getRandomNumber(1, actualNumber);
         waitUntilSearchIsReady();
         scrollToTheEndOfPage();
         WebElement pageToClick = pages.stream().filter(item -> item.getText().equals(Integer.toString(randomNumber))).findFirst().get();
@@ -42,7 +42,7 @@ public class SectionPage extends BasePage {
     }
 
     public ItemPage clickOnRandomBookCard() {
-        int randomBook = new Random().nextInt(booksList.size());
+        int randomBook = RandomNumbersUtils.getRandomNumber(0, booksList.size() - 1);
         WebElement bookItem = booksList.get(randomBook);
         scrollToElement(bookItem);
         clickToWebElement(bookItem);

@@ -3,7 +3,7 @@ package tests.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import tests.bo.User;
+import tests.businessObjects.User;
 
 public class HomePage extends BasePage {
 
@@ -25,7 +25,7 @@ public class HomePage extends BasePage {
     private WebElement enterButton;
 
     @FindBy(xpath = "//div[contains(@class,'ath')]//span[@class='p500']")
-    private WebElement userName;
+    private static WebElement userName;
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -41,16 +41,19 @@ public class HomePage extends BasePage {
     }
 
     public HomePage signIn(User user) {
-        if (userName.getText().equals("Войти")) {
+        if (!userName.getText().equals(user.getName())) {
             clickToWebElement(signUp);
-            sendKeysToWebElement(emailInput,user.getEmail());
+            sendKeysToWebElement(emailInput, user.getEmail());
             clickToWebElement(registeredFlag);
-            sendKeysToWebElement(passwordInput,user.getPassword());
+            sendKeysToWebElement(passwordInput, user.getPassword());
             clickToWebElement(enterButton);
         }
         waitForElementEnabled(userName);
-        waitUntilElementHasText2(userName, user.getName());
         return this;
+    }
+
+    public static String getActualUserName() {
+        return userName.getText();
     }
 
 }

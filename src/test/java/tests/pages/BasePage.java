@@ -20,7 +20,6 @@ public class BasePage {
     private static final Duration MAX = Duration.ofSeconds(60);
     private static final Duration POLLING = Duration.ofSeconds(1);
     private static final int WAIT_FOR_ELEMENT_TIMEOUT_SECONDS = 60;
-    private static final Duration MIN = Duration.ofSeconds(5);
 
     private WebDriver driver;
 
@@ -41,6 +40,7 @@ public class BasePage {
     }
 
     protected void sendKeysToWebElement(WebElement element, String key) {
+        waitForElementEnabled(element);
         new Actions(driver).sendKeys(element, key).build().perform();
     }
 
@@ -74,9 +74,8 @@ public class BasePage {
 
     protected void scrollDownByPixels() {
         JavascriptExecutor jse = (JavascriptExecutor) driver;
-        jse.executeScript("window.scrollBy(0,400)");
+        jse.executeScript("window.scrollBy(0,600)");
     }
-
 
     protected void waitForElementEnabled(WebElement element) {
         new WebDriverWait(driver, WAIT_FOR_ELEMENT_TIMEOUT_SECONDS).until(ExpectedConditions.elementToBeClickable(element));
@@ -94,14 +93,6 @@ public class BasePage {
     protected void waitUntilElementHasText(WebElement element, String text) {
         FluentWait<WebDriver> wait = new FluentWait<>(driver)
                 .withTimeout(MAX)
-                .pollingEvery(POLLING);
-        wait.ignoring(StaleElementReferenceException.class, WebDriverException.class)
-                .until(ExpectedConditions.textToBePresentInElement(element, text));
-    }
-
-    protected void waitUntilElementHasText2(WebElement element, String text) {
-        FluentWait<WebDriver> wait = new FluentWait<>(driver)
-                .withTimeout(MIN)
                 .pollingEvery(POLLING);
         wait.ignoring(StaleElementReferenceException.class, WebDriverException.class)
                 .until(ExpectedConditions.textToBePresentInElement(element, text));

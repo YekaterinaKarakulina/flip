@@ -4,10 +4,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class ItemPage extends BasePage {
 
     @FindBy(xpath = "//table[@id='prod']//*[contains(@href,'people')]")
-    private WebElement bookAuthor;
+    private static List<WebElement> bookAuthorsList;
 
     @FindBy(xpath = "//table[@id='prod']//span[@itemprop='name']")
     private WebElement bookName;
@@ -19,8 +22,8 @@ public class ItemPage extends BasePage {
         super(driver);
     }
 
-    public String getBookAuthor() {
-        return bookAuthor.getText();
+    public List<String> getBookAuthors() {
+        return bookAuthorsList.stream().map(item -> item.getText()).collect(Collectors.toList());
     }
 
     public String getBookName() {

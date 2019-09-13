@@ -8,15 +8,17 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TestRunner {
+
     public static void main(String[] args) {
         TestNG tng = new TestNG();
         XmlSuite suite = new XmlSuite();
-        suite.setName("UIsuite");
-        List<String> files = Arrays.asList("src/test/java/resources/suites/suite.xml");
+        suite.setName("suite");
+        List<String> files = Arrays.asList("src/test/resources/suites/suite.xml");
         suite.setSuiteFiles(files);
         List<XmlSuite> suites = new ArrayList<>();
         suites.add(suite);
         tng.setXmlSuites(suites);
         tng.run();
     }
+
 }

@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name="UIsuite" verbose="1"  thread-count="1" parallel="false">
+<suite name="suite" verbose="1"  thread-count="1" parallel="false" configfailurepolicy="continue">
     <test name="FlipKzTest">
         <classes>
             <class name="tests.FlipTest">

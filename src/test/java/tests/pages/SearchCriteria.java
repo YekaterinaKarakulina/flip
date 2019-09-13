@@ -5,11 +5,11 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import utils.RandomNumbersUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 public class SearchCriteria extends BasePage {
@@ -55,7 +55,7 @@ public class SearchCriteria extends BasePage {
     }
 
     public SectionPage setPublicationYearFirstValue() {
-        int randomPosition = new Random().ints(0, 15).findFirst().getAsInt();
+        int randomPosition = RandomNumbersUtils.getRandomNumber(0, 15);
         scrollToElement(publicationYearRangeFirstValueSlider);
         dragAndDropWebElementToPosition(publicationYearRangeFirstValueSlider, randomPosition, 0);
         scrollToElement(publicationYearFilterApplyButton);
@@ -64,7 +64,7 @@ public class SearchCriteria extends BasePage {
     }
 
     public SectionPage setPublicationYearLastValue() {
-        int randomPosition = new Random().ints(-200, -100).findFirst().getAsInt();
+        int randomPosition = RandomNumbersUtils.getRandomNumber(-200, -100);
         scrollToElement(publicationYearRangeLastValueSlider);
         dragAndDropWebElementToPosition(publicationYearRangeLastValueSlider, randomPosition, 0);
         scrollToElement(publicationYearFilterApplyButton);
@@ -89,6 +89,7 @@ public class SearchCriteria extends BasePage {
             String authorToClick = authorsList.get(0);
             WebElement authorToClickElement = getDriver().findElement(By.xpath(String.format(xpathAuthorToClick, authorToClick)));
             scrollToElement(authorToClickElement);
+            waitForElementEnabled(authorToClickElement);
             clickToWebElement(authorToClickElement);
             clickedAuthorsList.add(authorToClick);
             waitUntilSearchIsReady();

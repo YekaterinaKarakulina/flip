@@ -18,7 +18,6 @@ public class InitWebBrowser {
     private static final String GECKO_WD_WIN = "webdriver.gecko.driver";
     private static final String GECKO_WD_WIN_PATH = "src/test/resources/drivers/geckodriverWin.exe";
 
-
     public static WebDriver initBrowser() {
         WebDriver driver = null;
         String browser = readDriver();
