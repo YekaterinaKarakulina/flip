@@ -22,7 +22,7 @@ public class SectionPage extends BasePage {
         super(driver);
     }
 
-    public SearchCriteria getBookFilter() {
+    public SearchCriteria getSearchCriteria() {
         return new SearchCriteria(getDriver());
     }
 

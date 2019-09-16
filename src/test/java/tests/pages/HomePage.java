@@ -52,8 +52,9 @@ public class HomePage extends BasePage {
         return this;
     }
 
-    public static String getActualUserName() {
-        return userName.getText();
+    public HomePage validateActualUser(String expectedUser) {
+        waitUntilElementHasText(userName, expectedUser);
+        return this;
     }
 
 }

@@ -14,6 +14,7 @@ import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public class BasePage {
 
@@ -36,6 +37,7 @@ public class BasePage {
     }
 
     protected void dragAndDropWebElementToPosition(WebElement element, int x, int y) {
+        waitForElementEnabled(element);
         new Actions(driver).dragAndDropBy(element, x, y).build().perform();
     }
 
@@ -55,7 +57,7 @@ public class BasePage {
     }
 
     protected void moveToWebElement(WebElement element) {
-
+        waitForElementEnabled(element);
         new Actions(driver).moveToElement(element).build().perform();
     }
 
@@ -96,6 +98,22 @@ public class BasePage {
                 .pollingEvery(POLLING);
         wait.ignoring(StaleElementReferenceException.class, WebDriverException.class)
                 .until(ExpectedConditions.textToBePresentInElement(element, text));
+    }
+
+    protected void waitUntilElementsAttributeHasText(WebElement element, String attribute, String value) {
+        FluentWait<WebDriver> wait = new FluentWait<>(driver)
+                .withTimeout(MAX)
+                .pollingEvery(POLLING);
+        wait.ignoring(StaleElementReferenceException.class, WebDriverException.class)
+                .until(ExpectedConditions.attributeToBe(element, attribute, value));
+    }
+
+    protected void waitForListWebElementsVisible(List<WebElement> webElements) {
+        FluentWait<WebDriver> wait = new FluentWait<>(driver)
+                .withTimeout(MAX)
+                .pollingEvery(POLLING);
+        wait.ignoring(StaleElementReferenceException.class, WebDriverException.class)
+                .until(ExpectedConditions.visibilityOfAllElements(webElements));
     }
 
 }

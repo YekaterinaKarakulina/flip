@@ -1,7 +1,6 @@
 package tests.businessObjects;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Book {
 
@@ -25,9 +24,8 @@ public class Book {
         return authorNameList;
     }
 
-    public int checkBooksEqualsByAuthorsList(Book expectedBook, Book actualBook) {
-        List<String> selectedAuthorsList = expectedBook.getAuthorNameList().stream().filter(item -> actualBook.getAuthorNameList().contains(item)).collect(Collectors.toList());
-        return selectedAuthorsList.size();
+    public boolean checkBooksEqualsByAuthorsList(Book expectedBook, Book actualBook) {
+        return actualBook.getAuthorNameList().stream().anyMatch(expectedBook.getAuthorNameList()::contains);
     }
 
 }

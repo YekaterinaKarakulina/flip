@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -32,6 +33,8 @@ public class InitWebBrowser {
                 break;
             case "firefoxWin":
                 System.setProperty(GECKO_WD_WIN, GECKO_WD_WIN_PATH);
+                //DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+                //capabilities.setCapability("marionette",true);
                 driver = new FirefoxDriver();
                 break;
             default:

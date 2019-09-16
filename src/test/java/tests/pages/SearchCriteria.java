@@ -38,6 +38,9 @@ public class SearchCriteria extends BasePage {
     @FindBy(xpath = "//div[contains(@class,'filters')]")
     private WebElement currentFilter;
 
+    @FindBy(xpath = "//a[@data-filter-field-sections-id='44']")
+    private WebElement imaginativeLiteratureSection;
+
     public SearchCriteria(WebDriver driver) {
         super(driver);
     }
@@ -47,10 +50,12 @@ public class SearchCriteria extends BasePage {
     }
 
     public int getExpectedPublicationYearFirstValue() {
+        waitForElementEnabled(publicationYearRangeFirstValue);
         return Integer.parseInt(publicationYearRangeFirstValue.getAttribute("value"));
     }
 
     public int getExpectedPublicationYearLastValue() {
+        waitForElementEnabled(publicationYearRangeLastValue);
         return Integer.parseInt(publicationYearRangeLastValue.getAttribute("value"));
     }
 
@@ -99,7 +104,6 @@ public class SearchCriteria extends BasePage {
     }
 
     private List<String> getAuthorsList() {
-        scrollDownByPixels();
         return authorsList.stream().map(item -> item.getAttribute("data-list-found-name")).collect(Collectors.toList());
     }
 

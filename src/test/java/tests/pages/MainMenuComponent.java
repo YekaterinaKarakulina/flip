@@ -9,7 +9,7 @@ public class MainMenuComponent extends BasePage {
     @FindBy(xpath = "//p[contains(text(),'Каталог')]/ancestor::div[contains(@class,'menu')]")
     private WebElement menu;
 
-    @FindBy(xpath = "//a[contains(@href,'1') and contains(text(), 'Книги')]")
+    @FindBy(xpath = "//a[text() = 'Книги']")   //"//a[contains(@href,'1') and contains(text(), 'Книги')]")
     private WebElement booksSection;
 
     @FindBy(xpath = "//a[@data-filter-field-sections-id='44']")
@@ -27,6 +27,7 @@ public class MainMenuComponent extends BasePage {
 
     public SearchCriteria clickImaginativeLiteratureSection() {
         clickToWebElement(imaginativeLiteratureSection);
+        waitUntilElementsAttributeHasText(imaginativeLiteratureSection, "class", "active");
         return new SearchCriteria(getDriver());
     }
 

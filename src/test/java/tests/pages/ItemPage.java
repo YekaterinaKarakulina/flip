@@ -23,14 +23,17 @@ public class ItemPage extends BasePage {
     }
 
     public List<String> getBookAuthors() {
-        return bookAuthorsList.stream().map(item -> item.getText()).collect(Collectors.toList());
+        waitForListWebElementsVisible(bookAuthorsList);
+        return bookAuthorsList.stream().map(WebElement::getText).collect(Collectors.toList());
     }
 
     public String getBookName() {
+        waitForElementEnabled(bookName);
         return bookName.getText();
     }
 
     public int getBookPublicationYear() {
+        waitForElementEnabled(bookPublicationYear);
         String expectedPublicationYearStr = bookPublicationYear.getText();
         return Integer.parseInt(expectedPublicationYearStr.substring(expectedPublicationYearStr.lastIndexOf(',') + 1).replaceAll("\\D+", ""));
     }
