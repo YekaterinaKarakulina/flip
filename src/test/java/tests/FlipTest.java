@@ -42,7 +42,8 @@ public class FlipTest {
 
     @BeforeMethod(alwaysRun = true)
     public void signIn() {
-        homePage = homePage.signIn(user).validateActualUser(user.getName());
+        homePage = homePage.signIn(user);
+        Assert.assertEquals(homePage.getActualUserName(), user.getName(), String.format("SignIn error. Expected user name - %s, actual - %s.", user.getName(), homePage.getActualUserName()));
     }
 
     @AfterSuite

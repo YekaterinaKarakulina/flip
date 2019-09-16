@@ -26,7 +26,7 @@ public class HomePage extends BasePage {
     private WebElement enterButton;
 
     @FindBy(xpath = "//div[contains(@class,'ath')]//span[@class='p500']")
-    private static WebElement userName;
+    private  WebElement userName;
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -50,13 +50,12 @@ public class HomePage extends BasePage {
             clickToWebElement(enterButton);
         }
         waitForElementEnabled(userName);
+        waitUntilElementHasText(userName, user.getName());
         return this;
     }
 
-    public HomePage validateActualUser(String expectedUser) {
-        waitUntilElementHasText(userName, expectedUser);
-        Assert.assertEquals(userName.getText(), expectedUser, String.format("SignIn error. Expected user name - %s, actual - %s.", expectedUser, userName.getText()));
-        return this;
+    public String getActualUserName(){
+        return userName.getText();
     }
-
+    
 }
