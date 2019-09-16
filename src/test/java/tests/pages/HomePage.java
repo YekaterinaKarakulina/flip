@@ -3,6 +3,7 @@ package tests.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.testng.Assert;
 import tests.businessObjects.User;
 
 public class HomePage extends BasePage {
@@ -54,6 +55,7 @@ public class HomePage extends BasePage {
 
     public HomePage validateActualUser(String expectedUser) {
         waitUntilElementHasText(userName, expectedUser);
+        Assert.assertEquals(userName.getText(), expectedUser, String.format("SignIn error. Expected user name - %s, actual - %s.", expectedUser, userName.getText()));
         return this;
     }
 
