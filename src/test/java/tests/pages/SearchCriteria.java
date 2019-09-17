@@ -38,9 +38,6 @@ public class SearchCriteria extends BasePage {
     @FindBy(xpath = "//div[contains(@class,'filters')]")
     private WebElement currentFilter;
 
-    @FindBy(xpath = "//a[@data-filter-field-sections-id='44']")
-    private WebElement imaginativeLiteratureSection;
-
     public SearchCriteria(WebDriver driver) {
         super(driver);
     }

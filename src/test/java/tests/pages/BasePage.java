@@ -27,6 +27,9 @@ public class BasePage {
     @FindBy(xpath = ".//div[@id='content']")
     private WebElement pageContent;
 
+    @FindBy(xpath = "//table[@id='prod']//*[contains(@href,'people')]")
+    protected List<WebElement> bookAuthorsList;
+
     BasePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -74,10 +77,6 @@ public class BasePage {
         jse.executeScript("window.scrollTo(0, document.body.scrollHeight)");
     }
 
-    protected void scrollDownByPixels() {
-        JavascriptExecutor jse = (JavascriptExecutor) driver;
-        jse.executeScript("window.scrollBy(0,600)");
-    }
 
     protected void waitForElementEnabled(WebElement element) {
         new WebDriverWait(driver, WAIT_FOR_ELEMENT_TIMEOUT_SECONDS).until(ExpectedConditions.elementToBeClickable(element));

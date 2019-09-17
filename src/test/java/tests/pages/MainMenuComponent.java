@@ -15,6 +15,9 @@ public class MainMenuComponent extends BasePage {
     @FindBy(xpath = "//a[@data-filter-field-sections-id='44']")
     private WebElement imaginativeLiteratureSection;
 
+    @FindBy(xpath = "//p[text()='Фильтр']")
+    WebElement filter;
+
     public MainMenuComponent(WebDriver driver) {
         super(driver);
     }
@@ -22,6 +25,7 @@ public class MainMenuComponent extends BasePage {
     public MainMenuComponent clickBookSection() {
         moveToWebElement(menu);
         clickToWebElement(booksSection);
+        waitForElementEnabled(filter);
         return new MainMenuComponent(getDriver());
     }
 

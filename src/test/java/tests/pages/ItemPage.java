@@ -9,9 +9,6 @@ import java.util.stream.Collectors;
 
 public class ItemPage extends BasePage {
 
-    @FindBy(xpath = "//table[@id='prod']//*[contains(@href,'people')]")
-    private static List<WebElement> bookAuthorsList;
-
     @FindBy(xpath = "//table[@id='prod']//span[@itemprop='name']")
     private WebElement bookName;
 

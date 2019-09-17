@@ -3,7 +3,6 @@ package tests.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.testng.Assert;
 import tests.businessObjects.User;
 
 public class HomePage extends BasePage {
@@ -11,7 +10,7 @@ public class HomePage extends BasePage {
     private static final String URL = "https://flip.kz";
 
     @FindBy(xpath = "//a/span[contains(text(),'Войти')]")
-    private WebElement signUp;
+    private WebElement signIn;
 
     @FindBy(xpath = "//input[@id='email']")
     private WebElement emailInput;
@@ -26,7 +25,7 @@ public class HomePage extends BasePage {
     private WebElement enterButton;
 
     @FindBy(xpath = "//div[contains(@class,'ath')]//span[@class='p500']")
-    private  WebElement userName;
+    private WebElement userName;
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -43,7 +42,7 @@ public class HomePage extends BasePage {
 
     public HomePage signIn(User user) {
         if (!userName.getText().equals(user.getName())) {
-            clickToWebElement(signUp);
+            clickToWebElement(signIn);
             sendKeysToWebElement(emailInput, user.getEmail());
             clickToWebElement(registeredFlag);
             sendKeysToWebElement(passwordInput, user.getPassword());
@@ -54,8 +53,8 @@ public class HomePage extends BasePage {
         return this;
     }
 
-    public String getActualUserName(){
+    public String getActualUserName() {
         return userName.getText();
     }
-    
+
 }

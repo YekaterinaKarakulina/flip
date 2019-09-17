@@ -33,8 +33,6 @@ public class InitWebBrowser {
                 break;
             case "firefoxWin":
                 System.setProperty(GECKO_WD_WIN, GECKO_WD_WIN_PATH);
-                //DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-                //capabilities.setCapability("marionette",true);
                 driver = new FirefoxDriver();
                 break;
             default:
