@@ -9,7 +9,10 @@ public class HomePage extends BasePage {
 
     private static final String URL = "https://flip.kz";
 
-    @FindBy(xpath = "//a/span[contains(text(),'Войти')]")
+    @FindBy(xpath = "//*[contains(@class,'auth')]")
+    private WebElement userInfo;
+
+    @FindBy(xpath = "//*[contains(@class,'ath')]/*/a[contains(@href,'enter')]")
     private WebElement signIn;
 
     @FindBy(xpath = "//input[@id='email']")
@@ -24,7 +27,7 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//input[@id='enter_button']")
     private WebElement enterButton;
 
-    @FindBy(xpath = "//div[contains(@class,'ath')]//span[@class='p500']")
+    @FindBy(xpath = "//*[contains(@class,'ath')]//a[contains(@href,'personalis')]/span")
     private WebElement userName;
 
     public HomePage(WebDriver driver) {
@@ -42,6 +45,7 @@ public class HomePage extends BasePage {
 
     public HomePage signIn(User user) {
         if (!userName.getText().equals(user.getName())) {
+            moveToWebElement(userInfo);
             clickToWebElement(signIn);
             sendKeysToWebElement(emailInput, user.getEmail());
             clickToWebElement(registeredFlag);

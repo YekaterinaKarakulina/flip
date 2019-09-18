@@ -106,7 +106,7 @@ public class FlipTest {
     @Test(description = "Test checks working of \"Publication Year\" filter in \"flip.kz\" website with full range")
     public void AuthorNameAndPublicationYearFilters() {
         SearchCriteria searchCriteria = homePage.getMainMenuComponent().clickBookSection().clickImaginativeLiteratureSection();
-        SectionPage bookPage = searchCriteria.clickRandomAuthor(1).moveToRandomPage();
+        SectionPage bookPage = searchCriteria.clickRandomAuthor(1);
         List<String> selectedAuthors = searchCriteria.getSelectedAuthorsList();
         SectionPage bookPageTwoFilters = bookPage.getSearchCriteria().setPublicationYearFilter(Integer.toString(publicationYearRangeFirstValue), Integer.toString(publicationYearRangeLastValue));
         ItemPage bookItemPage = bookPageTwoFilters.moveToRandomPage().clickOnRandomBookCard();
