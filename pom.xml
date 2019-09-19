@@ -7,6 +7,7 @@
         <seleniumJavaVersion>3.141.59</seleniumJavaVersion>
         <testng.version>6.14.3</testng.version>
         <assertj.version>3.8.0</assertj.version>
+        <selenide.version>5.3.1</selenide.version>
     </properties>
     <groupId>epam.kz.autolab2019</groupId>
     <artifactId>flip</artifactId>
@@ -26,6 +27,12 @@
 
 
     <dependencies>
+        <dependency>
+            <groupId>com.codeborne</groupId>
+            <artifactId>selenide</artifactId>
+            <version>${selenide.version}</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
