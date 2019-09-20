@@ -23,7 +23,7 @@ public class BasePage {
     private static final Duration MAX = Duration.ofSeconds(60);
     private static final Duration POLLING = Duration.ofSeconds(1);
 
-    private static final long TIME_TO_WAIT = 10000;
+    private static final long TIME_TO_WAIT = 100000;
 
     private static final String PAGE_CONTENT = ".//div[@id='content']";
     private static final String BOOK_AUTHORS_LIST = "//table[@id='prod']//*[contains(@href,'people')]";
