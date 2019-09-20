@@ -1,5 +1,6 @@
 package selenium.tests;
 
+import com.codeborne.selenide.WebDriverRunner;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterSuite;
@@ -8,6 +9,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import selenium.driver.WebDriverSingleton;
 import selenium.tests.businessObjects.Book;
 import selenium.tests.businessObjects.User;
 import selenium.tests.pages.SearchCriteria;
@@ -29,7 +31,8 @@ public class FlipTestSelenium {
 
     @BeforeSuite
     public void initBrowserUserHomepage() {
-        driver = InitWebBrowser.initBrowser();
+        driver = WebDriverSingleton.getWebDriverInstance();
+        //driver = InitWebBrowser.initBrowser();
         user = JsonReader.getUser();
         homePage = new HomePage(driver).open();
     }
@@ -77,7 +80,6 @@ public class FlipTestSelenium {
     public void publicationYearFilterRangeFirstValue() {
         SectionPage bookPage = homePage.getMainMenuComponent().clickBookSection().clickImaginativeLiteratureSection().setPublicationYearFirstValue();
         int publicationYearRangeFirstValue = bookPage.getSearchCriteria().getExpectedPublicationYearFirstValue();
-        System.out.println("first " + publicationYearRangeFirstValue);
         ItemPage bookItemPage = bookPage.moveToRandomPage().clickOnRandomBookCard();
         String bookName = bookItemPage.getBookName();
         int actualPublicationYear = bookItemPage.getBookPublicationYear();
