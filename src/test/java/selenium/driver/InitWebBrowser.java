@@ -44,7 +44,7 @@ public class InitWebBrowser {
 
     private static String readDriver() {
         try {
-            FileInputStream fis = new FileInputStream("src/test/resources/driver.properties");
+            FileInputStream fis = new FileInputStream("src/test/resources/driverSelenium.properties");
             Properties prop = new Properties();
             prop.load(fis);
             return prop.getProperty("browser");

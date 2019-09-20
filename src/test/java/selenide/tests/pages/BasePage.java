@@ -9,6 +9,7 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 
@@ -22,21 +23,26 @@ public class BasePage {
     private static final Duration MAX = Duration.ofSeconds(60);
     private static final Duration POLLING = Duration.ofSeconds(1);
 
-    private static final long timeToWait = 1000;
+    private static final long TIME_TO_WAIT = 10000;
 
-    private static final String pageContent = ".//div[@id='content']";
-    private static final String bookAuthorsList = "//table[@id='prod']//*[contains(@href,'people')]";
+    private static final String PAGE_CONTENT = ".//div[@id='content']";
+    private static final String BOOK_AUTHORS_LIST = "//table[@id='prod']//*[contains(@href,'people')]";
 
     public static String getBookAuthorsList() {
-        return bookAuthorsList;
+        return BOOK_AUTHORS_LIST;
     }
 
     public static long getTimeToWait() {
-        return timeToWait;
+        return TIME_TO_WAIT;
+    }
+
+    protected void dragAndDropWebElementToPosition(SelenideElement element, int x, int y) {
+        element.waitUntil(Condition.enabled, getTimeToWait());
+        new Actions(WebDriverRunner.getWebDriver()).dragAndDropBy(element, x, y).build().perform();
     }
 
     protected void clickToSelenideElement(SelenideElement element) {
-        element.waitUntil(Condition.enabled, timeToWait);
+        element.waitUntil(Condition.enabled, TIME_TO_WAIT);
         highlightElement(element);
         element.click();
     }
@@ -50,7 +56,7 @@ public class BasePage {
     }
 
     protected void waitUntilSearchIsReady() {
-        $(By.xpath(pageContent)).waitUntil(Condition.enabled, timeToWait);
+        $(By.xpath(PAGE_CONTENT)).waitUntil(Condition.enabled, TIME_TO_WAIT);
     }
 
     protected void waitForListWebElementsVisible(List<WebElement> webElements) {

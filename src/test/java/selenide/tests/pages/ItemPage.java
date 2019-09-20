@@ -12,23 +12,22 @@ import static com.codeborne.selenide.Selenide.$$;
 
 public class ItemPage extends BasePage {
 
-    private static final String bookName = "//table[@id='prod']//span[@itemprop='name']";
-    private static final String bookPublicationYear = "//div[@class='description-table']//div[a[@href]]";
+    private static final String BOOK_NAME = "//table[@id='prod']//span[@itemprop='name']";
+    private static final String BOOK_PUBLICATION_YEAR = "//div[@class='description-table']//div[a[@href]]";
 
     public List<String> getBookAuthors() {
         return $$(By.xpath(getBookAuthorsList())).stream().map(WebElement::getText).collect(Collectors.toList());
     }
 
     public String getBookName() {
-        $(By.xpath(bookName)).shouldHave(Condition.enabled);
-        return $(By.xpath(bookName)).getText();
+        $(By.xpath(BOOK_NAME)).shouldHave(Condition.enabled);
+        return $(By.xpath(BOOK_NAME)).getText();
     }
-/*
+
     public int getBookPublicationYear() {
-        waitForElementEnabled(bookPublicationYear);
-        String expectedPublicationYearStr = bookPublicationYear.getText();
+        $(By.xpath(BOOK_PUBLICATION_YEAR)).scrollTo().shouldHave(Condition.enabled);
+        String expectedPublicationYearStr = $(By.xpath(BOOK_PUBLICATION_YEAR)).getText();
         return Integer.parseInt(expectedPublicationYearStr.substring(expectedPublicationYearStr.lastIndexOf(',') + 1).replaceAll("\\D+", ""));
     }
- */
 
 }
