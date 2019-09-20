@@ -15,8 +15,8 @@ import static com.codeborne.selenide.Selenide.page;
 
 public class SectionPage extends BasePage {
 
-    private static final String CURRENT_PAGE = "//td[contains(@class,'pages')]//span";
-    private static final String BOOKS_LIST = "//div[@class='placeholder']//a[@class='title']";
+    private static final By CURRENT_PAGE = By.xpath("//td[contains(@class,'pages')]//span");
+    private static final By BOOKS_LIST = By.xpath("//div[@class='placeholder']//a[@class='title']");
 
     public List<SelenideElement> getPages() {
         return $$(By.xpath("//table[@class='pages']//td/*[text()>0]"));
@@ -36,18 +36,18 @@ public class SectionPage extends BasePage {
         scrollToTheEndOfPage();
         clickToSelenideElement(pageToClick);
         waitUntilSearchIsReady();
-        $(By.xpath(CURRENT_PAGE)).scrollTo().waitUntil(Condition.enabled, getTimeToWait());
-        $(By.xpath(CURRENT_PAGE)).waitUntil(Condition.text(Integer.toString(randomNumber)), getTimeToWait());
+        $(CURRENT_PAGE).scrollTo().waitUntil(Condition.enabled, getTimeToWait());
+        $(CURRENT_PAGE).waitUntil(Condition.text(Integer.toString(randomNumber)), getTimeToWait());
         return page(SectionPage.class);
     }
 
     public ItemPage clickOnRandomBookCard() {
-        int actualSize = $$(By.xpath(BOOKS_LIST)).size();
+        int actualSize = $$(BOOKS_LIST).size();
         int randomBook = RandomNumbersUtils.getRandomNumber(0, actualSize - 1);
-        SelenideElement bookItem = $$(By.xpath(BOOKS_LIST)).get(randomBook);
+        SelenideElement bookItem = $$(BOOKS_LIST).get(randomBook);
         bookItem.scrollTo();
         clickToSelenideElement(bookItem);
-        List<WebElement> currentAuthorsList = WebDriverRunner.getWebDriver().findElements(By.xpath(getBookAuthorsList()));
+        List<WebElement> currentAuthorsList = WebDriverRunner.getWebDriver().findElements(getBookAuthorsList());
         waitForListWebElementsVisible(currentAuthorsList);
         return page(ItemPage.class);
     }

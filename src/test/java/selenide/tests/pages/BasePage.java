@@ -25,10 +25,11 @@ public class BasePage {
 
     private static final long TIME_TO_WAIT = 100000;
 
-    private static final String PAGE_CONTENT = ".//div[@id='content']";
-    private static final String BOOK_AUTHORS_LIST = "//table[@id='prod']//*[contains(@href,'people')]";
 
-    public static String getBookAuthorsList() {
+   private static final By PAGE_CONTENT = By.xpath(".//div[@id='content']");
+    private static final By BOOK_AUTHORS_LIST = By.xpath("//table[@id='prod']//*[contains(@href,'people')]");
+
+   public static By getBookAuthorsList() {
         return BOOK_AUTHORS_LIST;
     }
 
@@ -56,7 +57,7 @@ public class BasePage {
     }
 
     protected void waitUntilSearchIsReady() {
-        $(By.xpath(PAGE_CONTENT)).waitUntil(Condition.enabled, TIME_TO_WAIT);
+        $(PAGE_CONTENT).waitUntil(Condition.enabled, TIME_TO_WAIT);
     }
 
     protected void waitForListWebElementsVisible(List<WebElement> webElements) {

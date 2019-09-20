@@ -12,21 +12,21 @@ import static com.codeborne.selenide.Selenide.$$;
 
 public class ItemPage extends BasePage {
 
-    private static final String BOOK_NAME = "//table[@id='prod']//span[@itemprop='name']";
-    private static final String BOOK_PUBLICATION_YEAR = "//div[@class='description-table']//div[a[@href]]";
+    private static final By BOOK_NAME = By.xpath("//table[@id='prod']//span[@itemprop='name']");
+    private static final By BOOK_PUBLICATION_YEAR = By.xpath("//div[@class='description-table']//div[a[@href]]");
 
     public List<String> getBookAuthors() {
-        return $$(By.xpath(getBookAuthorsList())).stream().map(WebElement::getText).collect(Collectors.toList());
+        return $$(getBookAuthorsList()).stream().map(WebElement::getText).collect(Collectors.toList());
     }
 
     public String getBookName() {
-        $(By.xpath(BOOK_NAME)).shouldHave(Condition.enabled);
-        return $(By.xpath(BOOK_NAME)).getText();
+        $(BOOK_NAME).shouldHave(Condition.enabled);
+        return $(BOOK_NAME).getText();
     }
 
     public int getBookPublicationYear() {
-        $(By.xpath(BOOK_PUBLICATION_YEAR)).scrollTo().shouldHave(Condition.enabled);
-        String expectedPublicationYearStr = $(By.xpath(BOOK_PUBLICATION_YEAR)).getText();
+        $(BOOK_PUBLICATION_YEAR).scrollTo().shouldBe(Condition.enabled);
+        String expectedPublicationYearStr = $(BOOK_PUBLICATION_YEAR).getText();
         return Integer.parseInt(expectedPublicationYearStr.substring(expectedPublicationYearStr.lastIndexOf(',') + 1).replaceAll("\\D+", ""));
     }
 
