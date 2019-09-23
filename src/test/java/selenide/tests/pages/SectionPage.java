@@ -38,7 +38,7 @@ public class SectionPage extends BasePage {
         waitUntilSearchIsReady();
         $(CURRENT_PAGE).scrollTo().waitUntil(Condition.enabled, getTimeToWait());
         $(CURRENT_PAGE).waitUntil(Condition.text(Integer.toString(randomNumber)), getTimeToWait());
-        return page(SectionPage.class);
+         return page(SectionPage.class);
     }
 
     public ItemPage clickOnRandomBookCard() {

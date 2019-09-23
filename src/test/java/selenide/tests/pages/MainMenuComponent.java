@@ -17,7 +17,7 @@ public class MainMenuComponent extends BasePage {
         $(MENU).hover();
         clickToSelenideElement($(BOOKS_SECTION));
         $(FILTER).waitUntil(Condition.enabled, getTimeToWait());
-        return page(MainMenuComponent.class);
+        return this;
     }
 
     public SearchCriteria clickImaginativeLiteratureSection() {

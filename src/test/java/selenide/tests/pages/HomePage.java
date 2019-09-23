@@ -30,7 +30,8 @@ public class HomePage extends BasePage {
             $(PASSWORD_INPUT).setValue(user.getPassword()).pressEnter();
         }
         $(USER_NAME).shouldHave(Condition.text(user.getName()));
-        return page(HomePage.class);
+        return this;
+        //return page(HomePage.class);
     }
 
     public String getActualUserName() {
