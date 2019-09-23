@@ -87,7 +87,6 @@ public class SearchCriteria extends BasePage {
             waitUntilSearchIsReady();
             $(CURRENT_FILTER).shouldHave(Condition.enabled);
             $(CURRENT_FILTER).shouldHave(Condition.text(authorToClick));
-
         }
         return page(SectionPage.class);
     }

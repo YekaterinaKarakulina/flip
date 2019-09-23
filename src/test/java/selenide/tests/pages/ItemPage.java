@@ -20,7 +20,7 @@ public class ItemPage extends BasePage {
     }
 
     public String getBookName() {
-        $(BOOK_NAME).shouldHave(Condition.enabled);
+        $(BOOK_NAME).shouldBe(Condition.enabled);
         return $(BOOK_NAME).getText();
     }
 

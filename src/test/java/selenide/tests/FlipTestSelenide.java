@@ -21,6 +21,8 @@ import selenide.tests.pages.SectionPage;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.codeborne.selenide.Selenide.*;
 
