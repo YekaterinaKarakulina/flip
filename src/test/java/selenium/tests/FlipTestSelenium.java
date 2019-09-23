@@ -1,7 +1,7 @@
 package selenium.tests;
 
-import com.codeborne.selenide.WebDriverRunner;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
@@ -9,6 +9,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import selenium.driver.WebDriverRemote;
 import selenium.driver.WebDriverSingleton;
 import selenium.tests.businessObjects.Book;
 import selenium.tests.businessObjects.User;
@@ -23,6 +24,7 @@ import java.util.List;
 
 public class FlipTestSelenium {
 
+    private RemoteWebDriver remoteWebDriver;
     private WebDriver driver;
     private HomePage homePage;
     private int publicationYearRangeFirstValue;
@@ -31,7 +33,8 @@ public class FlipTestSelenium {
 
     @BeforeSuite
     public void initBrowserUserHomepage() {
-        driver = WebDriverSingleton.getWebDriverInstance();
+        driver = WebDriverSingleton.initWebDriver();
+        remoteWebDriver = WebDriverRemote.initRemoteWebDriver();
         user = JsonReader.getUser();
         homePage = new HomePage(driver).open();
     }
@@ -119,7 +122,5 @@ public class FlipTestSelenium {
         twoFilters.assertTrue(actualBook.checkBooksEqualsByAuthorsList(expectedBook, actualBook), String.format("List of expected authors of book '%s' does not contain actual author. Expected authors list %s; actual authors list %s.", actualBook.getName(), expectedBook.getAuthorNameList().toString(), actualBook.getAuthorNameList().toString()));
         twoFilters.assertAll();
     }
-
-
 
 }

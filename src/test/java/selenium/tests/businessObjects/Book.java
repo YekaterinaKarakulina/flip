@@ -25,7 +25,6 @@ public class Book {
     }
 
     public boolean checkBooksEqualsByAuthorsList(Book expectedBook, Book actualBook) {
-
         return actualBook.getAuthorNameList().stream().anyMatch(expectedBook.getAuthorNameList()::contains);
     }
 

@@ -60,15 +60,17 @@ public class SearchCriteria extends BasePage {
         int randomPosition = RandomNumbersUtils.getRandomNumber(0, 15);
         scrollToElement(publicationYearRangeFirstValueSlider);
         dragAndDropWebElementToPosition(publicationYearRangeFirstValueSlider, randomPosition, 0);
-        scrollToElement(publicationYearFilterApplyButton);
-        clickToWebElement(publicationYearFilterApplyButton);
-        return new SectionPage(getDriver());
+        return pressApplyButton();
     }
 
     public SectionPage setPublicationYearLastValue() {
         int randomPosition = RandomNumbersUtils.getRandomNumber(-200, -100);
         scrollToElement(publicationYearRangeLastValueSlider);
         dragAndDropWebElementToPosition(publicationYearRangeLastValueSlider, randomPosition, 0);
+        return pressApplyButton();
+    }
+
+    private SectionPage pressApplyButton() {
         scrollToElement(publicationYearFilterApplyButton);
         clickToWebElement(publicationYearFilterApplyButton);
         return new SectionPage(getDriver());

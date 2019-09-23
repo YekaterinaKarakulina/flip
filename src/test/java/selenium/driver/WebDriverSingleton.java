@@ -8,7 +8,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-public class WebDriverSingleton {
+public class WebDriverSingleton implements WebDriverCreator{
+
     private static final String CHROME_WD_WIN = "webdriver.chrome.driver";
     private static final String CHROME_WD_WIN_PATH = "src/test/resources/drivers/chromedriver76.exe";
     private static final String GECKO_WD_LINUX = "webdriver.gecko.driver";
@@ -21,7 +22,7 @@ public class WebDriverSingleton {
     private WebDriverSingleton() {
     }
 
-    public static WebDriver getWebDriverInstance() {
+    public static WebDriver initWebDriver() {
         String browser = readDriver();
         if (driver == null) {
             switch (browser) {
