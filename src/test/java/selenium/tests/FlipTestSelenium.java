@@ -17,7 +17,7 @@ import selenium.tests.pages.HomePage;
 import selenium.tests.pages.ItemPage;
 import selenium.tests.pages.SectionPage;
 import selenium.service.JsonReader;
-import selenium.driver.InitWebBrowser;
+
 
 import java.util.List;
 
@@ -32,7 +32,6 @@ public class FlipTestSelenium {
     @BeforeSuite
     public void initBrowserUserHomepage() {
         driver = WebDriverSingleton.getWebDriverInstance();
-        //driver = InitWebBrowser.initBrowser();
         user = JsonReader.getUser();
         homePage = new HomePage(driver).open();
     }
@@ -102,7 +101,7 @@ public class FlipTestSelenium {
         ItemPage bookItemPage = bookPage.moveToRandomPage().clickOnRandomBookCard();
         String bookName = bookItemPage.getBookName();
         int actualPublicationYear = bookItemPage.getBookPublicationYear();
-        Assert.assertTrue(publicationYearRangeFirstValue <= actualPublicationYear && actualPublicationYear <= publicationYearRangeLastValue, String.format("Actual publication year of book `%s` - %s. Expected range of publication % %s.", bookName, Integer.toString(actualPublicationYear), Integer.toString(publicationYearRangeFirstValue), Integer.toString(publicationYearRangeLastValue)));
+        Assert.assertTrue(publicationYearRangeFirstValue <= actualPublicationYear && actualPublicationYear <= publicationYearRangeLastValue, String.format("Actual publication year of book `%s` - %s. Expected range of publication %s.", bookName, Integer.toString(actualPublicationYear), Integer.toString(publicationYearRangeFirstValue), Integer.toString(publicationYearRangeLastValue)));
     }
 
     @Test(description = "Test checks working of \"Publication Year\" filter in \"flip.kz\" website with full range")
