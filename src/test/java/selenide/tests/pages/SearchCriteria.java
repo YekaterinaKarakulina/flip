@@ -35,12 +35,12 @@ public class SearchCriteria extends BasePage {
 
     public int getExpectedPublicationYearFirstValue() {
         $(PUBLICATION_YEAR_RANGE_FIRST_VALUE).waitUntil(Condition.enabled, getTimeToWait());
-        return Integer.parseInt($(PUBLICATION_YEAR_RANGE_FIRST_VALUE).getAttribute("value"));
+        return Integer.parseInt($(PUBLICATION_YEAR_RANGE_FIRST_VALUE).attr("value"));
     }
 
     public int getExpectedPublicationYearLastValue() {
         $(PUBLICATION_YEAR_RANGE_LAST_VALUE).waitUntil(Condition.enabled, getTimeToWait());
-        return Integer.parseInt($(PUBLICATION_YEAR_RANGE_LAST_VALUE).getAttribute("value"));
+        return Integer.parseInt($(PUBLICATION_YEAR_RANGE_LAST_VALUE).attr("value"));
     }
 
     public SectionPage setPublicationYearFirstValue() {
@@ -92,7 +92,7 @@ public class SearchCriteria extends BasePage {
     }
 
     private List<String> getAuthorsList() {
-        return $$(AUTHORS_LIST).stream().map(item -> item.getAttribute("data-list-found-name")).collect(Collectors.toList());
+        return $$(AUTHORS_LIST).stream().map(item -> item.attr("data-list-found-name")).collect(Collectors.toList());
     }
 
 }

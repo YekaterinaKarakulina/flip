@@ -5,6 +5,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -21,13 +23,13 @@ public class ItemPage extends BasePage {
 
     public String getBookName() {
         $(BOOK_NAME).shouldBe(Condition.enabled);
-        return $(BOOK_NAME).getText();
+        return $(BOOK_NAME).text();
     }
 
-    public String getBookPublicationYear() {
+    public int getBookPublicationYear() {
         $(BOOK_PUBLICATION_YEAR).scrollTo().shouldBe(Condition.enabled);
-        String actualPublicationYearStr = $(BOOK_PUBLICATION_YEAR).getText().replaceAll("(.+,)","").replaceAll("\\D+", "");
-        return actualPublicationYearStr;
+        String actualPublicationYearStr = getStringByRegexMatcher($(BOOK_PUBLICATION_YEAR).text());
+        return Integer.parseInt(actualPublicationYearStr);
     }
 
 }

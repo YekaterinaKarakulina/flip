@@ -31,11 +31,10 @@ public class HomePage extends BasePage {
         }
         $(USER_NAME).shouldHave(Condition.text(user.getName()));
         return this;
-        //return page(HomePage.class);
     }
 
     public String getActualUserName() {
-        return $(USER_NAME).getText();
+        return $(USER_NAME).text();
     }
 
 }

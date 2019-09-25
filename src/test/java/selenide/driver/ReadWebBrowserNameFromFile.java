@@ -15,7 +15,7 @@ public class ReadWebBrowserNameFromFile {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return readDriver();
+        return "firefoxWin";
     }
 }
 

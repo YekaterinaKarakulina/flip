@@ -32,7 +32,7 @@ public class SectionPage extends BasePage {
         int randomNumber = RandomNumbersUtils.getRandomNumber(1, actualNumber);
         waitUntilSearchIsReady();
         scrollToTheEndOfPage();
-        SelenideElement pageToClick = getPages().stream().filter(item -> item.getText().equals(Integer.toString(randomNumber))).findFirst().get();
+        SelenideElement pageToClick = getPages().stream().filter(item -> item.text().equals(Integer.toString(randomNumber))).findFirst().get();
         scrollToTheEndOfPage();
         clickToSelenideElement(pageToClick);
         waitUntilSearchIsReady();

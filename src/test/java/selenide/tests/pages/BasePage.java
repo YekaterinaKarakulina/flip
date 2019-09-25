@@ -15,6 +15,8 @@ import org.openqa.selenium.support.ui.FluentWait;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -25,11 +27,10 @@ public class BasePage {
 
     private static final long TIME_TO_WAIT = 100000;
 
-
-   private static final By PAGE_CONTENT = By.xpath(".//div[@id='content']");
+    private static final By PAGE_CONTENT = By.xpath(".//div[@id='content']");
     private static final By BOOK_AUTHORS_LIST = By.xpath("//table[@id='prod']//*[contains(@href,'people')]");
 
-   public static By getBookAuthorsList() {
+    public static By getBookAuthorsList() {
         return BOOK_AUTHORS_LIST;
     }
 
@@ -66,6 +67,16 @@ public class BasePage {
                 .pollingEvery(POLLING);
         wait.ignoring(StaleElementReferenceException.class, WebDriverException.class)
                 .until(ExpectedConditions.visibilityOfAllElements(webElements));
+    }
+
+    protected String getStringByRegexMatcher(String stringToMatch){
+        String rx = "(?<=,.)(\\d+)";
+        Pattern p = Pattern.compile(rx);
+        Matcher matcher = p.matcher(stringToMatch);
+        if(matcher.find()){
+            return matcher.group();
+        }
+        return null;
     }
 
 }
