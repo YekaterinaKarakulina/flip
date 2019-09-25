@@ -14,7 +14,7 @@ public class MainMenuComponent extends BasePage {
     private static final By FILTER = By.xpath("//p[text()='Фильтр']");
 
     public MainMenuComponent clickBookSection() {
-        $(MENU).hover();
+        $(MENU).scrollTo().hover();
         clickToSelenideElement($(BOOKS_SECTION));
         $(FILTER).waitUntil(Condition.enabled, getTimeToWait());
         return this;

@@ -83,7 +83,7 @@ public class FlipTestSelenide {
         int publicationYearRangeFirstValue = bookPage.getSearchCriteria().getExpectedPublicationYearFirstValue();
         ItemPage bookItemPage = bookPage.moveToRandomPage().clickOnRandomBookCard();
         String bookName = bookItemPage.getBookName();
-        int actualPublicationYear = bookItemPage.getBookPublicationYear();
+        int actualPublicationYear = Integer.parseInt(bookItemPage.getBookPublicationYear());
         Assert.assertTrue(actualPublicationYear >= publicationYearRangeFirstValue, String.format("Actual publication year of book + `%s` - %s. Expected year of publication %s.", bookName, Integer.toString(actualPublicationYear), Integer.toString(publicationYearRangeFirstValue)));
     }
 
@@ -93,7 +93,7 @@ public class FlipTestSelenide {
         int publicationYearRangeLastValue = bookPage.getSearchCriteria().getExpectedPublicationYearLastValue();
         ItemPage bookItemPage = bookPage.moveToRandomPage().clickOnRandomBookCard();
         String bookName = bookItemPage.getBookName();
-        int actualPublicationYear = bookItemPage.getBookPublicationYear();
+        int actualPublicationYear = Integer.parseInt(bookItemPage.getBookPublicationYear());
         Assert.assertTrue(actualPublicationYear <= publicationYearRangeLastValue, String.format("Actual publication year of book `%s` - %s. Expected year of publication %s.", bookName, Integer.toString(actualPublicationYear), Integer.toString(publicationYearRangeLastValue)));
     }
 
@@ -102,7 +102,7 @@ public class FlipTestSelenide {
         SectionPage bookPage = homePage.getMainMenuComponent().clickBookSection().clickImaginativeLiteratureSection().setPublicationYearFilter(Integer.toString(publicationYearRangeFirstValue), Integer.toString(publicationYearRangeLastValue));
         ItemPage bookItemPage = bookPage.moveToRandomPage().clickOnRandomBookCard();
         String bookName = bookItemPage.getBookName();
-        int actualPublicationYear = bookItemPage.getBookPublicationYear();
+        int actualPublicationYear = Integer.parseInt(bookItemPage.getBookPublicationYear());
         Assert.assertTrue(publicationYearRangeFirstValue <= actualPublicationYear && actualPublicationYear <= publicationYearRangeLastValue, String.format("Actual publication year of book `%s` - %s. Expected range of publication  %s.", bookName, Integer.toString(actualPublicationYear), Integer.toString(publicationYearRangeFirstValue), Integer.toString(publicationYearRangeLastValue)));
     }
 
@@ -113,7 +113,7 @@ public class FlipTestSelenide {
         List<String> selectedAuthors = searchCriteria.getSelectedAuthorsList();
         SectionPage bookPageTwoFilters = bookPage.getSearchCriteria().setPublicationYearFilter(Integer.toString(publicationYearRangeFirstValue), Integer.toString(publicationYearRangeLastValue));
         ItemPage bookItemPage = bookPageTwoFilters.moveToRandomPage().clickOnRandomBookCard();
-        int actualPublicationYear = bookItemPage.getBookPublicationYear();
+        int actualPublicationYear = Integer.parseInt(bookItemPage.getBookPublicationYear());
         Book actualBook = new Book(bookItemPage.getBookName(), bookItemPage.getBookAuthors());
         Book expectedBook = new Book(selectedAuthors);
         SoftAssert twoFilters = new SoftAssert();

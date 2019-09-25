@@ -24,10 +24,10 @@ public class ItemPage extends BasePage {
         return $(BOOK_NAME).getText();
     }
 
-    public int getBookPublicationYear() {
+    public String getBookPublicationYear() {
         $(BOOK_PUBLICATION_YEAR).scrollTo().shouldBe(Condition.enabled);
-        String expectedPublicationYearStr = $(BOOK_PUBLICATION_YEAR).getText();
-        return Integer.parseInt(expectedPublicationYearStr.substring(expectedPublicationYearStr.lastIndexOf(',') + 1).replaceAll("\\D+", ""));
+        String actualPublicationYearStr = $(BOOK_PUBLICATION_YEAR).getText().replaceAll("(.+,)","").replaceAll("\\D+", "");
+        return actualPublicationYearStr;
     }
 
 }
