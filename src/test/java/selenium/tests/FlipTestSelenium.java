@@ -19,7 +19,6 @@ import selenium.tests.pages.ItemPage;
 import selenium.tests.pages.SectionPage;
 import selenium.service.JsonReader;
 
-
 import java.util.List;
 
 public class FlipTestSelenium {
@@ -36,6 +35,7 @@ public class FlipTestSelenium {
         driver = WebDriverSingleton.initWebDriver();
         remoteWebDriver = WebDriverRemote.initRemoteWebDriver();
         user = JsonReader.getUser();
+        System.out.println(user.toString());
         homePage = new HomePage(driver).open();
     }
 

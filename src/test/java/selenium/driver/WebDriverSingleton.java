@@ -19,7 +19,7 @@ public class WebDriverSingleton implements WebDriverCreator{
 
     private static WebDriver driver;
 
-    private WebDriverSingleton() {
+    public WebDriverSingleton() {
     }
 
     public static WebDriver initWebDriver() {
