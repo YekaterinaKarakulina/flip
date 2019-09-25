@@ -4,13 +4,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 public interface WebDriverCreator {
+    WebDriver driver = null;
+    RemoteWebDriver remoteDriver = null;
 
-    public static WebDriver initWebDriver(){
-        return initWebDriver();
+    static WebDriver getWebDriverInstance(){
+        return driver;
     }
 
-    public static RemoteWebDriver initRemoteWebDriver(){
-        return initRemoteWebDriver();
+    static RemoteWebDriver getRemoteWebDriverInstance(){
+        return remoteDriver;
     }
 
 }

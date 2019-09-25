@@ -13,7 +13,6 @@ import selenium.driver.WebDriverRemote;
 import selenium.driver.WebDriverSingleton;
 import selenium.tests.businessObjects.Book;
 import selenium.tests.businessObjects.User;
-import selenium.tests.pages.Checkbox;
 import selenium.tests.pages.SearchCriteria;
 import selenium.tests.pages.HomePage;
 import selenium.tests.pages.ItemPage;
