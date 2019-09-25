@@ -15,6 +15,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class BasePage {
 
@@ -117,6 +119,16 @@ public class BasePage {
                 .pollingEvery(POLLING);
         wait.ignoring(StaleElementReferenceException.class, WebDriverException.class)
                 .until(ExpectedConditions.visibilityOfAllElements(webElements));
+    }
+
+    protected String getStringByRegexMatcher(String stringToMatch){
+        String rx = "(?<=,.)(\\d+)";
+        Pattern p = Pattern.compile(rx);
+        Matcher matcher = p.matcher(stringToMatch);
+        if(matcher.find()){
+            return matcher.group();
+        }
+        return null;
     }
 
 }

@@ -22,7 +22,7 @@ public class WebDriverSingleton implements WebDriverCreator{
     private static WebDriver driver = null;
     private static String browser = FileReaderJsonAndProperties.readDriver();
 
-    public WebDriverSingleton() {
+    private WebDriverSingleton() {
     }
 
     public static WebDriver getWebDriverInstance() {

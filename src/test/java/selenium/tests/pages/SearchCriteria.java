@@ -86,7 +86,7 @@ public class SearchCriteria extends BasePage {
     }
 
     public SectionPage clickRandomAuthor(int amountOfAuthors) {
-        clickedAuthorsList = new ArrayList<>();
+       /* clickedAuthorsList = new ArrayList<>();
         for (int i = 0; i < amountOfAuthors; i++) {
             List<String> authorsList = getAuthorsList().stream().filter(item -> !clickedAuthorsList.contains(item)).collect(Collectors.toList());
             Collections.shuffle(authorsList);
@@ -95,6 +95,19 @@ public class SearchCriteria extends BasePage {
             scrollToElement(authorToClickElement);
             waitForElementEnabled(authorToClickElement);
             clickToWebElement(authorToClickElement);
+            clickedAuthorsList.add(authorToClick);
+            waitUntilSearchIsReady();
+            waitUntilElementHasText(currentFilter, authorToClick);
+        }
+        return new SectionPage(getDriver());
+
+        */
+        clickedAuthorsList = new ArrayList<>();
+        for (int i = 0; i < amountOfAuthors; i++) {
+            List<String> authorsList = getAuthorsList().stream().filter(item -> !clickedAuthorsList.contains(item)).collect(Collectors.toList());
+            Collections.shuffle(authorsList);
+            String authorToClick = authorsList.get(0);
+            new Checkbox(getDriver()).checkBox(authorToClick);
             clickedAuthorsList.add(authorToClick);
             waitUntilSearchIsReady();
             waitUntilElementHasText(currentFilter, authorToClick);

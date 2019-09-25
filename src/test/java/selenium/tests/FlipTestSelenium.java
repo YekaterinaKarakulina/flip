@@ -13,6 +13,7 @@ import selenium.driver.WebDriverRemote;
 import selenium.driver.WebDriverSingleton;
 import selenium.tests.businessObjects.Book;
 import selenium.tests.businessObjects.User;
+import selenium.tests.pages.Checkbox;
 import selenium.tests.pages.SearchCriteria;
 import selenium.tests.pages.HomePage;
 import selenium.tests.pages.ItemPage;
@@ -58,7 +59,7 @@ public class FlipTestSelenium {
     @Test(description = "Test checks working of \"Authors\" filter in \"flip.kz\" website with one author")
     public void oneAuthorFilter() {
         SearchCriteria searchCriteria = homePage.getMainMenuComponent().clickBookSection().clickImaginativeLiteratureSection();
-        SectionPage bookPage = searchCriteria.clickRandomAuthor(1).moveToRandomPage();
+        SectionPage bookPage = searchCriteria.clickRandomAuthor(2).moveToRandomPage();
         List<String> selectedAuthors = searchCriteria.getSelectedAuthorsList();
         ItemPage bookItemPage = bookPage.clickOnRandomBookCard();
         Book actualBook = new Book(bookItemPage.getBookName(), bookItemPage.getBookAuthors());
