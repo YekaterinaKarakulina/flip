@@ -8,17 +8,21 @@ import com.google.gson.reflect.TypeToken;
 import selenium.tests.businessObjects.User;
 import selenium.utils.RandomNumbersUtils;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.IOException;
 import java.util.List;
+import java.util.Properties;
 
-public class JsonReader {
+public class FileReaderJsonAndProperties {
 
-    private static FileReader fileReader;
+
+
+    private static java.io.FileReader fileReader;
 
     static {
         try {
-            fileReader = new FileReader("src/test/resources/data.json");
+            fileReader = new java.io.FileReader("src/test/resources/data.json");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -40,6 +44,18 @@ public class JsonReader {
 
     public static int getPublicationYearRangeLastValue() {
         return Integer.parseInt(jsonObject.get("PublicationYearRangeLastValue").toString());
+    }
+
+    public static String readDriver() {
+        try {
+            FileInputStream fis = new FileInputStream("src/test/resources/driverSelenium.properties");
+            Properties prop = new Properties();
+            prop.load(fis);
+            return prop.getProperty("browser");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "firefoxWin";
     }
 
 }

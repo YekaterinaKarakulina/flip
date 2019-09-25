@@ -17,7 +17,7 @@ import selenium.tests.pages.SearchCriteria;
 import selenium.tests.pages.HomePage;
 import selenium.tests.pages.ItemPage;
 import selenium.tests.pages.SectionPage;
-import selenium.service.JsonReader;
+import selenium.service.FileReaderJsonAndProperties;
 
 import java.util.List;
 
@@ -32,17 +32,16 @@ public class FlipTestSelenium {
 
     @BeforeSuite
     public void initBrowserUserHomepage() {
-        driver = WebDriverSingleton.initWebDriver();
-        remoteWebDriver = WebDriverRemote.initRemoteWebDriver();
-        user = JsonReader.getUser();
-        System.out.println(user.toString());
+        driver = WebDriverSingleton.getWebDriverInstance();
+        remoteWebDriver = WebDriverRemote.getRemoteWebDriverInstance();
+        user = FileReaderJsonAndProperties.getUser();
         homePage = new HomePage(driver).open();
     }
 
     @BeforeClass
     public void initPublicationYearRange() {
-        publicationYearRangeFirstValue = JsonReader.getPublicationYearRangeFirstValue();
-        publicationYearRangeLastValue = JsonReader.getPublicationYearRangeLastValue();
+        publicationYearRangeFirstValue = FileReaderJsonAndProperties.getPublicationYearRangeFirstValue();
+        publicationYearRangeLastValue = FileReaderJsonAndProperties.getPublicationYearRangeLastValue();
     }
 
     @BeforeMethod(alwaysRun = true)

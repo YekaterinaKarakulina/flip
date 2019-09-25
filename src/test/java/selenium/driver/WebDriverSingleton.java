@@ -3,8 +3,10 @@ package selenium.driver;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import selenium.service.FileReaderJsonAndProperties;
 
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -18,12 +20,12 @@ public class WebDriverSingleton implements WebDriverCreator{
     private static final String GECKO_WD_WIN_PATH = "src/test/resources/drivers/geckodriverWin.exe";
 
     private static WebDriver driver;
+    private static String browser = FileReaderJsonAndProperties.readDriver();
 
     public WebDriverSingleton() {
     }
 
-    public static WebDriver initWebDriver() {
-        String browser = readDriver();
+    public static WebDriver getWebDriverInstance() {
         if (driver == null) {
             switch (browser) {
                 case "chromeWin":
@@ -44,18 +46,6 @@ public class WebDriverSingleton implements WebDriverCreator{
         }
         driver.manage().window().maximize();
         return driver;
-    }
-
-    private static String readDriver() {
-        try {
-            FileInputStream fis = new FileInputStream("src/test/resources/driverSelenium.properties");
-            Properties prop = new Properties();
-            prop.load(fis);
-            return prop.getProperty("browser");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return readDriver();
     }
 
 }

@@ -2,6 +2,7 @@ package selenium.driver;
 
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import selenium.service.FileReaderJsonAndProperties;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -12,9 +13,9 @@ import java.util.Properties;
 public class WebDriverRemote implements WebDriverCreator{
 
     private static RemoteWebDriver remoteWebDriver;
+    private static String browser = FileReaderJsonAndProperties.readDriver();
 
-    public static RemoteWebDriver initRemoteWebDriver() {
-        String browser = readDriver();
+    public static RemoteWebDriver getRemoteWebDriverInstance() {
         if (remoteWebDriver == null) {
             if (browser.equals("remote")) {
                 try {
@@ -25,18 +26,6 @@ public class WebDriverRemote implements WebDriverCreator{
             }
         }
         return remoteWebDriver;
-    }
-
-    private static String readDriver() {
-        try {
-            FileInputStream fis = new FileInputStream("src/test/resources/driverSelenium.properties");
-            Properties prop = new Properties();
-            prop.load(fis);
-            return prop.getProperty("browser");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return readDriver();
     }
 
 }
