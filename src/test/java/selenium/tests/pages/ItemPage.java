@@ -31,7 +31,7 @@ public class ItemPage extends BasePage {
 
     public int getBookPublicationYear() {
         waitForElementEnabled(bookPublicationYear);
-        String actualPublicationYearStr = getStringByRegexMatcher(bookPublicationYear.getText());
+        String actualPublicationYearStr = getStringByRegexMatcher(bookPublicationYear.getText(), "(?<=,.)(\\d+)");
         return Integer.parseInt(actualPublicationYearStr);
     }
 

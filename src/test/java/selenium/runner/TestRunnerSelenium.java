@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class TestRunner {
+public class TestRunnerSelenium {
 
     public static void main(String[] args) {
         TestNG tng = new TestNG();

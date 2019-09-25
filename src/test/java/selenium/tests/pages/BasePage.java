@@ -121,9 +121,8 @@ public class BasePage {
                 .until(ExpectedConditions.visibilityOfAllElements(webElements));
     }
 
-    protected String getStringByRegexMatcher(String stringToMatch){
-        String rx = "(?<=,.)(\\d+)";
-        Pattern p = Pattern.compile(rx);
+    protected String getStringByRegexMatcher(String stringToMatch, String regex){
+        Pattern p = Pattern.compile(regex);
         Matcher matcher = p.matcher(stringToMatch);
         if(matcher.find()){
             return matcher.group();
