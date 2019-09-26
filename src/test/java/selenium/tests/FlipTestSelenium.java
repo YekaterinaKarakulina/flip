@@ -52,13 +52,13 @@ public class FlipTestSelenium {
 
     @AfterSuite
     public void afterSuite() {
-        driver.close();
+        WebDriverSingleton.quiteWebDriver();
     }
 
     @Test(description = "Test checks working of \"Authors\" filter in \"flip.kz\" website with one author")
     public void oneAuthorFilter() {
         SearchCriteria searchCriteria = homePage.getMainMenuComponent().clickBookSection().clickImaginativeLiteratureSection();
-        SectionPage bookPage = searchCriteria.clickRandomAuthor(2).moveToRandomPage();
+        SectionPage bookPage = searchCriteria.clickRandomAuthor(1).moveToRandomPage();
         List<String> selectedAuthors = searchCriteria.getSelectedAuthorsList();
         ItemPage bookItemPage = bookPage.clickOnRandomBookCard();
         Book actualBook = new Book(bookItemPage.getBookName(), bookItemPage.getBookAuthors());

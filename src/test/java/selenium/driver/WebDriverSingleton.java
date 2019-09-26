@@ -1,23 +1,9 @@
 package selenium.driver;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import selenium.service.FileReaderJsonAndProperties;
 
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Properties;
-
-public class WebDriverSingleton implements WebDriverCreator{
-
-    private static final String CHROME_WD_WIN = "webdriver.chrome.driver";
-    private static final String CHROME_WD_WIN_PATH = "src/test/resources/drivers/chromedriver76.exe";
-    private static final String GECKO_WD_LINUX = "webdriver.gecko.driver";
-    private static final String GECKO_WD_LINUX_PATH = "src/test/resources/drivers/geckodriver";
-    private static final String GECKO_WD_WIN = "webdriver.gecko.driver";
-    private static final String GECKO_WD_WIN_PATH = "src/test/resources/drivers/geckodriverWin.exe";
+public class WebDriverSingleton {
 
     private static WebDriver driver = null;
     private static String browser = FileReaderJsonAndProperties.readDriver();
@@ -29,16 +15,13 @@ public class WebDriverSingleton implements WebDriverCreator{
         if (driver == null) {
             switch (browser) {
                 case "chromeWin":
-                    System.setProperty(CHROME_WD_WIN, CHROME_WD_WIN_PATH);
-                    driver = new ChromeDriver();
+                    driver = new ChromeDriverWin().createWebDriver();
                     break;
                 case "firefoxLinux":
-                    System.setProperty(GECKO_WD_LINUX, GECKO_WD_LINUX_PATH);
-                    driver = new FirefoxDriver();
+                    driver = new GeckoDriverLinux().createWebDriver();
                     break;
                 case "firefoxWin":
-                    System.setProperty(GECKO_WD_WIN, GECKO_WD_WIN_PATH);
-                    driver = new FirefoxDriver();
+                    driver = new GeckoDriverWin().createWebDriver();
                     break;
                 default:
                     System.out.println("Browser not selected");
@@ -46,6 +29,20 @@ public class WebDriverSingleton implements WebDriverCreator{
         }
         driver.manage().window().maximize();
         return driver;
+    }
+
+    public static void quiteWebDriver(){
+        switch (browser) {
+            case "chromeWin":
+                new ChromeDriverWin().quiteWebDriver();
+                break;
+            case "firefoxLinux":
+                new GeckoDriverLinux().quiteWebDriver();
+                break;
+            case "firefoxWin":
+                new GeckoDriverWin().quiteWebDriver();
+                break;
+        }
     }
 
 }

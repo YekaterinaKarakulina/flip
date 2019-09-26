@@ -10,7 +10,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Properties;
 
-public class WebDriverRemote implements WebDriverCreator{
+public class WebDriverRemote {
 
     private static RemoteWebDriver remoteWebDriver;
     private static String browser = FileReaderJsonAndProperties.readDriver();
