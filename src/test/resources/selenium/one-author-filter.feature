@@ -3,14 +3,13 @@ Feature: One author filter
 
   Background:
     Given Website flip.kz is opened
-    When User enters email in input field
-    And User enters password in input field
+    When User enters email and login in input fields
     Then User logged in
 
   Scenario:
     Given User is authorized
     When User navigates to imaginative literature section
-    And User selects random book author
+    And User selects random book author, moves to random result`s page, selects random book
     Then Random book`s author from result page is selected author
 
 
