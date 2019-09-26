@@ -17,9 +17,4 @@ public class GeckoDriverLinux implements WebDriverLocal {
         return driver;
     }
 
-    @Override
-    public void quiteWebDriver() {
-        driver.close();
-    }
-
 }

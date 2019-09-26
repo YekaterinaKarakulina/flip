@@ -17,8 +17,4 @@ public class ChromeDriverWin implements WebDriverLocal {
         return driver;
     }
 
-    @Override
-    public void quiteWebDriver() {
-        driver.close();
-    }
 }

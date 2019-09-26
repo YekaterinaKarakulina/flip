@@ -17,9 +17,4 @@ public class GeckoDriverWin implements WebDriverLocal{
         return driver;
     }
 
-    @Override
-    public void quiteWebDriver() {
-        driver.close();
-    }
-
 }

@@ -31,18 +31,4 @@ public class WebDriverSingleton {
         return driver;
     }
 
-    public static void quiteWebDriver(){
-        switch (browser) {
-            case "chromeWin":
-                new ChromeDriverWin().quiteWebDriver();
-                break;
-            case "firefoxLinux":
-                new GeckoDriverLinux().quiteWebDriver();
-                break;
-            case "firefoxWin":
-                new GeckoDriverWin().quiteWebDriver();
-                break;
-        }
-    }
-
 }

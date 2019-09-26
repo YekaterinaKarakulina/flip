@@ -1,5 +1,6 @@
 package selenium.driver;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import selenium.service.FileReaderJsonAndProperties;
@@ -10,7 +11,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Properties;
 
-public class WebDriverRemote {
+public class WebDriverRemote{
 
     private static RemoteWebDriver remoteWebDriver;
     private static String browser = FileReaderJsonAndProperties.readDriver();

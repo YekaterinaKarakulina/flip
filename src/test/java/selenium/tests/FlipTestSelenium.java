@@ -9,6 +9,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import selenium.driver.WebDriverFactory;
 import selenium.driver.WebDriverRemote;
 import selenium.driver.WebDriverSingleton;
 import selenium.tests.businessObjects.Book;
@@ -32,7 +33,9 @@ public class FlipTestSelenium {
 
     @BeforeSuite
     public void initBrowserUserHomepage() {
-        driver = WebDriverSingleton.getWebDriverInstance();
+       // driver = WebDriverSingleton.getWebDriverInstance();
+        driver = new WebDriverFactory().getLocalDriver("firefoxWin");
+        driver.manage().window().maximize();
         remoteWebDriver = WebDriverRemote.getRemoteWebDriverInstance();
         user = FileReaderJsonAndProperties.getUser();
         homePage = new HomePage(driver).open();
@@ -52,7 +55,7 @@ public class FlipTestSelenium {
 
     @AfterSuite
     public void afterSuite() {
-        WebDriverSingleton.quiteWebDriver();
+       driver.close();
     }
 
     @Test(description = "Test checks working of \"Authors\" filter in \"flip.kz\" website with one author")
