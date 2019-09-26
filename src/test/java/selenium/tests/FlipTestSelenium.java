@@ -34,7 +34,7 @@ public class FlipTestSelenium {
     @BeforeSuite
     public void initBrowserUserHomepage() {
         // driver = WebDriverSingleton.getWebDriverInstance();
-        driver = new WebDriverFactory().getLocalDriver();
+        driver = new WebDriverFactory().getLocalDriver("chromeWin");
         driver.manage().window().maximize();
         remoteWebDriver = WebDriverRemote.getRemoteWebDriverInstance();
         user = FileReaderJsonAndProperties.getUser();

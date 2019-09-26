@@ -5,9 +5,7 @@ import selenium.service.FileReaderJsonAndProperties;
 
 public class WebDriverFactory {
 
-    private static String browser = FileReaderJsonAndProperties.readDriver();
-
-    public WebDriver getLocalDriver() {
+    public WebDriver getLocalDriver(String browser) {
         switch (browser) {
             case "chromeWin":
                 return new ChromeDriverWin().createWebDriver();

@@ -1,35 +1,123 @@
 package selenium.tests.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.Point;
+import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class Checkbox extends BasePage {
+public class Checkbox implements WebElement {
 
-    private static String xpathAuthorToClick = "//div[@data-filter-field-list-type='peoples']//*[contains(@data-list-found-name,'%s')]//*[contains(@class,'checkbox')]";
+    WebDriver driver;
+    WebElement element;
 
-    @FindBy(xpath = "//div[@data-filter-field-list-type='peoples']//*[contains(@class,'selected')]//*[contains(@class,'filter-label')]")
-    private static List<WebElement> selectedAuthors;
-
-    public Checkbox(WebDriver driver) {
-        super(driver);
+    public Checkbox(WebDriver driver, WebElement element) {
+        this.driver = driver;
+        this.element = element;
     }
 
-    public void checkBox(String authorToClick) {
-        List<String> selectedAuthors = Checkbox.selectedAuthors.stream().map(WebElement::getText).collect(Collectors.toList());
-        if(!selectedAuthors.contains(authorToClick))
-        {
-            WebElement authorToClickElement = getDriver().findElement(By.xpath(String.format(xpathAuthorToClick, authorToClick)));
-            scrollToElement(authorToClickElement);
-            waitForElementEnabled(authorToClickElement);
-            clickToWebElement(authorToClickElement);
+    public boolean isChecked() {
+        return element.isSelected();
+    }
+
+    public void toggle() {
+        element.click();
+    }
+
+    public void check() {
+        if (!isChecked()) {
+            toggle();
         }
+    }
+
+    @Override
+    public void click() {
+
+    }
+
+    @Override
+    public void submit() {
+
+    }
+
+    @Override
+    public void sendKeys(CharSequence... charSequences) {
+
+    }
+
+    @Override
+    public void clear() {
+
+    }
+
+    @Override
+    public String getTagName() {
+        return null;
+    }
+
+    @Override
+    public String getAttribute(String s) {
+        return null;
+    }
+
+    @Override
+    public boolean isSelected() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
+
+    @Override
+    public String getText() {
+        return null;
+    }
+
+    @Override
+    public List<WebElement> findElements(By by) {
+        return null;
+    }
+
+    @Override
+    public WebElement findElement(By by) {
+        return null;
+    }
+
+    @Override
+    public boolean isDisplayed() {
+        return false;
+    }
+
+    @Override
+    public Point getLocation() {
+        return null;
+    }
+
+    @Override
+    public Dimension getSize() {
+        return null;
+    }
+
+    @Override
+    public Rectangle getRect() {
+        return null;
+    }
+
+    @Override
+    public String getCssValue(String s) {
+        return null;
+    }
+
+    @Override
+    public <X> X getScreenshotAs(OutputType<X> outputType) throws WebDriverException {
+        return null;
     }
 
 }
