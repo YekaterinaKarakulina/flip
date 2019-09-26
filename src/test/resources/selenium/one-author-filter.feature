@@ -2,14 +2,15 @@ Feature: One author filter
   #Test checks working of "Authors" filter in "flip.kz" website with one author"
 
   Background:
-    Given User open browser on website flip.kz
-    When User enter email in input field
-    And User enter password in input field
-    Then User became current user
+    Given Website flip.kz is opened
+    When User enters email in input field
+    And User enters password in input field
+    Then User logged in
 
   Scenario:
-    Given User navigate to imaginative literature section
-    When User click random author
-    Then Random book from result page has author which user click
+    Given User is authorized
+    When User navigates to imaginative literature section
+    And User selects random book author
+    Then Random book`s author from result page is selected author
 
 
