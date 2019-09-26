@@ -33,8 +33,8 @@ public class FlipTestSelenium {
 
     @BeforeSuite
     public void initBrowserUserHomepage() {
-       // driver = WebDriverSingleton.getWebDriverInstance();
-        driver = new WebDriverFactory().getLocalDriver("firefoxWin");
+        // driver = WebDriverSingleton.getWebDriverInstance();
+        driver = new WebDriverFactory().getLocalDriver();
         driver.manage().window().maximize();
         remoteWebDriver = WebDriverRemote.getRemoteWebDriverInstance();
         user = FileReaderJsonAndProperties.getUser();
@@ -55,7 +55,7 @@ public class FlipTestSelenium {
 
     @AfterSuite
     public void afterSuite() {
-       driver.close();
+        driver.close();
     }
 
     @Test(description = "Test checks working of \"Authors\" filter in \"flip.kz\" website with one author")

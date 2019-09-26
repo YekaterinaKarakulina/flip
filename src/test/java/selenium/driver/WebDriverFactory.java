@@ -1,12 +1,14 @@
 package selenium.driver;
 
 import org.openqa.selenium.WebDriver;
+import selenium.service.FileReaderJsonAndProperties;
 
 public class WebDriverFactory {
 
-    public WebDriver getLocalDriver(String type)
-    {
-        switch (type){
+    private static String browser = FileReaderJsonAndProperties.readDriver();
+
+    public WebDriver getLocalDriver() {
+        switch (browser) {
             case "chromeWin":
                 return new ChromeDriverWin().createWebDriver();
             case "firefoxLinux":
