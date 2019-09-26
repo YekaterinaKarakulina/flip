@@ -13,11 +13,9 @@ import java.util.List;
 
 public class Checkbox implements WebElement {
 
-    WebDriver driver;
-    WebElement element;
+    private WebElement element;
 
-    public Checkbox(WebDriver driver, WebElement element) {
-        this.driver = driver;
+    public Checkbox(WebElement element) {
         this.element = element;
     }
 

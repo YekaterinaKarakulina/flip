@@ -9,9 +9,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import selenium.driver.WebDriverFactory;
+import selenium.driver.WebDriverManager;
 import selenium.driver.WebDriverRemote;
-import selenium.driver.WebDriverSingleton;
 import selenium.tests.businessObjects.Book;
 import selenium.tests.businessObjects.User;
 import selenium.tests.pages.SearchCriteria;
@@ -33,9 +32,7 @@ public class FlipTestSelenium {
 
     @BeforeSuite
     public void initBrowserUserHomepage() {
-        // driver = WebDriverSingleton.getWebDriverInstance();
-        driver = new WebDriverFactory().getLocalDriver("chromeWin");
-        driver.manage().window().maximize();
+        driver = WebDriverManager.getWebDriverInstance();
         remoteWebDriver = WebDriverRemote.getRemoteWebDriverInstance();
         user = FileReaderJsonAndProperties.getUser();
         homePage = new HomePage(driver).open();

@@ -1,7 +1,6 @@
 package selenium.driver;
 
 import org.openqa.selenium.WebDriver;
-import selenium.service.FileReaderJsonAndProperties;
 
 public class WebDriverFactory {
 

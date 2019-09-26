@@ -94,7 +94,7 @@ public class SearchCriteria extends BasePage {
             WebElement authorToClickElement = getDriver().findElement(By.xpath(String.format(xpathAuthorToClick, authorToClick)));
             scrollToElement(authorToClickElement);
             waitForElementEnabled(authorToClickElement);
-            Checkbox authorToClickCheckBox = new Checkbox(getDriver(), authorToClickElement);
+            Checkbox authorToClickCheckBox = new Checkbox(authorToClickElement);
             authorToClickCheckBox.check();
             clickedAuthorsList.add(authorToClick);
             waitUntilSearchIsReady();
