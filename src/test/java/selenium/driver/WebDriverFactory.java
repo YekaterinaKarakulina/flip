@@ -9,20 +9,22 @@ public class WebDriverFactory {
             case "remote":
                 switch (browserName) {
                     case "chromeWin":
-                        return new RemoteWebDriverChrome().createWebDriver();
+                        return new ChromeWebDriverWin().createRemoteWebDriver();
+                    case "firefoxLinux":
+                        return new FirefoxWebDriverLinux().createRemoteWebDriver();
                     case "firefoxWin":
-                        return new RemoteWebDriverFirefox().createWebDriver();
+                        return new FirefoxWebDriverWin().createRemoteWebDriver();
                     default:
                         throw new RuntimeException("WebDriver type or name incorrect. Go to `driverSelenium.properties` file and change properties");
                 }
             case "local":
                 switch (browserName) {
                     case "chromeWin":
-                        return new LocalChromeDriverWin().createWebDriver();
+                        return new ChromeWebDriverWin().createLocalWebDriver();
                     case "firefoxLinux":
-                        return new LocalGeckoDriverLinux().createWebDriver();
+                        return new FirefoxWebDriverLinux().createLocalWebDriver();
                     case "firefoxWin":
-                        return new LocalGeckoDriverWin().createWebDriver();
+                        return new FirefoxWebDriverWin().createLocalWebDriver();
                     default:
                         throw new RuntimeException("WebDriver type or name incorrect. Go to `driverSelenium.properties` file and change properties");
                 }

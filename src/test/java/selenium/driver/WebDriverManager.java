@@ -11,7 +11,7 @@ public class WebDriverManager {
 
     private WebDriverManager() {
     }
-    
+
     public static WebDriver getWebDriverInstance() {
         if (driver == null) {
             driver = new WebDriverFactory().getDriver(browserType, browserName);
