@@ -11,16 +11,10 @@ public class WebDriverManager {
 
     private WebDriverManager() {
     }
-
+    
     public static WebDriver getWebDriverInstance() {
-        if (browserType.equals("local")) {
-            if (driver == null) {
-                driver = new WebDriverFactory().getLocalDriver(browserName);
-            }
-        } else if (browserType.equals("remote")) {
-            if (driver == null) {
-                driver = new WebDriverFactory().getRemoteDriver(browserName);
-            }
+        if (driver == null) {
+            driver = new WebDriverFactory().getDriver(browserType, browserName);
         }
         driver.manage().window().maximize();
         return driver;

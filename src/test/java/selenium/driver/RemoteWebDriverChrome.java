@@ -12,12 +12,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Properties;
 
-public class RemoteWebDriverChrome implements WebDriverRemote {
+public class RemoteWebDriverChrome implements WebDriverInterface {
 
     private static RemoteWebDriver remoteWebDriver = null;
 
     @Override
-    public WebDriver createRemoteWebDriver() {
+    public WebDriver createWebDriver() {
         try {
             remoteWebDriver = new RemoteWebDriver(new URL("http://127.0.0.1:4444/wd/hub"), DesiredCapabilities.chrome());
         } catch (MalformedURLException e) {

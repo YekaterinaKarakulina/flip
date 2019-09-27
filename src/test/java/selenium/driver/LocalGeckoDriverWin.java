@@ -3,7 +3,7 @@ package selenium.driver;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class LocalGeckoDriverWin implements WebDriverLocal{
+public class LocalGeckoDriverWin implements WebDriverInterface {
 
     private static WebDriver driver = null;
 
@@ -11,7 +11,7 @@ public class LocalGeckoDriverWin implements WebDriverLocal{
     private static final String GECKO_WD_WIN_PATH = "src/test/resources/drivers/geckodriverWin.exe";
 
     @Override
-    public WebDriver createLocalWebDriver() {
+    public WebDriver createWebDriver() {
         System.setProperty(GECKO_WD_WIN, GECKO_WD_WIN_PATH);
         driver = new FirefoxDriver();
         return driver;

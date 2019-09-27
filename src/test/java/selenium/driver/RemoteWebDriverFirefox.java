@@ -7,12 +7,12 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class RemoteWebDriverFirefox implements WebDriverRemote {
+public class RemoteWebDriverFirefox implements WebDriverInterface {
 
     private static RemoteWebDriver remoteWebDriver = null;
 
     @Override
-    public WebDriver createRemoteWebDriver() {
+    public WebDriver createWebDriver() {
         try {
             remoteWebDriver = new RemoteWebDriver(new URL("http://127.0.0.1:4444/wd/hub"), DesiredCapabilities.firefox());
         } catch (MalformedURLException e) {

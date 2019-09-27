@@ -4,25 +4,28 @@ import org.openqa.selenium.WebDriver;
 
 public class WebDriverFactory {
 
-    public WebDriver getLocalDriver(String browser) {
-        switch (browser) {
-            case "chromeWin":
-                return new LocalChromeDriverWin().createLocalWebDriver();
-            case "firefoxLinux":
-                return new LocalGeckoDriverLinux().createLocalWebDriver();
-            case "firefoxWin":
-                return new LocalGeckoDriverWin().createLocalWebDriver();
-            default:
-                throw new RuntimeException("WebDriver type or name incorrect. Go to `driverSelenium.properties` file and change properties");
-        }
-    }
-
-    public WebDriver getRemoteDriver(String browser) {
-        switch (browser) {
-            case "chromeWin":
-                return new RemoteWebDriverChrome().createRemoteWebDriver();
-            case "firefoxWin":
-                return new RemoteWebDriverFirefox().createRemoteWebDriver();
+    public WebDriver getDriver(String browserType, String browserName) {
+        switch (browserType) {
+            case "remote":
+                switch (browserName) {
+                    case "chromeWin":
+                        return new RemoteWebDriverChrome().createWebDriver();
+                    case "firefoxWin":
+                        return new RemoteWebDriverFirefox().createWebDriver();
+                    default:
+                        throw new RuntimeException("WebDriver type or name incorrect. Go to `driverSelenium.properties` file and change properties");
+                }
+            case "local":
+                switch (browserName) {
+                    case "chromeWin":
+                        return new LocalChromeDriverWin().createWebDriver();
+                    case "firefoxLinux":
+                        return new LocalGeckoDriverLinux().createWebDriver();
+                    case "firefoxWin":
+                        return new LocalGeckoDriverWin().createWebDriver();
+                    default:
+                        throw new RuntimeException("WebDriver type or name incorrect. Go to `driverSelenium.properties` file and change properties");
+                }
             default:
                 throw new RuntimeException("WebDriver type or name incorrect. Go to `driverSelenium.properties` file and change properties");
         }
