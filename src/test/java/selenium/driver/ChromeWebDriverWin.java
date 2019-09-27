@@ -12,6 +12,7 @@ public class ChromeWebDriverWin implements WebDriverInterface {
 
     private static WebDriver driver = null;
     private static RemoteWebDriver remoteWebDriver = null;
+    private URL url;
 
     private static final String CHROME_WD_WIN = "webdriver.chrome.driver";
     private static final String CHROME_WD_WIN_PATH = "src/test/resources/drivers/chromedriver76.exe";
@@ -25,12 +26,17 @@ public class ChromeWebDriverWin implements WebDriverInterface {
 
     @Override
     public WebDriver createRemoteWebDriver() {
+        remoteWebDriver = new RemoteWebDriver(getURL(), DesiredCapabilities.chrome());
+        return remoteWebDriver;
+    }
+
+    private URL getURL() {
         try {
-            remoteWebDriver = new RemoteWebDriver(new URL("http://127.0.0.1:4444/wd/hub"), DesiredCapabilities.chrome());
+            url = new URL("http://127.0.0.1:4444/wd/hub");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        return remoteWebDriver;
+        return url;
     }
 
 }

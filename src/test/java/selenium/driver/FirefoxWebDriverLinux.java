@@ -12,6 +12,7 @@ public class FirefoxWebDriverLinux implements WebDriverInterface {
 
     private static WebDriver driver = null;
     private static RemoteWebDriver remoteWebDriver = null;
+    private URL url;
 
     private static final String GECKO_WD_LINUX = "webdriver.gecko.driver";
     private static final String GECKO_WD_LINUX_PATH = "src/test/resources/drivers/geckodriver";
@@ -25,12 +26,17 @@ public class FirefoxWebDriverLinux implements WebDriverInterface {
 
     @Override
     public WebDriver createRemoteWebDriver() {
+        remoteWebDriver = new RemoteWebDriver(getURL(), DesiredCapabilities.firefox());
+        return remoteWebDriver;
+    }
+
+    private URL getURL() {
         try {
-            remoteWebDriver = new RemoteWebDriver(new URL("http://127.0.0.1:4444/wd/hub"), DesiredCapabilities.firefox());
+            url = new URL("http://127.0.0.1:4444/wd/hub");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        return remoteWebDriver;
+        return url;
     }
 
 }

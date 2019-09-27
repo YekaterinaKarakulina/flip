@@ -12,7 +12,7 @@ public class FirefoxWebDriverWin implements WebDriverInterface {
 
     private static WebDriver driver = null;
     private static RemoteWebDriver remoteWebDriver = null;
-
+    private URL url;
 
     private static final String GECKO_WD_WIN = "webdriver.gecko.driver";
     private static final String GECKO_WD_WIN_PATH = "src/test/resources/drivers/geckodriverWin.exe";
@@ -26,13 +26,16 @@ public class FirefoxWebDriverWin implements WebDriverInterface {
 
     @Override
     public WebDriver createRemoteWebDriver() {
-        try {
-            remoteWebDriver = new RemoteWebDriver(new URL("http://127.0.0.1:4444/wd/hub"), DesiredCapabilities.firefox());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+        remoteWebDriver = new RemoteWebDriver(getURL(), DesiredCapabilities.firefox());
         return remoteWebDriver;
     }
 
-
+    private URL getURL() {
+        try {
+            url = new URL("http://127.0.0.1:4444/wd/hub");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return url;
+    }
 }
