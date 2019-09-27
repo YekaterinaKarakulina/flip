@@ -46,6 +46,7 @@ public class FileReaderJsonAndProperties {
         return Integer.parseInt(jsonObject.get("PublicationYearRangeLastValue").toString());
     }
 
+    /*
     public static String readDriver() {
         try {
             FileInputStream fis = new FileInputStream("src/test/resources/driverSelenium.properties");
@@ -56,6 +57,20 @@ public class FileReaderJsonAndProperties {
             e.printStackTrace();
         }
         return "firefoxWin";
+    }
+
+     */
+
+    public static String readDriver(String elementToRead) {
+        try {
+            FileInputStream fis = new FileInputStream("src/test/resources/driverSelenium.properties");
+            Properties prop = new Properties();
+            prop.load(fis);
+            return prop.getProperty(elementToRead);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        throw new RuntimeException("WebDriver type or name incorrect. Go to `driverSelenium.properties` file and change properties");
     }
 
 }

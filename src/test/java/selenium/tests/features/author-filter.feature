@@ -1,5 +1,5 @@
-Feature: One author filter
-  #Test checks working of "Authors" filter in "flip.kz" website with one author
+Feature: Author filter
+  #Tests checks working of "Authors" filter in "flip.kz" website with one author and several authors
 
   Background:
     Given Website flip.kz is opened

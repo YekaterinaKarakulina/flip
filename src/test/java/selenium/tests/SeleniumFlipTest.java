@@ -1,7 +1,6 @@
 package selenium.tests;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
@@ -10,7 +9,6 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import selenium.driver.WebDriverManager;
-import selenium.driver.WebDriverRemote;
 import selenium.tests.businessObjects.Book;
 import selenium.tests.businessObjects.User;
 import selenium.tests.pages.SearchCriteria;
@@ -23,7 +21,6 @@ import java.util.List;
 
 public class SeleniumFlipTest {
 
-    private RemoteWebDriver remoteWebDriver;
     private WebDriver driver;
     private HomePage homePage;
     private int publicationYearRangeFirstValue;
@@ -33,7 +30,6 @@ public class SeleniumFlipTest {
     @BeforeSuite
     public void initBrowserUserHomepage() {
         driver = WebDriverManager.getWebDriverInstance();
-        remoteWebDriver = WebDriverRemote.getRemoteWebDriverInstance();
         user = FileReaderJsonAndProperties.getUser();
         homePage = new HomePage(driver).open();
     }
