@@ -3,7 +3,7 @@
 <suite name="suite" verbose="1"  thread-count="1" parallel="false" configfailurepolicy="continue">
     <test name="FlipKzTest">
         <classes>
-            <class name="selenium.tests.FlipTestSelenium">
+            <class name="selenium.tests.SeleniumFlipTest">
             </class>
         </classes>
     </test>

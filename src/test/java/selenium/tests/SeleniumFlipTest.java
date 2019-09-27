@@ -21,7 +21,7 @@ import selenium.service.FileReaderJsonAndProperties;
 
 import java.util.List;
 
-public class FlipTestSelenium {
+public class SeleniumFlipTest {
 
     private RemoteWebDriver remoteWebDriver;
     private WebDriver driver;
