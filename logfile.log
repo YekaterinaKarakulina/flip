@@ -1,0 +1,8 @@
+11:22:56 INFO  SeleniumFlipTest.oneAuthorFilter - info log
+11:22:56 ERROR SeleniumFlipTest.oneAuthorFilter - error log
+11:23:44,004 [INFO] [main] logger : selenium.tests.SeleniumFlipTest.oneAuthorFilter.69 - info log
+11:23:44,006 [ERROR] [main] logger : selenium.tests.SeleniumFlipTest.oneAuthorFilter.70 - error log
+11:46:07,552 [INFO] [main] MyLogger : selenium.reporting.MyLogger.info.17 - WebDriver get the instance of localfirefoxWin
+11:48:40,120 [INFO] [main] MyLogger : selenium.reporting.MyLogger.info.17 - WebDriver get the instance of local webDriver - firefoxWin
+11:50:17,895 [INFO] [main] MyLogger : selenium.reporting.MyLogger.info.17 - WebDriver get the instance of local webDriver - firefoxWin
+2019-10-274 11:51:03 [INFO] [main] MyLogger : selenium.reporting.MyLogger.info.17 - WebDriver get the instance of local webDriver - firefoxWin
