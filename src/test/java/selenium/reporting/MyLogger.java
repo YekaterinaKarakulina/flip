@@ -21,11 +21,4 @@ public class MyLogger {
         logger.debug(message);
     }
 
-    public static void warn(String message) {
-        logger.warn(message);
-    }
-
-    public static void trace(String message) {
-        logger.trace(message);
-    }
 }

@@ -1,8 +1,11 @@
 package selenium.tests.pages;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
@@ -14,6 +17,8 @@ import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import selenium.reporting.MyLogger;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -24,19 +29,24 @@ public class BasePage {
     private static final Duration MAX = Duration.ofSeconds(60);
     private static final Duration POLLING = Duration.ofSeconds(1);
     private static final int WAIT_FOR_ELEMENT_TIMEOUT_SECONDS = 60;
-
-    private WebDriver driver;
+    private static final String SCREENSHOTS_NAME_TPL = "screenshots/scr";
+    private static WebDriver driver;
 
     @FindBy(xpath = ".//div[@id='content']")
     private WebElement pageContent;
 
     @FindBy(xpath = "//table[@id='prod']//*[contains(@href,'people')]")
     private List<WebElement> bookAuthorsList;
-
-    BasePage(WebDriver driver) {
+//
+   public BasePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
+
+    public BasePage() {
+
+    }
+
 
     public List<WebElement> getBookAuthorsList() {
         return bookAuthorsList;
@@ -63,6 +73,8 @@ public class BasePage {
     protected void clickToWebElement(WebElement element) {
         waitForElementEnabled(element);
         highlightElement(element);
+        //takeScreenshot();
+        unHighlightElement(element);
         MyLogger.info(String.format("WebElement %s clicked", element));
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
     }
@@ -76,6 +88,10 @@ public class BasePage {
         ((JavascriptExecutor) driver).executeScript("arguments[0].style.border='3px solid red'", element);
     }
 
+    private void unHighlightElement(WebElement element) {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].style.border='0px'", element);
+    }
+
     protected void scrollToElement(WebElement webElement) {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true)", webElement);
     }
@@ -85,6 +101,17 @@ public class BasePage {
         jse.executeScript("window.scrollTo(0, document.body.scrollHeight)");
     }
 
+    public void takeScreenshot() {
+        File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        try {
+            String screenshotName = SCREENSHOTS_NAME_TPL + System.nanoTime();
+            File copy = new File(screenshotName + ".png");
+            FileUtils.copyFile(screenshot, copy);
+            MyLogger.info("Saved screenshot: " + screenshotName);
+        } catch (IOException e) {
+            MyLogger.error("Failed to make screenshot");
+        }
+    }
 
     protected void waitForElementEnabled(WebElement element) {
         new WebDriverWait(driver, WAIT_FOR_ELEMENT_TIMEOUT_SECONDS).until(ExpectedConditions.elementToBeClickable(element));
