@@ -65,6 +65,7 @@ public class SeleniumFlipTest {
         Assert.assertTrue(actualBook.checkBooksEqualsByAuthorsList(expectedBook, actualBook), String.format("List of expected authors of book '%s' does not contain actual author. Expected authors list %s; actual authors list %s.", actualBook.getName(), expectedBook.getAuthorNameList().toString(), actualBook.getAuthorNameList().toString()));
     }
 
+
     @Test(description = "Test checks working of \"Authors\" filter in \"flip.kz\" website with several author")
     public void severalAuthorsFilter() {
         SearchCriteria searchCriteria = homePage.getMainMenuComponent().clickBookSection().clickImaginativeLiteratureSection();

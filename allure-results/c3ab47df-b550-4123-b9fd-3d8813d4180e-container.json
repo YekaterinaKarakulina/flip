@@ -1,0 +1,1 @@
+{"uuid":"c3ab47df-b550-4123-b9fd-3d8813d4180e","name":"selenium.tests.SeleniumFlipTest.signIn","description":"","start":1570012841411,"stop":1570012895526,"children":["75ba0f61-7cfe-4cdc-ba52-8a52e2322b64"],"befores":[{"name":"signIn","status":"passed","stage":"finished","description":"","start":1570012841411,"stop":1570012895526}]}
