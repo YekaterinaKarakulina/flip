@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import selenium.reporting.MyLogger;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -34,7 +35,7 @@ public class FirefoxWebDriverWin implements WebDriverInterface {
         try {
             url = new URL("http://127.0.0.1:4444/wd/hub");
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            MyLogger.error(e.getMessage(), e);
         }
         return url;
     }

@@ -3,6 +3,7 @@ package selenium.tests.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import selenium.reporting.MyLogger;
 import selenium.tests.businessObjects.User;
 
 public class HomePage extends BasePage {
@@ -38,8 +39,9 @@ public class HomePage extends BasePage {
         return new MainMenuComponent(getDriver());
     }
 
-    public  HomePage open() {
+    public HomePage open() {
         getDriver().get(URL);
+        MyLogger.info(String.format("Homepage %s opened", URL));
         return this;
     }
 
@@ -51,6 +53,7 @@ public class HomePage extends BasePage {
             clickToWebElement(registeredFlag);
             sendKeysToWebElement(passwordInput, user.getPassword());
             clickToWebElement(enterButton);
+            MyLogger.info(String.format("User login. Username - %s, user email - %s, user password - %s", user.getName(), user.getEmail(), user.getPassword()));
         }
         waitForElementEnabled(userName);
         waitUntilElementHasText(userName, user.getName());

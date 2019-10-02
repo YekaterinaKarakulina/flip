@@ -12,6 +12,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import selenium.reporting.MyLogger;
 
 import java.time.Duration;
 import java.util.List;
@@ -62,6 +63,7 @@ public class BasePage {
     protected void clickToWebElement(WebElement element) {
         waitForElementEnabled(element);
         highlightElement(element);
+        MyLogger.info(String.format("WebElement %s clicked", element));
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
     }
 
@@ -121,10 +123,10 @@ public class BasePage {
                 .until(ExpectedConditions.visibilityOfAllElements(webElements));
     }
 
-    protected String getStringByRegexMatcher(String stringToMatch, String regex){
+    protected String getStringByRegexMatcher(String stringToMatch, String regex) {
         Pattern p = Pattern.compile(regex);
         Matcher matcher = p.matcher(stringToMatch);
-        if(matcher.find()){
+        if (matcher.find()) {
             return matcher.group();
         }
         return null;

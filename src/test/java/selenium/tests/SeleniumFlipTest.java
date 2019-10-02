@@ -9,6 +9,7 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import selenium.driver.WebDriverManager;
+import selenium.reporting.MyLogger;
 import selenium.tests.businessObjects.Book;
 import selenium.tests.businessObjects.User;
 import selenium.tests.pages.SearchCriteria;
@@ -38,6 +39,7 @@ public class SeleniumFlipTest {
     public void initPublicationYearRange() {
         publicationYearRangeFirstValue = FileReaderJsonAndProperties.getPublicationYearRangeFirstValue();
         publicationYearRangeLastValue = FileReaderJsonAndProperties.getPublicationYearRangeLastValue();
+        MyLogger.debug(String.format("Publication year range read from json file. First value - %s, last value - %s", publicationYearRangeFirstValue, publicationYearRangeLastValue));
     }
 
     @BeforeMethod(alwaysRun = true)
@@ -62,8 +64,6 @@ public class SeleniumFlipTest {
         Assert.assertTrue(actualBook.checkBooksEqualsByAuthorsList(expectedBook, actualBook), String.format("List of expected authors of book '%s' does not contain actual author. Expected authors list %s; actual authors list %s.", actualBook.getName(), expectedBook.getAuthorNameList().toString(), actualBook.getAuthorNameList().toString()));
     }
 
-
-    /*
     @Test(description = "Test checks working of \"Authors\" filter in \"flip.kz\" website with several author")
     public void severalAuthorsFilter() {
         SearchCriteria searchCriteria = homePage.getMainMenuComponent().clickBookSection().clickImaginativeLiteratureSection();
@@ -119,7 +119,5 @@ public class SeleniumFlipTest {
         twoFilters.assertTrue(actualBook.checkBooksEqualsByAuthorsList(expectedBook, actualBook), String.format("List of expected authors of book '%s' does not contain actual author. Expected authors list %s; actual authors list %s.", actualBook.getName(), expectedBook.getAuthorNameList().toString(), actualBook.getAuthorNameList().toString()));
         twoFilters.assertAll();
     }
-
-     */
 
 }

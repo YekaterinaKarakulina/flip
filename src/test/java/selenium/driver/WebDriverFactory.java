@@ -1,6 +1,7 @@
 package selenium.driver;
 
 import org.openqa.selenium.WebDriver;
+import selenium.reporting.MyLogger;
 
 public class WebDriverFactory {
 
@@ -15,6 +16,7 @@ public class WebDriverFactory {
                     case "firefoxWin":
                         return new FirefoxWebDriverWin().createRemoteWebDriver();
                     default:
+                        MyLogger.error("WebDriver type or name incorrect. Go to `driverSelenium.properties` file and change properties");
                         throw new RuntimeException("WebDriver type or name incorrect. Go to `driverSelenium.properties` file and change properties");
                 }
             case "local":
@@ -26,9 +28,11 @@ public class WebDriverFactory {
                     case "firefoxWin":
                         return new FirefoxWebDriverWin().createLocalWebDriver();
                     default:
+                        MyLogger.error("WebDriver type or name incorrect. Go to `driverSelenium.properties` file and change properties");
                         throw new RuntimeException("WebDriver type or name incorrect. Go to `driverSelenium.properties` file and change properties");
                 }
             default:
+                MyLogger.error("WebDriver type or name incorrect. Go to `driverSelenium.properties` file and change properties");
                 throw new RuntimeException("WebDriver type or name incorrect. Go to `driverSelenium.properties` file and change properties");
         }
     }

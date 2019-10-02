@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
+import selenium.reporting.MyLogger;
 import selenium.tests.businessObjects.User;
 import selenium.utils.RandomNumbersUtils;
 
@@ -16,15 +17,13 @@ import java.util.Properties;
 
 public class FileReaderJsonAndProperties {
 
-
-
     private static java.io.FileReader fileReader;
 
     static {
         try {
             fileReader = new java.io.FileReader("src/test/resources/data.json");
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            MyLogger.error(e.getMessage(), e);
         }
     }
 
@@ -53,8 +52,9 @@ public class FileReaderJsonAndProperties {
             prop.load(fis);
             return prop.getProperty(elementToRead);
         } catch (IOException e) {
-            e.printStackTrace();
+            MyLogger.error(e.getMessage(), e);
         }
+        MyLogger.error("WebDriver type or name incorrect. Go to `driverSelenium.properties` file and change properties");
         throw new RuntimeException("WebDriver type or name incorrect. Go to `driverSelenium.properties` file and change properties");
     }
 

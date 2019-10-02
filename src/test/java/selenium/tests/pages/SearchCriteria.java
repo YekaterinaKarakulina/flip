@@ -5,6 +5,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import selenium.reporting.MyLogger;
 import selenium.utils.RandomNumbersUtils;
 
 import java.util.ArrayList;
@@ -58,6 +59,7 @@ public class SearchCriteria extends BasePage {
 
     public SectionPage setPublicationYearFirstValue() {
         int randomPosition = RandomNumbersUtils.getRandomNumber(0, 15);
+        MyLogger.debug(String.format("Publication year first value = %s", randomPosition));
         scrollToElement(publicationYearRangeFirstValueSlider);
         dragAndDropWebElementToPosition(publicationYearRangeFirstValueSlider, randomPosition, 0);
         return pressApplyButton();
@@ -65,6 +67,7 @@ public class SearchCriteria extends BasePage {
 
     public SectionPage setPublicationYearLastValue() {
         int randomPosition = RandomNumbersUtils.getRandomNumber(-200, -100);
+        MyLogger.debug(String.format("Publication year last value = %s", randomPosition));
         scrollToElement(publicationYearRangeLastValueSlider);
         dragAndDropWebElementToPosition(publicationYearRangeLastValueSlider, randomPosition, 0);
         return pressApplyButton();

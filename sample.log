@@ -1,3 +1,35 @@
+2019-10-275 09:51:09 [INFO] [main] MyLogger : selenium.reporting.MyLogger.info.17 - WebDriver get the instance of local webDriver - firefoxWin
+2019-10-275 09:51:13 [INFO] [main] MyLogger : selenium.reporting.MyLogger.info.17 - Homepage https://flip.kz opened
+2019-10-275 09:51:14 [INFO] [main] MyLogger : selenium.reporting.MyLogger.info.17 - WebElement [[FirefoxDriver: firefox on XP (267dafd7-fefd-4708-958b-5792e419bf04)] -> xpath: //*[contains(@class,'ath')]/*/a[contains(@href,'enter')]] clicked
+2019-10-275 09:51:15 [INFO] [main] MyLogger : selenium.reporting.MyLogger.info.17 - WebElement [[FirefoxDriver: firefox on XP (267dafd7-fefd-4708-958b-5792e419bf04)] -> xpath: //input[@id='is_reg']] clicked
+2019-10-275 09:51:16 [INFO] [main] MyLogger : selenium.reporting.MyLogger.info.17 - WebElement [[FirefoxDriver: firefox on XP (267dafd7-fefd-4708-958b-5792e419bf04)] -> xpath: //input[@id='enter_button']] clicked
+2019-10-275 09:51:16 [INFO] [main] MyLogger : selenium.reporting.MyLogger.info.17 - User login. Username - resu, user email - lastNameName00@mail.ru, user password - l0L0last
+2019-10-275 09:51:17 [INFO] [main] MyLogger : selenium.reporting.MyLogger.info.17 - WebElement [[FirefoxDriver: firefox on XP (267dafd7-fefd-4708-958b-5792e419bf04)] -> xpath: //ul[contains(@class,'sub-1')]/li/a[contains(text(), 'Книги')]] clicked
+2019-10-275 09:51:18 [INFO] [main] MyLogger : selenium.reporting.MyLogger.info.17 - WebElement [[FirefoxDriver: firefox on XP (267dafd7-fefd-4708-958b-5792e419bf04)] -> xpath: //a[@data-filter-field-sections-id='44']] clicked
+2019-10-275 09:51:21 [INFO] [main] MyLogger : selenium.reporting.MyLogger.info.17 - WebElement [[FirefoxDriver: firefox on XP (267dafd7-fefd-4708-958b-5792e419bf04)] -> xpath: //table[@class='pages']//td/*[text()>0]] clicked
+2019-10-275 09:51:21 [INFO] [main] MyLogger : selenium.reporting.MyLogger.info.17 - WebElement [[FirefoxDriver: firefox on XP (267dafd7-fefd-4708-958b-5792e419bf04)] -> xpath: //div[@class='placeholder']//a[@class='title']] clicked
+2019-10-275 09:52:27 [INFO] [main] MyLogger : selenium.reporting.MyLogger.info.17 - WebDriver get the instance of local webDriver - firefoxWin
+2019-10-275 09:52:30 [INFO] [main] MyLogger : selenium.reporting.MyLogger.info.17 - Homepage https://flip.kz opened
+2019-10-275 09:52:30 [DEBUG] [main] MyLogger : selenium.reporting.MyLogger.debug.21 - Publication year range read from json file. First value - 2005, last value - 2014
+2019-10-275 09:52:31 [INFO] [main] MyLogger : selenium.reporting.MyLogger.info.17 - WebElement [[FirefoxDriver: firefox on XP (293e66a7-5668-41c1-9e01-72fb17e222a1)] -> xpath: //*[contains(@class,'ath')]/*/a[contains(@href,'enter')]] clicked
+2019-10-275 09:52:32 [INFO] [main] MyLogger : selenium.reporting.MyLogger.info.17 - WebElement [[FirefoxDriver: firefox on XP (293e66a7-5668-41c1-9e01-72fb17e222a1)] -> xpath: //input[@id='is_reg']] clicked
+2019-10-275 09:52:33 [INFO] [main] MyLogger : selenium.reporting.MyLogger.info.17 - WebElement [[FirefoxDriver: firefox on XP (293e66a7-5668-41c1-9e01-72fb17e222a1)] -> xpath: //input[@id='enter_button']] clicked
+2019-10-275 09:52:33 [INFO] [main] MyLogger : selenium.reporting.MyLogger.info.17 - User login. Username - resu, user email - lastNameName00@mail.ru, user password - l0L0last
+2019-10-275 09:52:34 [INFO] [main] MyLogger : selenium.reporting.MyLogger.info.17 - WebElement [[FirefoxDriver: firefox on XP (293e66a7-5668-41c1-9e01-72fb17e222a1)] -> xpath: //ul[contains(@class,'sub-1')]/li/a[contains(text(), 'Книги')]] clicked
+2019-10-275 09:52:35 [INFO] [main] MyLogger : selenium.reporting.MyLogger.info.17 - WebElement [[FirefoxDriver: firefox on XP (293e66a7-5668-41c1-9e01-72fb17e222a1)] -> xpath: //a[@data-filter-field-sections-id='44']] clicked
+2019-10-275 09:52:38 [INFO] [main] MyLogger : selenium.reporting.MyLogger.info.17 - WebElement [[FirefoxDriver: firefox on XP (293e66a7-5668-41c1-9e01-72fb17e222a1)] -> xpath: //table[@class='pages']//td/*[text()>0]] clicked
+2019-10-275 09:52:39 [INFO] [main] MyLogger : selenium.reporting.MyLogger.info.17 - WebElement [[FirefoxDriver: firefox on XP (293e66a7-5668-41c1-9e01-72fb17e222a1)] -> xpath: //div[@class='placeholder']//a[@class='title']] clicked
+2019-10-275 09:52:57 [INFO] [main] MyLogger : selenium.reporting.MyLogger.info.17 - WebDriver get the instance of local webDriver - firefoxWin
+2019-10-275 09:53:00 [INFO] [main] MyLogger : selenium.reporting.MyLogger.info.17 - Homepage https://flip.kz opened
+2019-10-275 09:53:00 [DEBUG] [main] MyLogger : selenium.reporting.MyLogger.debug.21 - Publication year range read from json file. First value - 2005, last value - 2014
+2019-10-275 09:53:01 [INFO] [main] MyLogger : selenium.reporting.MyLogger.info.17 - WebElement [[FirefoxDriver: firefox on XP (f971d6a8-39ec-4f8e-b02b-5445ec12fb18)] -> xpath: //*[contains(@class,'ath')]/*/a[contains(@href,'enter')]] clicked
+2019-10-275 09:53:02 [INFO] [main] MyLogger : selenium.reporting.MyLogger.info.17 - WebElement [[FirefoxDriver: firefox on XP (f971d6a8-39ec-4f8e-b02b-5445ec12fb18)] -> xpath: //input[@id='is_reg']] clicked
+2019-10-275 09:53:03 [INFO] [main] MyLogger : selenium.reporting.MyLogger.info.17 - WebElement [[FirefoxDriver: firefox on XP (f971d6a8-39ec-4f8e-b02b-5445ec12fb18)] -> xpath: //input[@id='enter_button']] clicked
+2019-10-275 09:53:03 [INFO] [main] MyLogger : selenium.reporting.MyLogger.info.17 - User login. Username - user, user email - nameLastName2000@mail.ru, user password - n0N02000
+2019-10-275 09:53:04 [INFO] [main] MyLogger : selenium.reporting.MyLogger.info.17 - WebElement [[FirefoxDriver: firefox on XP (f971d6a8-39ec-4f8e-b02b-5445ec12fb18)] -> xpath: //ul[contains(@class,'sub-1')]/li/a[contains(text(), 'Книги')]] clicked
+2019-10-275 09:53:05 [INFO] [main] MyLogger : selenium.reporting.MyLogger.info.17 - WebElement [[FirefoxDriver: firefox on XP (f971d6a8-39ec-4f8e-b02b-5445ec12fb18)] -> xpath: //a[@data-filter-field-sections-id='44']] clicked
+2019-10-275 09:53:08 [INFO] [main] MyLogger : selenium.reporting.MyLogger.info.17 - WebElement [[FirefoxDriver: firefox on XP (f971d6a8-39ec-4f8e-b02b-5445ec12fb18)] -> xpath: //table[@class='pages']//td/*[text()>0]] clicked
+2019-10-275 09:53:09 [INFO] [main] MyLogger : selenium.reporting.MyLogger.info.17 - WebElement [[FirefoxDriver: firefox on XP (f971d6a8-39ec-4f8e-b02b-5445ec12fb18)] -> xpath: //div[@class='placeholder']//a[@class='title']] clicked
 2019-10-275 09:55:14 [INFO] [main] MyLogger : selenium.reporting.MyLogger.info.17 - WebDriver get the instance of local webDriver - firefoxWin
 2019-10-275 09:55:18 [INFO] [main] MyLogger : selenium.reporting.MyLogger.info.17 - Homepage https://flip.kz opened
 2019-10-275 09:55:18 [DEBUG] [main] MyLogger : selenium.reporting.MyLogger.debug.21 - Publication year range read from json file. First value - 2005, last value - 2014
