@@ -55,6 +55,10 @@
 
     </build>
 
+
+
+
+
     <dependencies>
         <dependency>
             <groupId>com.codeborne</groupId>
@@ -96,6 +100,9 @@
             <version>${allure-testng.version}</version>
             <scope>test</scope>
         </dependency>
+
+
+
 
 
     </dependencies>

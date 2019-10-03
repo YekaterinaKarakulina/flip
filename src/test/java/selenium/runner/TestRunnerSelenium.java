@@ -11,7 +11,7 @@ import java.util.List;
 public class TestRunnerSelenium {
 
     public static void main(String[] args) {
-        SimpleTestListener testListener = new SimpleTestListener();
+       SimpleTestListener testListener = new SimpleTestListener();
         TestNG tng = new TestNG();
         tng.addListener(testListener);
         XmlSuite suite = new XmlSuite();

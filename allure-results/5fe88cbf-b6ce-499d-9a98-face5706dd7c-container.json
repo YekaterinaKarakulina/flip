@@ -1,1 +1,0 @@
-{"uuid":"5fe88cbf-b6ce-499d-9a98-face5706dd7c","name":"selenium.tests.SeleniumFlipTest","start":1570012453539,"stop":1570012518309,"children":["53baa624-7e72-438f-a7d7-e7d359f1264e"],"befores":[{"name":"initPublicationYearRange","status":"passed","stage":"finished","description":"","start":1570012453539,"stop":1570012453551}]}
