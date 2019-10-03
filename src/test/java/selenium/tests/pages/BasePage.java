@@ -1,5 +1,6 @@
 package selenium.tests.pages;
 
+import io.qameta.allure.Attachment;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -37,7 +38,7 @@ public class BasePage {
 
     @FindBy(xpath = "//table[@id='prod']//*[contains(@href,'people')]")
     private List<WebElement> bookAuthorsList;
-//
+
    public BasePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -46,7 +47,6 @@ public class BasePage {
     public BasePage() {
 
     }
-
 
     public List<WebElement> getBookAuthorsList() {
         return bookAuthorsList;
@@ -111,6 +111,11 @@ public class BasePage {
         } catch (IOException e) {
             MyLogger.error("Failed to make screenshot");
         }
+    }
+
+    @Attachment
+    public byte[] takeScreenshotAllure(WebDriver driver) {
+        return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
     }
 
     protected void waitForElementEnabled(WebElement element) {

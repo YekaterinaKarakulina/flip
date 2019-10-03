@@ -3,6 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <properties>
         <seleniumJavaVersion>3.141.59</seleniumJavaVersion>
         <testng.version>6.14.3</testng.version>
@@ -11,11 +12,12 @@
         <gson.version>2.8.5</gson.version>
         <log4j.version>1.2.17</log4j.version>
         <allure-testng.version>2.0-BETA19</allure-testng.version>
-
-
-
         <aspectj.version>1.8.10</aspectj.version>
+
+
     </properties>
+
+
     <groupId>epam.kz.autolab2019</groupId>
     <artifactId>flip</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -56,7 +58,27 @@
     </build>
 
 
+    <reporting>
+        <excludeDefaults>true</excludeDefaults>
+        <plugins>
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>2.9</version>
+            </plugin>
+        </plugins>
+    </reporting>
 
+    <repositories>
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>bintray-epam-reportportal</id>
+            <name>bintray</name>
+            <url>http://dl.bintray.com/epam/reportportal</url>
+        </repository>
+    </repositories>
 
 
     <dependencies>
@@ -100,12 +122,63 @@
             <version>${allure-testng.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-testng</artifactId>
+            <version>2.8.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-server</artifactId>
+            <version>3.14.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>3.0.0</version>
+        </dependency>
 
 
 
+
+        <dependency>
+        <groupId>com.epam.reportportal</groupId>
+        <artifactId>agent-java-testng</artifactId>
+        <version>3.0.0</version>
+    </dependency>
+    <dependency>
+        <groupId>com.epam.reportportal</groupId>
+        <artifactId>logger-java-log4j</artifactId>
+        <version>3.0.0</version>
+    </dependency>
+
+
+        <dependency>
+            <groupId>com.epam.reportportal</groupId>
+            <artifactId>agent-java-testng</artifactId>
+            <version>4.2.0</version>
+            <type>pom</type>
+        </dependency>
+
+
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.10.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.10.0</version>
+        </dependency>
 
 
     </dependencies>
+
+
 
 
 
