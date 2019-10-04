@@ -54,9 +54,9 @@ public class SeleniumFlipTest {
         driver.close();
     }
 
-    /*
     @Test(description = "Test checks working of \"Authors\" filter in \"flip.kz\" website with one author")
     public void oneAuthorFilter() {
+
         SearchCriteria searchCriteria = homePage.getMainMenuComponent().clickBookSection().clickImaginativeLiteratureSection();
         SectionPage bookPage = searchCriteria.clickRandomAuthor(1).moveToRandomPage();
         List<String> selectedAuthors = searchCriteria.getSelectedAuthorsList();
@@ -64,6 +64,8 @@ public class SeleniumFlipTest {
         Book actualBook = new Book(bookItemPage.getBookName(), bookItemPage.getBookAuthors());
         Book expectedBook = new Book(selectedAuthors);
         Assert.assertTrue(actualBook.checkBooksEqualsByAuthorsList(expectedBook, actualBook), String.format("List of expected authors of book '%s' does not contain actual author. Expected authors list %s; actual authors list %s.", actualBook.getName(), expectedBook.getAuthorNameList().toString(), actualBook.getAuthorNameList().toString()));
+
+
     }
 
     @Test(description = "Test checks working of \"Authors\" filter in \"flip.kz\" website with several author")
@@ -106,8 +108,6 @@ public class SeleniumFlipTest {
         Assert.assertTrue(publicationYearRangeFirstValue <= actualPublicationYear && actualPublicationYear <= publicationYearRangeLastValue, String.format("Actual publication year of book `%s` - %s. Expected range of publication %s.", bookName, Integer.toString(actualPublicationYear), Integer.toString(publicationYearRangeFirstValue), Integer.toString(publicationYearRangeLastValue)));
     }
 
-     */
-
     @Test(description = "Test checks working of \"Publication Year\" filter in \"flip.kz\" website with full range")
     public void AuthorNameAndPublicationYearFilters() {
         SearchCriteria searchCriteria = homePage.getMainMenuComponent().clickBookSection().clickImaginativeLiteratureSection();
@@ -119,9 +119,8 @@ public class SeleniumFlipTest {
         Book actualBook = new Book(bookItemPage.getBookName(), bookItemPage.getBookAuthors());
         Book expectedBook = new Book(selectedAuthors);
         SoftAssert twoFilters = new SoftAssert();
-     //   twoFilters.assertTrue(publicationYearRangeFirstValue <= actualPublicationYear && actualPublicationYear <= publicationYearRangeLastValue, String.format("Actual publication year of book `%s` - %s. Expected range of publication %s.", actualBook.getName(), Integer.toString(actualPublicationYear), Integer.toString(publicationYearRangeFirstValue), Integer.toString(publicationYearRangeLastValue)));
+      //  twoFilters.assertTrue(publicationYearRangeFirstValue <= actualPublicationYear && actualPublicationYear <= publicationYearRangeLastValue, String.format("Actual publication year of book `%s` - %s. Expected range of publication %s.", actualBook.getName(), Integer.toString(actualPublicationYear), Integer.toString(publicationYearRangeFirstValue), Integer.toString(publicationYearRangeLastValue)));
         twoFilters.assertTrue(publicationYearRangeFirstValue >= actualPublicationYear && actualPublicationYear >= publicationYearRangeLastValue, String.format("Actual publication year of book `%s` - %s. Expected range of publication %s.", actualBook.getName(), Integer.toString(actualPublicationYear), Integer.toString(publicationYearRangeFirstValue), Integer.toString(publicationYearRangeLastValue)));
-
         twoFilters.assertTrue(actualBook.checkBooksEqualsByAuthorsList(expectedBook, actualBook), String.format("List of expected authors of book '%s' does not contain actual author. Expected authors list %s; actual authors list %s.", actualBook.getName(), expectedBook.getAuthorNameList().toString(), actualBook.getAuthorNameList().toString()));
         twoFilters.assertAll();
     }

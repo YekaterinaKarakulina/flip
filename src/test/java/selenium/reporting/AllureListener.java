@@ -12,7 +12,6 @@ import java.io.ByteArrayInputStream;
 
 public class AllureListener extends BasePage implements ITestListener {
 
-
     @Override
     public void onTestStart(ITestResult iTestResult) {
     }

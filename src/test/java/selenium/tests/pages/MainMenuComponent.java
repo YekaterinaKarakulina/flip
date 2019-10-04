@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class MainMenuComponent extends BasePage {
 
-    @FindBy(xpath = "//p[contains(text(),\"Каталог\")]/ancestor::div[contains(@class,'menu')]")
+    @FindBy(xpath = "//p[contains(text(),'Каталог')]/ancestor::div[contains(@class,'menu')]")
     private WebElement menu;
 
     @FindBy(xpath = "//ul[contains(@class,'sub-1')]/li/a[contains(text(), 'Книги')]")

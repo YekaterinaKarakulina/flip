@@ -1,7 +1,9 @@
 package selenium.tests.pages;
 
+import com.epam.reportportal.message.ReportPortalMessage;
 import io.qameta.allure.Attachment;
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.LogManager;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
@@ -17,6 +19,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import selenium.reporting.MyLogger;
+import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,19 +36,20 @@ public class BasePage {
     private static final String SCREENSHOTS_NAME_TPL = "screenshots/scr";
     private static WebDriver driver;
 
+    private static Logger logObj = LogManager.getLogger("binary_data_logger");
+
     @FindBy(xpath = ".//div[@id='content']")
     private WebElement pageContent;
 
     @FindBy(xpath = "//table[@id='prod']//*[contains(@href,'people')]")
     private List<WebElement> bookAuthorsList;
 
-   public BasePage(WebDriver driver) {
+    public BasePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
     public BasePage() {
-
     }
 
     public List<WebElement> getBookAuthorsList() {
@@ -106,8 +110,11 @@ public class BasePage {
         try {
             String screenshotName = SCREENSHOTS_NAME_TPL + System.nanoTime();
             File copy = new File(screenshotName + ".png");
+            System.out.println("copy name " + copy.getName());
             FileUtils.copyFile(screenshot, copy);
             MyLogger.info("Saved screenshot: " + screenshotName);
+            ReportPortalMessage message = new ReportPortalMessage(copy, String.format("image '%s' attached to rp", copy.toString()));
+            logObj.info(message);
         } catch (IOException e) {
             MyLogger.error("Failed to make screenshot");
         }

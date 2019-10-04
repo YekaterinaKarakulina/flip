@@ -41,7 +41,17 @@
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
+                    <properties>
+                        <property>
+                            <name>usedefaultlisteners</name>
+                            <value>false</value>
+                        </property>
+                    </properties>
+
+
+
                 </configuration>
+
                 <dependencies>
                     <dependency>
                         <groupId>org.aspectj</groupId>
@@ -71,11 +81,7 @@
 
     <repositories>
         <repository>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <id>bintray-epam-reportportal</id>
-            <name>bintray</name>
+            <id>bintray</id>
             <url>http://dl.bintray.com/epam/reportportal</url>
         </repository>
     </repositories>
@@ -145,19 +151,26 @@
         <dependency>
         <groupId>com.epam.reportportal</groupId>
         <artifactId>agent-java-testng</artifactId>
-        <version>3.0.0</version>
+        <version>4.2.3-BETA</version>
     </dependency>
     <dependency>
         <groupId>com.epam.reportportal</groupId>
         <artifactId>logger-java-log4j</artifactId>
-        <version>3.0.0</version>
+        <version>4.0.1</version>
     </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.26</version>
+        </dependency>
+
 
 
         <dependency>
             <groupId>com.epam.reportportal</groupId>
             <artifactId>agent-java-testng</artifactId>
-            <version>4.2.0</version>
+            <version>4.2.3-BETA</version>
             <type>pom</type>
         </dependency>
 
