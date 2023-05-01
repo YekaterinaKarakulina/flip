@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <properties>
         <seleniumJavaVersion>3.141.59</seleniumJavaVersion>
-        <testng.version>6.14.3</testng.version>
+        <testng.version>7.7.0</testng.version>
         <assertj.version>3.8.0</assertj.version>
         <selenide.version>5.3.1</selenide.version>
     </properties>
